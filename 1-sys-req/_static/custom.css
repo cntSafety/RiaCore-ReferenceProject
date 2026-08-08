@@ -1,0 +1,101 @@
+/* ---------------------------------------------------------------------------
+ * sphinx-needs <-> Furo dark-mode integration
+ *
+ * sphinx-needs defines its whole palette as CSS custom properties on :root
+ * (see _static/sphinx-needs/modern.css). Those defaults are light-oriented
+ * (e.g. --sn-color-need-bg: #eee), so in Furo's dark mode the need boxes keep
+ * a light background while Furo sets a light foreground -> washed-out, low
+ * contrast text.
+ *
+ * Fix: re-declare the relevant sphinx-needs variables under Furo's dark-mode
+ * selectors and map them onto Furo's own theme variables, so need rendering
+ * tracks the active theme automatically. We cover both cases Furo supports:
+ *   1. explicit toggle:  body[data-theme="dark"]
+ *   2. OS auto (no explicit choice): prefers-color-scheme + body:not([data-theme="light"])
+ * ------------------------------------------------------------------------- */
+
+@media not print {
+
+  /* 1. Explicit dark toggle */
+  body[data-theme="dark"] {
+    --sn-color-need-bg: var(--color-background-secondary);
+    --sn-color-need-bg-head: var(--color-background-hover);
+    --sn-color-need-border: var(--color-background-border);
+    --sn-color-need-row-border: var(--color-background-border);
+
+    --sn-color-bg-gray: var(--color-background-secondary);
+    --sn-color-bg-lightgray: var(--color-background-hover);
+
+    --sn-color-complete-bg-head: var(--color-background-hover);
+    --sn-color-complete-bg-foot: var(--color-background-hover);
+
+    --sn-color-datatable-body-bg: transparent;
+    --sn-color-datatable-label: var(--color-foreground-primary);
+    --sn-color-datatable-btn-border: var(--color-background-border);
+  }
+
+  /* 2. OS-driven dark mode when the user hasn't explicitly picked light */
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --sn-color-need-bg: var(--color-background-secondary);
+      --sn-color-need-bg-head: var(--color-background-hover);
+      --sn-color-need-border: var(--color-background-border);
+      --sn-color-need-row-border: var(--color-background-border);
+
+      --sn-color-bg-gray: var(--color-background-secondary);
+      --sn-color-bg-lightgray: var(--color-background-hover);
+
+      --sn-color-complete-bg-head: var(--color-background-hover);
+      --sn-color-complete-bg-foot: var(--color-background-hover);
+
+      --sn-color-datatable-body-bg: transparent;
+      --sn-color-datatable-label: var(--color-foreground-primary);
+      --sn-color-datatable-btn-border: var(--color-background-border);
+    }
+  }
+}
+
+/* Make sure need box text and links inherit Furo's theme colors rather than
+   any inherited/default dark text, so header + meta rows stay readable. */
+table.need.need.need,
+table.need.need.need > tbody > tr > td {
+  color: var(--color-foreground-primary);
+}
+
+table.need.need.need > tbody > tr.meta > td {
+  /* meta rows are secondary info: slightly muted but still high-contrast */
+  color: var(--color-foreground-secondary);
+}
+
+table.need.need.need a {
+  color: var(--color-link);
+}
+
+
+/* ---------------------------------------------------------------------------
+ * needflow / graphviz diagrams in dark mode
+ *
+ * needflow (graphviz engine) renders to a static PNG with a baked-in light
+ * background and dark text, so it can't track the theme like HTML/CSS does.
+ * As an adaptive workaround, in dark mode we invert the image luminance
+ * (light background -> dark, dark text -> light) and rotate the hue 180deg so
+ * the node/arrow colors stay roughly natural (green stays green, etc.).
+ * invert(0.9) instead of a full 1.0 softens the result and avoids harsh glare.
+ *
+ * This adapts to BOTH the explicit toggle and OS auto dark mode, which a
+ * regenerated single-palette diagram could not do.
+ * ------------------------------------------------------------------------- */
+
+@media not print {
+  body[data-theme="dark"] img.graphviz,
+  body[data-theme="dark"] .graphviz img {
+    filter: invert(0.9) hue-rotate(180deg);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) img.graphviz,
+    body:not([data-theme="light"]) .graphviz img {
+      filter: invert(0.9) hue-rotate(180deg);
+    }
+  }
+}
