@@ -1,0 +1,9 @@
+# Logs
+*.log
+logs/
+
+# Database files
+db
+db.wal
+*.db
+*.db.wal
