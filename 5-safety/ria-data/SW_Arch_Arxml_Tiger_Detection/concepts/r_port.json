@@ -1,0 +1,10 @@
+[
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorDriverLayer/lightHWIn","uuid":"19D738BD-9848-5AE0-BB83-81A9D125B73F","short_name":"lightHWIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorDriverLayer/tempHWIn","uuid":"8C8B2BCF-B436-53EB-9ACB-183D0B297D4C","short_name":"tempHWIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/irIn","uuid":"94B7074C-29A5-549A-8414-3004B0789CD3","short_name":"irIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/lightIn","uuid":"FED1F8F0-602E-540F-85BB-7CA41BF5F77D","short_name":"lightIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/rgbIn","uuid":"BA1A2716-3665-55A3-B8AC-F2B9BB04C347","short_name":"rgbIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/tempIn","uuid":"39DC9ADA-F454-59C6-B5FB-05658A4FA614","short_name":"tempIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/TigerDetectionApp/fusedDataIn","uuid":"49EBA75A-397E-542B-A0A6-01069599AE60","short_name":"fusedDataIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/WarningManager/detectionIn","uuid":"9E379C83-6DA9-5F92-898E-82D5A6F8A80D","short_name":"detectionIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"}
+]

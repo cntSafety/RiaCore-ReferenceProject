@@ -1,0 +1,9 @@
+{
+  "categorizational_metamodels": [],
+  "directory": "Sys_Design_Analysis",
+  "metamodel": "SYSTEM_SAFETY_ANALYSIS",
+  "metamodel_version": "1.0.0",
+  "name": "Sys_Design_Analysis",
+  "namespace_owning_application": "Safety-Analysis",
+  "namespace_role": "authored"
+}

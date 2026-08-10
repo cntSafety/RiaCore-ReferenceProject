@@ -1,0 +1,12 @@
+{
+  "categorizational_metamodels": [
+    "MONITORING_ANALYSIS",
+    "SYSTEM_SAFETY_ANALYSIS"
+  ],
+  "directory": "System_Model_Tiger_Detection",
+  "metamodel": "SysMLv2",
+  "metamodel_version": "0.3.1",
+  "name": "System_Model_Tiger_Detection",
+  "namespace_owning_application": "Automotive-SW-Arch",
+  "namespace_role": "imported"
+}

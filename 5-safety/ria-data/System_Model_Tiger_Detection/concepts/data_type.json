@@ -1,0 +1,4 @@
+[
+{"attributes":{"stable_path":"/ScalarValues/Boolean","sysml_id":"d1e9242d-b2e3-5270-bf69-4f4fb0447193","element_id":"d1e9242d-b2e3-5270-bf69-4f4fb0447193","sysml_type":"DataType","name":"Boolean","declared_name":"Boolean","qualified_name":"ScalarValues::Boolean","is_library_element":true,"is_implied_included":false,"is_abstract":false,"is_sufficient":false,"is_conjugated":false},"concept":"data_type","metamodel":"SysMLv2","namespace":"System_Model_Tiger_Detection"},
+{"attributes":{"stable_path":"/ScalarValues/Real","sysml_id":"14c0aa22-5489-59b5-b438-ded26e83ba31","element_id":"14c0aa22-5489-59b5-b438-ded26e83ba31","sysml_type":"DataType","name":"Real","declared_name":"Real","qualified_name":"ScalarValues::Real","is_library_element":true,"is_implied_included":false,"is_abstract":false,"is_sufficient":false,"is_conjugated":false},"concept":"data_type","metamodel":"SysMLv2","namespace":"System_Model_Tiger_Detection"}
+]

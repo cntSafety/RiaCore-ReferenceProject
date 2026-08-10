@@ -1,0 +1,5 @@
+[
+{"attributes":{"stable_path":"4a7856a8-bc04-48f6-995b-921dff721ab1","uuid":"4a7856a8-bc04-48f6-995b-921dff721ab1","has_name":"READY_FOR_REVIEW","tag_description":"Safety analysis complete — ready for independent review.","tag_color":"#22c55e"},"concept":"tag","metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis"},
+{"attributes":{"stable_path":"a63b0b0e-d983-487e-b9cd-05c318476d9f","uuid":"a63b0b0e-d983-487e-b9cd-05c318476d9f","has_name":"DRAFT","tag_description":"Safety analysis still in progress — not yet ready for review.","tag_color":"#f59e0b"},"concept":"tag","metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis"},
+{"attributes":{"stable_path":"c9ed4ddb-8569-41b6-ab42-7e824a98d45c","uuid":"c9ed4ddb-8569-41b6-ab42-7e824a98d45c","has_name":"TBC","tag_description":"SOTIF triggering-condition analysis and ML robustness assessment pending — classification safety argument to be confirmed.","tag_color":"#6366f1"},"concept":"tag","metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis"}
+]

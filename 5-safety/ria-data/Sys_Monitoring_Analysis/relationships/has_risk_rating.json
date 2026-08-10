@@ -1,0 +1,7 @@
+[
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"has_risk_rating","source_stable_id":"085d8c87-48e3-4851-9e05-b3a5f898dd9b","target_stable_id":"e835924b-c652-4e38-96ca-8d108292de28"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"has_risk_rating","source_stable_id":"1382d19f-c971-4b2a-9b20-09ce945ea908","target_stable_id":"43e86279-f1f2-46df-9416-c10144023b03"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"has_risk_rating","source_stable_id":"485d399b-d859-4e2e-ad38-912c192fa100","target_stable_id":"75f3cd0d-fa6f-4644-bed0-2b497c911600"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"has_risk_rating","source_stable_id":"73597183-dd63-4022-bc3a-6779195d2795","target_stable_id":"af4ce5b5-1b9f-48b6-ade0-172d5bfe6f64"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"has_risk_rating","source_stable_id":"de73f62f-c730-4bdf-93a4-d6b820358dca","target_stable_id":"bbb9dc61-b56b-42d5-8ff7-d6423f1b1aa6"}
+]

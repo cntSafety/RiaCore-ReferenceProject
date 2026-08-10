@@ -1,0 +1,14 @@
+[
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"1218e1c9-330c-4e81-b509-34e2078754e5","target_stable_id":"8af19344-601a-495d-8cfc-ee1562fdd2eb"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"158b479e-ff4a-4440-abe0-7948d916057b","target_stable_id":"a53fed01-b04b-43ab-9abf-c40d4e771dc1"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"19f4a084-4d74-4292-833f-d7db13c5c0ca","target_stable_id":"87aae561-5882-405d-8a4e-a726f2c294c6"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"2c8add35-9851-4e68-9ec6-4d22b30a46b2","target_stable_id":"568dbf11-cf84-4773-bd0c-eda151c4f809"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"7f492075-dc64-4127-9ff8-bd88eca2095e","target_stable_id":"a521e842-02e3-4f11-9513-820dada5e685"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"89525527-0cd9-4a76-b30d-e8befd3ee4ff","target_stable_id":"8b55788f-ff39-477e-b928-386f19db10ed"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"8d64a57e-cc7d-4845-8091-8b95fde03945","target_stable_id":"a31f027c-ea7b-4063-a42e-13cbae4c1b9e"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"a4497e02-4295-4cd0-927b-358f7d54a117","target_stable_id":"97eae1e2-efcf-438a-ab74-2452fcd6ff39"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"bee65f64-96f4-489d-a949-eca501bc816c","target_stable_id":"82f3b669-7c87-4b86-9e6f-8c2a45621da2"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"c735e037-af2c-4d6a-979d-a85a16075f8b","target_stable_id":"155bab02-205c-4a6c-bec7-d42f7715dcf5"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"e5395a42-b7f8-4ee3-8c7a-6f35ca499051","target_stable_id":"be8f6ba0-213e-4b33-ae0d-481d8e453d0b"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_risk_rating","source_stable_id":"e92b7444-3aee-4d89-b5fb-69c142f315c5","target_stable_id":"089772da-9d6c-4405-a6ba-e591caebe6d7"}
+]

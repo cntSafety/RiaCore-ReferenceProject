@@ -1,0 +1,6 @@
+[
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"propagates_to","source_stable_id":"085d8c87-48e3-4851-9e05-b3a5f898dd9b","target_stable_id":"73597183-dd63-4022-bc3a-6779195d2795"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"propagates_to","source_stable_id":"1382d19f-c971-4b2a-9b20-09ce945ea908","target_stable_id":"73597183-dd63-4022-bc3a-6779195d2795"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"propagates_to","source_stable_id":"485d399b-d859-4e2e-ad38-912c192fa100","target_stable_id":"73597183-dd63-4022-bc3a-6779195d2795"},
+{"attributes":{},"metamodel":"MONITORING_ANALYSIS","namespace":"Sys_Monitoring_Analysis","relationship":"propagates_to","source_stable_id":"de73f62f-c730-4bdf-93a4-d6b820358dca","target_stable_id":"73597183-dd63-4022-bc3a-6779195d2795"}
+]

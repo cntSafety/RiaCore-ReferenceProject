@@ -1,0 +1,11 @@
+{
+  "categorizational_metamodels": [
+    "SAFETY_ANALYSIS"
+  ],
+  "directory": "SW_Req_Tiger_Detection",
+  "metamodel": "SN_sw_req_tiger_detection",
+  "metamodel_version": "1.0.0",
+  "name": "SW_Req_Tiger_Detection",
+  "namespace_owning_application": "Automotive-SW-Arch",
+  "namespace_role": "imported"
+}

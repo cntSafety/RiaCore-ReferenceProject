@@ -1,0 +1,3 @@
+[
+{"attributes":{"stable_path":"/namespace_import/NamespaceImport@fe6876f3-995e-4e21-b113-3fb8ef9309e0","sysml_id":"fe6876f3-995e-4e21-b113-3fb8ef9309e0","element_id":"fe6876f3-995e-4e21-b113-3fb8ef9309e0","sysml_type":"NamespaceImport","owning_related_element_id":"918d1a9d-9146-4fb5-9681-ee92255374e3","is_library_element":false,"is_implied":false,"is_implied_included":false,"visibility":"private"},"concept":"namespace_import","metamodel":"SysMLv2","namespace":"System_Model_Tiger_Detection"}
+]

@@ -1,0 +1,11 @@
+{
+  "categorizational_metamodels": [
+    "SAFETY_ANALYSIS"
+  ],
+  "directory": "SW_Arch_Arxml_Tiger_Detection",
+  "metamodel": "SW_ARXML",
+  "metamodel_version": "2.0.3",
+  "name": "SW_Arch_Arxml_Tiger_Detection",
+  "namespace_owning_application": "Automotive-SW-Arch",
+  "namespace_role": "imported"
+}

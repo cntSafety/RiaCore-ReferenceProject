@@ -1,0 +1,9 @@
+{
+  "categorizational_metamodels": [],
+  "directory": "SW_Safety_Analysis",
+  "metamodel": "SAFETY_ANALYSIS",
+  "metamodel_version": "4.0.5",
+  "name": "SW_Safety_Analysis",
+  "namespace_owning_application": "Safety-Analysis",
+  "namespace_role": "authored"
+}

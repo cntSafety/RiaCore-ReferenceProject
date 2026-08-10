@@ -1,0 +1,12 @@
+[
+{"dst_source_id":"sphinx_needs_json::Sys_Req_Tiger_Detection","src_run_id":"061323f7-0ba3-404e-a1fa-c7da703633d6"},
+{"dst_source_id":"sphinx_needs_json::Sys_Req_Tiger_Detection","src_run_id":"2db14d19-3d97-4d7e-a837-1ac7b1fddfe8"},
+{"dst_source_id":"sphinx_needs_json::SW_Req_Tiger_Detection","src_run_id":"2e1bdd7b-6257-42a0-922e-50aeec6b9723"},
+{"dst_source_id":"sysml_v2_json::System_Model_Tiger_Detection","src_run_id":"476ad3b6-a660-4388-91e5-2b133ba77068"},
+{"dst_source_id":"sphinx_needs_json::Tiger_Safety_Goals","src_run_id":"7718439d-1f79-4eab-9fa1-254ead47f222"},
+{"dst_source_id":"arxml_file::SW_Arch_Arxml_Tiger_Detection","src_run_id":"98ecdeda-b710-4cb9-945e-af84905b0733"},
+{"dst_source_id":"arxml_file::SW_Arch_Arxml_Tiger_Detection","src_run_id":"d2101100-dce4-41e2-bb3a-9d41924fce14"},
+{"dst_source_id":"sphinx_needs_json::SW_Req_Tiger_Detection","src_run_id":"e86b6721-3b4f-4f2b-9f03-f0bf465ee54c"},
+{"dst_source_id":"sphinx_needs_json::Tiger_Safety_Goals","src_run_id":"ee239261-5ee3-4459-9945-b10731c09c36"},
+{"dst_source_id":"sysml_v2_json::System_Model_Tiger_Detection","src_run_id":"f613a9a1-28cc-4633-9cc0-56f4e2a5c3aa"}
+]

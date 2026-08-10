@@ -1,0 +1,7 @@
+[
+{"dst_name":"SW_Arch_Arxml_Tiger_Detection","src_source_id":"arxml_file::SW_Arch_Arxml_Tiger_Detection"},
+{"dst_name":"SW_Req_Tiger_Detection","src_source_id":"sphinx_needs_json::SW_Req_Tiger_Detection"},
+{"dst_name":"Sys_Req_Tiger_Detection","src_source_id":"sphinx_needs_json::Sys_Req_Tiger_Detection"},
+{"dst_name":"Tiger_Safety_Goals","src_source_id":"sphinx_needs_json::Tiger_Safety_Goals"},
+{"dst_name":"System_Model_Tiger_Detection","src_source_id":"sysml_v2_json::System_Model_Tiger_Detection"}
+]

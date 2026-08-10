@@ -1,0 +1,3 @@
+[
+{"attributes":{},"metamodel":"SN_tiger_safety_goals","namespace":"Tiger_Safety_Goals","relationship":"contains_need","source_stable_id":"requirements/tigerSafetyGoals","target_stable_id":"TDS_SAF_001"}
+]

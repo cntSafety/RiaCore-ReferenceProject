@@ -1,0 +1,12 @@
+{
+  "categorizational_metamodels": [
+    "MONITORING_ANALYSIS",
+    "SYSTEM_SAFETY_ANALYSIS"
+  ],
+  "directory": "Tiger_Safety_Goals",
+  "metamodel": "SN_tiger_safety_goals",
+  "metamodel_version": "1.0.0",
+  "name": "Tiger_Safety_Goals",
+  "namespace_owning_application": "Automotive-SW-Arch",
+  "namespace_role": "imported"
+}

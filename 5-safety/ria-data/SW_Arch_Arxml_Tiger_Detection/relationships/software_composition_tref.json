@@ -1,0 +1,3 @@
+[
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"software_composition_tref","source_stable_id":"/Systems/System/RootSwComposition","target_stable_id":"/TigerDetectionSW/TigerDetectionComposition"}
+]

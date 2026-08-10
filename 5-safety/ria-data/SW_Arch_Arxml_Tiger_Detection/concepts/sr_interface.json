@@ -1,0 +1,10 @@
+[
+{"attributes":{"stable_path":"/PortInterfaces/SRI_AmbientTemp","uuid":"6985AEAA-7C8F-56C1-A2EF-42869F7D8799","short_name":"SRI_AmbientTemp"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_DetectionResult","uuid":"AAC1D3DB-B343-53D0-8B1C-673C21A15C41","short_name":"SRI_DetectionResult"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_FusedDataReady","uuid":"AEB5E6F4-1122-50E4-9122-873A23DF8169","short_name":"SRI_FusedDataReady"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_IRFrameReady","uuid":"7E12BBE9-332E-5FC1-8913-87D1E3EAFEB6","short_name":"SRI_IRFrameReady"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_LightLevel","uuid":"E3928559-659D-591D-BD6B-AC77BAD6B007","short_name":"SRI_LightLevel"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_RGBFrameReady","uuid":"3236E280-E53E-556D-BBAE-A21D2AA8FAFC","short_name":"SRI_RGBFrameReady"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_RgbIn","uuid":"98AEE75D-08B3-5FAF-B898-67A976784580","short_name":"SRI_RgbIn"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces/SRI_WarningCommand","uuid":"B506A9B1-D046-598E-9F2F-0B0C32D60F8E","short_name":"SRI_WarningCommand"},"concept":"sr_interface","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"}
+]

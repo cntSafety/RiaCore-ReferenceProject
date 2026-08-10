@@ -1,0 +1,9 @@
+{
+  "categorizational_metamodels": [],
+  "directory": "Sys_Monitoring_Analysis",
+  "metamodel": "MONITORING_ANALYSIS",
+  "metamodel_version": "1.0.0",
+  "name": "Sys_Monitoring_Analysis",
+  "namespace_owning_application": "Safety-Analysis",
+  "namespace_role": "authored"
+}

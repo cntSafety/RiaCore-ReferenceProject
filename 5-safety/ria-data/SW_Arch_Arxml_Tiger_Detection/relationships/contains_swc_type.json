@@ -1,0 +1,8 @@
+[
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_swc_type","source_stable_id":"/TigerDetectionSW","target_stable_id":"/TigerDetectionSW/CameraDriverLayer"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_swc_type","source_stable_id":"/TigerDetectionSW","target_stable_id":"/TigerDetectionSW/SensorDriverLayer"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_swc_type","source_stable_id":"/TigerDetectionSW","target_stable_id":"/TigerDetectionSW/SensorFusionMiddleware"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_swc_type","source_stable_id":"/TigerDetectionSW","target_stable_id":"/TigerDetectionSW/TigerDetectionApp"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_swc_type","source_stable_id":"/TigerDetectionSW","target_stable_id":"/TigerDetectionSW/TigerDetectionComposition"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_swc_type","source_stable_id":"/TigerDetectionSW","target_stable_id":"/TigerDetectionSW/WarningManager"}
+]

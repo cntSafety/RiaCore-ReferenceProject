@@ -1,0 +1,10 @@
+[
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/CameraDriverLayer/irDataOut","target_stable_id":"/PortInterfaces/SRI_IRFrameReady"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/CameraDriverLayer/rgbDataOut","target_stable_id":"/PortInterfaces/SRI_RGBFrameReady"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/SensorDriverLayer/lightDataOut","target_stable_id":"/PortInterfaces/SRI_LightLevel"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/SensorDriverLayer/tempDataOut","target_stable_id":"/PortInterfaces/SRI_AmbientTemp"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/fusedOut","target_stable_id":"/PortInterfaces/SRI_FusedDataReady"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/TigerDetectionApp/detectionOut","target_stable_id":"/PortInterfaces/SRI_DetectionResult"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/WarningManager/acousticOut","target_stable_id":"/PortInterfaces/SRI_WarningCommand"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"provides_interface","source_stable_id":"/TigerDetectionSW/WarningManager/visualOut","target_stable_id":"/PortInterfaces/SRI_WarningCommand"}
+]

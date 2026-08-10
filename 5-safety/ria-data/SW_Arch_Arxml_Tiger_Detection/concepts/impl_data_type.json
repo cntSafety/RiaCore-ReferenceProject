@@ -1,0 +1,8 @@
+[
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes/boolean","uuid":"28EE6D64-2A20-5DA3-9899-C110C95034DA","short_name":"boolean","category":"VALUE"},"concept":"impl_data_type","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes/float32","uuid":"2847E9AA-6725-5929-A03B-6512BD448556","short_name":"float32","category":"VALUE"},"concept":"impl_data_type","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes/sint32","uuid":"18DE44E6-926C-5400-A771-3EA05F53CA86","short_name":"sint32","category":"VALUE"},"concept":"impl_data_type","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes/uint16","uuid":"E331BF99-4F51-51A0-94BC-0764452B0144","short_name":"uint16","category":"VALUE"},"concept":"impl_data_type","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes/uint32","uuid":"20E0EF61-8C4B-5EB7-A8B9-D3DF9B0C98AB","short_name":"uint32","category":"VALUE"},"concept":"impl_data_type","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes/uint8","uuid":"BE8B451B-9DB2-52C4-A05D-91A91073016C","short_name":"uint8","category":"VALUE"},"concept":"impl_data_type","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"}
+]

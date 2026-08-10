@@ -1,0 +1,7 @@
+[
+{"attributes":{"stable_path":"/TigerDetectionSW/CameraDriverLayer","uuid":"1A0D89EE-23E7-5030-BB43-2D408134306A","short_name":"CameraDriverLayer"},"concept":"application_swc","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorDriverLayer","uuid":"82A38E47-DAF9-58F6-962B-3DE6FF39D3D8","short_name":"SensorDriverLayer"},"concept":"application_swc","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware","uuid":"50911696-EEF8-5307-97CF-290377FA0582","short_name":"SensorFusionMiddleware"},"concept":"application_swc","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/TigerDetectionApp","uuid":"3D20498A-0CE2-5955-B93E-EFCBB5AF697B","short_name":"TigerDetectionApp"},"concept":"application_swc","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/WarningManager","uuid":"4A0FDA65-DC28-59BB-B415-CFDDF0412CA6","short_name":"WarningManager"},"concept":"application_swc","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"}
+]

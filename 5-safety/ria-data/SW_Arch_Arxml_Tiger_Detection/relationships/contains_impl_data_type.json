@@ -1,0 +1,8 @@
+[
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_impl_data_type","source_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes","target_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes/boolean"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_impl_data_type","source_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes","target_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes/float32"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_impl_data_type","source_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes","target_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes/sint32"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_impl_data_type","source_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes","target_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes/uint16"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_impl_data_type","source_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes","target_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes/uint32"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"contains_impl_data_type","source_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes","target_stable_id":"/AUTOSAR_Platform/ImplementationDataTypes/uint8"}
+]

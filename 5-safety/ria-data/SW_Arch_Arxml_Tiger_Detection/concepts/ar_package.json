@@ -1,0 +1,7 @@
+[
+{"attributes":{"stable_path":"/AUTOSAR_Platform","uuid":"A5971232-191E-588D-A976-5A7ECFB942EA","short_name":"AUTOSAR_Platform"},"concept":"ar_package","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/AUTOSAR_Platform/ImplementationDataTypes","uuid":"2A1CEC18-3C84-567C-A8B8-52749A33CA4B","short_name":"ImplementationDataTypes"},"concept":"ar_package","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/PortInterfaces","uuid":"218B9DE6-F0FD-5F7F-87C2-DE64F36919D1","short_name":"PortInterfaces"},"concept":"ar_package","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/Systems","uuid":"5EEAFA61-5C5C-5EAD-81E8-CD03D036B967","short_name":"Systems"},"concept":"ar_package","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW","uuid":"AF3D82A5-1B89-5B3A-9B0F-E36170DBB49B","short_name":"TigerDetectionSW"},"concept":"ar_package","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"}
+]
