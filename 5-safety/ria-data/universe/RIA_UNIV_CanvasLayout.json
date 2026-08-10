@@ -1,7 +1,10 @@
 [
-{"element_key":"SW_Safety_Analysis","element_kind":"analysis","layout_id":"analysis\u0000SW_Safety_Analysis","x":992,"y":74},
-{"element_key":"Sys_Design_Analysis","element_kind":"analysis","layout_id":"analysis\u0000Sys_Design_Analysis","x":612,"y":489.755859375},
-{"element_key":"Sys_Monitoring_Analysis","element_kind":"analysis","layout_id":"analysis\u0000Sys_Monitoring_Analysis","x":508,"y":724},
-{"element_key":"SW_Arch_Arxml_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000SW_Arch_Arxml_Tiger_Detection","x":500,"y":-82},
-{"element_key":"SW_Req_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000SW_Req_Tiger_Detection","x":360,"y":124}
+{"element_key":"SW_Safety_Analysis","element_kind":"analysis","layout_id":"analysis\u0000SW_Safety_Analysis","x":1042,"y":724},
+{"element_key":"Sys_Design_Analysis","element_kind":"analysis","layout_id":"analysis\u0000Sys_Design_Analysis","x":868,"y":173.755859375},
+{"element_key":"Sys_Monitoring_Analysis","element_kind":"analysis","layout_id":"analysis\u0000Sys_Monitoring_Analysis","x":880,"y":388},
+{"element_key":"SW_Arch_Arxml_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000SW_Arch_Arxml_Tiger_Detection","x":490,"y":881.23828125},
+{"element_key":"SW_Req_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000SW_Req_Tiger_Detection","x":408,"y":724.099609375},
+{"element_key":"Sys_Req_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000Sys_Req_Tiger_Detection","x":272,"y":468},
+{"element_key":"System_Model_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000System_Model_Tiger_Detection","x":210,"y":292},
+{"element_key":"Tiger_Safety_Goals","element_kind":"imported","layout_id":"imported\u0000Tiger_Safety_Goals","x":130,"y":132}
 ]
