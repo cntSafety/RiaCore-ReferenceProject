@@ -140,7 +140,7 @@
     "cross_namespace/RIA_UNIV_NSR_SOURCE.json": 0,
     "cross_namespace/RIA_UNIV_NSR_TARGET.json": 0,
     "cross_namespace/RIA_UNIV_NamespaceRelation.json": 0,
-    "meta/RIA_META_CATEGORIZEDBY.json": 8,
+    "meta/RIA_META_CATEGORIZEDBY.json": 9,
     "meta/RIA_META_CONCEPT_ATTRIBUTE.json": 4076,
     "meta/RIA_META_CONCEPT_SUBTYPEOF.json": 153,
     "meta/RIA_META_Concept.json": 230,
@@ -160,9 +160,9 @@
     "sourcemaster/RIA_SRC_Source.json": 5,
     "sourcemaster/RIA_SRC_TARGETS_NS.json": 5,
     "universe/RIA_UNIV_CanvasLayout.json": 8,
-    "universe/RIA_UNIV_NamespaceConnection.json": 8
+    "universe/RIA_UNIV_NamespaceConnection.json": 9
   },
-  "meta_hash": "sha256:e24ef35d0ef7101916c2439d362d81b2fc10aa4bd7a58378068019e877dcb84a",
+  "meta_hash": "sha256:d8def91debd4fdaaa1e82abfd9d7e1e6b251f0ed9a7514d6904bc1ff2385884f",
   "metamodel_versions": {
     "MONITORING_ANALYSIS": "1.0.0",
     "SAFETY_ANALYSIS": "4.0.5",
@@ -252,6 +252,6 @@
   "schema_version": "1.3.0",
   "universe_hashes": {
     "universe/RIA_UNIV_CanvasLayout.json": "sha256:4471871439d5c7c59546885dfb5922d1aa5cffa0a598a745636c6cbca306efca",
-    "universe/RIA_UNIV_NamespaceConnection.json": "sha256:e70506a196998eb9cefe3361f2d95ee53e6bad6a9abe035d889a159aa6d2e0b4"
+    "universe/RIA_UNIV_NamespaceConnection.json": "sha256:4231e3f4208e81fd7f9e859a4b76004499772a7ee1069126520e7694a4a1f88d"
   }
 }
