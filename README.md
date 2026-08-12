@@ -1,5 +1,7 @@
 # ref-project
 
+![RiaCore start screen](start_screen.png)
+
 RiaCore Demo Project
 
 This is the demo project for RiaCore ([github.com/cntSafety/RiaCore](https://github.com/cntSafety/RiaCore)).
