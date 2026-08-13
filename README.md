@@ -1,4 +1,4 @@
-# ref-project
+# RiaCore - Reference Project
 
 ![RiaCore start screen](start_screen.png)
 
