@@ -5,6 +5,7 @@
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"requires_interface","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/lightIn","target_stable_id":"/PortInterfaces/SRI_LightLevel"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"requires_interface","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/rgbIn","target_stable_id":"/PortInterfaces/SRI_RGBFrameReady"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"requires_interface","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/tempIn","target_stable_id":"/PortInterfaces/SRI_AmbientTemp"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"requires_interface","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/trackingHintIn","target_stable_id":"/PortInterfaces/SRI_TrackingHint"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"requires_interface","source_stable_id":"/TigerDetectionSW/TigerDetectionApp/fusedDataIn","target_stable_id":"/PortInterfaces/SRI_FusedDataReady"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"requires_interface","source_stable_id":"/TigerDetectionSW/WarningManager/detectionIn","target_stable_id":"/PortInterfaces/SRI_DetectionResult"}
 ]

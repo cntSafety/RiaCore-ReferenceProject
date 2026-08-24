@@ -1,8 +1,5 @@
 {
-  "categorizational_metamodels": [
-    "MONITORING_ANALYSIS",
-    "SYSTEM_SAFETY_ANALYSIS"
-  ],
+  "categorizational_metamodels": [],
   "directory": "Tiger_Safety_Goals",
   "metamodel": "SN_tiger_safety_goals",
   "metamodel_version": "1.0.0",

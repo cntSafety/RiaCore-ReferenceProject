@@ -1,0 +1,7 @@
+[
+{"dst_name":"SW_Arch_Arxml_Tiger_Detection","src_name":"SW_Arch_Arxml_Tiger_Detection Model"},
+{"dst_name":"SW_Req_Tiger_Detection","src_name":"SW_Req_Tiger_Detection Model"},
+{"dst_name":"Sys_Req_Tiger_Detection","src_name":"Sys_Req_Tiger_Detection Model"},
+{"dst_name":"System_Model_Tiger_Detection","src_name":"System_Model_Tiger_Detection Model"},
+{"dst_name":"Tiger_Safety_Goals","src_name":"Tiger_Safety_Goals Model"}
+]

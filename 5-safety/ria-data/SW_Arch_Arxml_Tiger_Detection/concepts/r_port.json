@@ -5,6 +5,7 @@
 {"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/lightIn","uuid":"FED1F8F0-602E-540F-85BB-7CA41BF5F77D","short_name":"lightIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
 {"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/rgbIn","uuid":"BA1A2716-3665-55A3-B8AC-F2B9BB04C347","short_name":"rgbIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
 {"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/tempIn","uuid":"39DC9ADA-F454-59C6-B5FB-05658A4FA614","short_name":"tempIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
+{"attributes":{"stable_path":"/TigerDetectionSW/SensorFusionMiddleware/trackingHintIn","uuid":"9BDF7BA0-3844-53BA-9C89-8FBDDDC12D68","short_name":"trackingHintIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
 {"attributes":{"stable_path":"/TigerDetectionSW/TigerDetectionApp/fusedDataIn","uuid":"49EBA75A-397E-542B-A0A6-01069599AE60","short_name":"fusedDataIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"},
 {"attributes":{"stable_path":"/TigerDetectionSW/WarningManager/detectionIn","uuid":"9E379C83-6DA9-5F92-898E-82D5A6F8A80D","short_name":"detectionIn"},"concept":"r_port","metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection"}
 ]

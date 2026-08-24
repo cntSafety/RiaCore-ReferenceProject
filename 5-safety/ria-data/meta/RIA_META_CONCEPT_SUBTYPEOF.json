@@ -1,4 +1,10 @@
 [
+{"dst_id":"COMMON_MODEL__Element","src_id":"COMMON_MODEL__ActiveElement"},
+{"dst_id":"COMMON_MODEL__Port","src_id":"COMMON_MODEL__InOutPort"},
+{"dst_id":"COMMON_MODEL__Port","src_id":"COMMON_MODEL__InPort"},
+{"dst_id":"COMMON_MODEL__Port","src_id":"COMMON_MODEL__OutPort"},
+{"dst_id":"COMMON_MODEL__Element","src_id":"COMMON_MODEL__Requirement"},
+{"dst_id":"COMMON_MODEL__Element","src_id":"COMMON_MODEL__StructuralElement"},
 {"dst_id":"SN_sw_req_tiger_detection__need_base","src_id":"SN_sw_req_tiger_detection__need_req"},
 {"dst_id":"SN_sys_req_tiger_detection__need_base","src_id":"SN_sys_req_tiger_detection__need_req"},
 {"dst_id":"SN_tiger_safety_goals__need_base","src_id":"SN_tiger_safety_goals__need_req"},
@@ -95,6 +101,7 @@
 {"dst_id":"SysMLv2__literal_expression_base","src_id":"SysMLv2__literal_integer"},
 {"dst_id":"SysMLv2__literal_expression_base","src_id":"SysMLv2__literal_rational"},
 {"dst_id":"SysMLv2__literal_expression_base","src_id":"SysMLv2__literal_string"},
+{"dst_id":"SysMLv2__action_usage","src_id":"SysMLv2__loop_action_usage"},
 {"dst_id":"SysMLv2__membership_base","src_id":"SysMLv2__membership"},
 {"dst_id":"SysMLv2__relationship_base","src_id":"SysMLv2__membership_base"},
 {"dst_id":"SysMLv2__membership_base","src_id":"SysMLv2__membership_expose"},

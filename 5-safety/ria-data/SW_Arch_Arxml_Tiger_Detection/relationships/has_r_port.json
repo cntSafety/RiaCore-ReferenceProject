@@ -5,6 +5,7 @@
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_r_port","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware","target_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/lightIn"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_r_port","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware","target_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/rgbIn"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_r_port","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware","target_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/tempIn"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_r_port","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware","target_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/trackingHintIn"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_r_port","source_stable_id":"/TigerDetectionSW/TigerDetectionApp","target_stable_id":"/TigerDetectionSW/TigerDetectionApp/fusedDataIn"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_r_port","source_stable_id":"/TigerDetectionSW/WarningManager","target_stable_id":"/TigerDetectionSW/WarningManager/detectionIn"}
 ]

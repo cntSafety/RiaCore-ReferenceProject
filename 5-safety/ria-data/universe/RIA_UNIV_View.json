@@ -1,0 +1,7 @@
+[
+{"description":"Default CommonModel view over the imported namespace 'SW_Arch_Arxml_Tiger_Detection'.","mapping":"arxml-common-model","metamodel":"COMMON_MODEL","name":"SW_Arch_Arxml_Tiger_Detection Model","parameters":{}},
+{"description":"Default CommonModel view over the imported namespace 'SW_Req_Tiger_Detection'.","mapping":"sphinx-needs-common-model","metamodel":"COMMON_MODEL","name":"SW_Req_Tiger_Detection Model","parameters":{}},
+{"description":"Default CommonModel view over the imported namespace 'Sys_Req_Tiger_Detection'.","mapping":"sphinx-needs-common-model","metamodel":"COMMON_MODEL","name":"Sys_Req_Tiger_Detection Model","parameters":{}},
+{"description":"Default CommonModel view over the imported namespace 'System_Model_Tiger_Detection'.","mapping":"sysml-v2-common-model","metamodel":"COMMON_MODEL","name":"System_Model_Tiger_Detection Model","parameters":{}},
+{"description":"Default CommonModel view over the imported namespace 'Tiger_Safety_Goals'.","mapping":"sphinx-needs-common-model","metamodel":"COMMON_MODEL","name":"Tiger_Safety_Goals Model","parameters":{}}
+]

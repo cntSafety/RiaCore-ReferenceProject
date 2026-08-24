@@ -1,4 +1,11 @@
 [
+{"dst_id":"COMMON_MODEL__Connection","src_id":"COMMON_MODEL__ConnectionOwner"},
+{"dst_id":"COMMON_MODEL__Connection","src_id":"COMMON_MODEL__ConnectionSource"},
+{"dst_id":"COMMON_MODEL__Connection","src_id":"COMMON_MODEL__ConnectionTarget"},
+{"dst_id":"COMMON_MODEL__ActiveElement","src_id":"COMMON_MODEL__Expose"},
+{"dst_id":"COMMON_MODEL__ActiveElement","src_id":"COMMON_MODEL__Implements"},
+{"dst_id":"COMMON_MODEL__Element","src_id":"COMMON_MODEL__Ownership"},
+{"dst_id":"COMMON_MODEL__Requirement","src_id":"COMMON_MODEL__Refinement"},
 {"dst_id":"MONITORING_ANALYSIS__review_item","src_id":"MONITORING_ANALYSIS__author_comment"},
 {"dst_id":"MONITORING_ANALYSIS__review_item","src_id":"MONITORING_ANALYSIS__author_status"},
 {"dst_id":"MONITORING_ANALYSIS__risk_rating","src_id":"MONITORING_ANALYSIS__has_detection_level"},

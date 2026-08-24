@@ -5,6 +5,7 @@
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_p_port","source_stable_id":"/TigerDetectionSW/SensorDriverLayer","target_stable_id":"/TigerDetectionSW/SensorDriverLayer/tempDataOut"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_p_port","source_stable_id":"/TigerDetectionSW/SensorFusionMiddleware","target_stable_id":"/TigerDetectionSW/SensorFusionMiddleware/fusedOut"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_p_port","source_stable_id":"/TigerDetectionSW/TigerDetectionApp","target_stable_id":"/TigerDetectionSW/TigerDetectionApp/detectionOut"},
+{"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_p_port","source_stable_id":"/TigerDetectionSW/TigerDetectionApp","target_stable_id":"/TigerDetectionSW/TigerDetectionApp/trackingHintOut"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_p_port","source_stable_id":"/TigerDetectionSW/WarningManager","target_stable_id":"/TigerDetectionSW/WarningManager/acousticOut"},
 {"attributes":{},"metamodel":"SW_ARXML","namespace":"SW_Arch_Arxml_Tiger_Detection","relationship":"has_p_port","source_stable_id":"/TigerDetectionSW/WarningManager","target_stable_id":"/TigerDetectionSW/WarningManager/visualOut"}
 ]
