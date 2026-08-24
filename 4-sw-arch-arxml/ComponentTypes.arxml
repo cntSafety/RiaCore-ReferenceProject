@@ -61,6 +61,10 @@
               <SHORT-NAME>tempIn</SHORT-NAME>
               <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_AmbientTemp</REQUIRED-INTERFACE-TREF>
             </R-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="9BDF7BA0-3844-53BA-9C89-8FBDDDC12D68">
+              <SHORT-NAME>trackingHintIn</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_TrackingHint</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
           </PORTS>
         </APPLICATION-SW-COMPONENT-TYPE>
         <APPLICATION-SW-COMPONENT-TYPE UUID="3D20498A-0CE2-5955-B93E-EFCBB5AF697B">
@@ -69,6 +73,10 @@
             <P-PORT-PROTOTYPE UUID="CD77A2AF-6996-5729-B5E9-4881575B40D0">
               <SHORT-NAME>detectionOut</SHORT-NAME>
               <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_DetectionResult</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE UUID="F96BB2D7-6B7A-5443-BE9E-B926B0206397">
+              <SHORT-NAME>trackingHintOut</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_TrackingHint</PROVIDED-INTERFACE-TREF>
             </P-PORT-PROTOTYPE>
             <R-PORT-PROTOTYPE UUID="49EBA75A-397E-542B-A0A6-01069599AE60">
               <SHORT-NAME>fusedDataIn</SHORT-NAME>
@@ -182,6 +190,17 @@
               <REQUESTER-IREF>
                 <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/WarningManager_Instance</CONTEXT-COMPONENT-REF>
                 <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/WarningManager/detectionIn</TARGET-R-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR UUID="0BD22C68-6AFE-5F2B-A542-207D7188BC27">
+              <SHORT-NAME>TigerDetectionApp_trackingHintOut_SensorFusionMiddleware_trackingHintIn</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/TigerDetectionApp_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/TigerDetectionApp/trackingHintOut</TARGET-P-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/SensorFusionMiddleware_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/SensorFusionMiddleware/trackingHintIn</TARGET-R-PORT-REF>
               </REQUESTER-IREF>
             </ASSEMBLY-SW-CONNECTOR>
           </CONNECTORS>

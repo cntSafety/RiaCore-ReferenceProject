@@ -56,6 +56,18 @@ INTERFACES = {
         ("severity", "uint8"),
         ("durationSec", "float32"),
     ),
+    # Feedback from the detector back into fusion: a predicted region of
+    # interest plus a track identity, so fusion can prioritize/weight that
+    # region on the next cycle (temporal instance banking / ROI feedback).
+    "SRI_TrackingHint": (
+        ("roiValid", "boolean"),
+        ("roiCenterX", "uint32"),
+        ("roiCenterY", "uint32"),
+        ("roiWidth", "uint32"),
+        ("roiHeight", "uint32"),
+        ("trackConfidence", "float32"),
+        ("lastDetectionId", "uint32"),
+    ),
 }
 
 COMPONENTS = {
@@ -74,10 +86,14 @@ COMPONENTS = {
             ("irIn", "SRI_IRFrameReady"),
             ("lightIn", "SRI_LightLevel"),
             ("tempIn", "SRI_AmbientTemp"),
+            ("trackingHintIn", "SRI_TrackingHint"),
         ),
     },
     "TigerDetectionApp": {
-        "provides": (("detectionOut", "SRI_DetectionResult"),),
+        "provides": (
+            ("detectionOut", "SRI_DetectionResult"),
+            ("trackingHintOut", "SRI_TrackingHint"),
+        ),
         "requires": (("fusedDataIn", "SRI_FusedDataReady"),),
     },
     "WarningManager": {
@@ -93,6 +109,9 @@ CONNECTIONS = (
     ("SensorDriverLayer", "tempDataOut", "SensorFusionMiddleware", "tempIn"),
     ("SensorFusionMiddleware", "fusedOut", "TigerDetectionApp", "fusedDataIn"),
     ("TigerDetectionApp", "detectionOut", "WarningManager", "detectionIn"),
+    # Feedback edge: detector's tracking hint flows back into fusion, closing
+    # the loop SensorFusionMiddleware <-> TigerDetectionApp.
+    ("TigerDetectionApp", "trackingHintOut", "SensorFusionMiddleware", "trackingHintIn"),
 )
 
 
