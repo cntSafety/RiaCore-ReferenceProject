@@ -15,6 +15,23 @@
               <SHORT-NAME>irDataOut</SHORT-NAME>
               <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_IRFrameReady</PROVIDED-INTERFACE-TREF>
             </P-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE UUID="F368EDFF-A967-5C73-9EA1-864EAD7B1B78">
+              <SHORT-NAME>cameraStatusOut</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_CameraStatus</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+          </PORTS>
+        </APPLICATION-SW-COMPONENT-TYPE>
+        <APPLICATION-SW-COMPONENT-TYPE UUID="C30CDAC4-E86C-5DEC-AAC8-3671A2AA1A2E">
+          <SHORT-NAME>LidarDriverLayer</SHORT-NAME>
+          <PORTS>
+            <P-PORT-PROTOTYPE UUID="B46DCF34-A8DD-5AF7-A57D-E8B57660C319">
+              <SHORT-NAME>lidarScanOut</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_LidarScan</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE UUID="60E5E7DA-2F21-5A42-A85E-5E3F61C22B67">
+              <SHORT-NAME>lidarStatusOut</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_LidarStatus</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
           </PORTS>
         </APPLICATION-SW-COMPONENT-TYPE>
         <APPLICATION-SW-COMPONENT-TYPE UUID="82A38E47-DAF9-58F6-962B-3DE6FF39D3D8">
@@ -45,6 +62,10 @@
               <SHORT-NAME>fusedOut</SHORT-NAME>
               <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_FusedDataReady</PROVIDED-INTERFACE-TREF>
             </P-PORT-PROTOTYPE>
+            <P-PORT-PROTOTYPE UUID="0624258F-8CCF-5423-99E4-676D6E647677">
+              <SHORT-NAME>objectListOut</SHORT-NAME>
+              <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_ObjectList</PROVIDED-INTERFACE-TREF>
+            </P-PORT-PROTOTYPE>
             <R-PORT-PROTOTYPE UUID="BA1A2716-3665-55A3-B8AC-F2B9BB04C347">
               <SHORT-NAME>rgbIn</SHORT-NAME>
               <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_RGBFrameReady</REQUIRED-INTERFACE-TREF>
@@ -53,6 +74,10 @@
               <SHORT-NAME>irIn</SHORT-NAME>
               <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_IRFrameReady</REQUIRED-INTERFACE-TREF>
             </R-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="CF32767E-783A-5CD7-92E5-27B4B4662141">
+              <SHORT-NAME>lidarIn</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_LidarScan</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
             <R-PORT-PROTOTYPE UUID="FED1F8F0-602E-540F-85BB-7CA41BF5F77D">
               <SHORT-NAME>lightIn</SHORT-NAME>
               <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_LightLevel</REQUIRED-INTERFACE-TREF>
@@ -60,6 +85,14 @@
             <R-PORT-PROTOTYPE UUID="39DC9ADA-F454-59C6-B5FB-05658A4FA614">
               <SHORT-NAME>tempIn</SHORT-NAME>
               <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_AmbientTemp</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="93DBEC88-31B5-56D6-88B5-0F10EBDE66E1">
+              <SHORT-NAME>cameraStatusIn</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_CameraStatus</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="3DA17AF4-509A-5B0D-9DDE-22DBD871F35C">
+              <SHORT-NAME>lidarStatusIn</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_LidarStatus</REQUIRED-INTERFACE-TREF>
             </R-PORT-PROTOTYPE>
             <R-PORT-PROTOTYPE UUID="9BDF7BA0-3844-53BA-9C89-8FBDDDC12D68">
               <SHORT-NAME>trackingHintIn</SHORT-NAME>
@@ -81,6 +114,10 @@
             <R-PORT-PROTOTYPE UUID="49EBA75A-397E-542B-A0A6-01069599AE60">
               <SHORT-NAME>fusedDataIn</SHORT-NAME>
               <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_FusedDataReady</REQUIRED-INTERFACE-TREF>
+            </R-PORT-PROTOTYPE>
+            <R-PORT-PROTOTYPE UUID="DCC0EADE-96F4-5AE3-A3F7-5695347DD013">
+              <SHORT-NAME>objectListIn</SHORT-NAME>
+              <REQUIRED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_ObjectList</REQUIRED-INTERFACE-TREF>
             </R-PORT-PROTOTYPE>
           </PORTS>
         </APPLICATION-SW-COMPONENT-TYPE>
@@ -107,6 +144,10 @@
             <SW-COMPONENT-PROTOTYPE UUID="6C6B7790-16D4-531C-946C-6A4C9DD41311">
               <SHORT-NAME>CameraDriverLayer_Instance</SHORT-NAME>
               <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/TigerDetectionSW/CameraDriverLayer</TYPE-TREF>
+            </SW-COMPONENT-PROTOTYPE>
+            <SW-COMPONENT-PROTOTYPE UUID="DE3DE3B2-EB9F-5E10-AE84-E7B7A4D563B4">
+              <SHORT-NAME>LidarDriverLayer_Instance</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/TigerDetectionSW/LidarDriverLayer</TYPE-TREF>
             </SW-COMPONENT-PROTOTYPE>
             <SW-COMPONENT-PROTOTYPE UUID="C18F8BDD-E576-59F9-9B46-9D1C73543D05">
               <SHORT-NAME>SensorDriverLayer_Instance</SHORT-NAME>
@@ -148,6 +189,39 @@
                 <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/SensorFusionMiddleware/irIn</TARGET-R-PORT-REF>
               </REQUESTER-IREF>
             </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR UUID="01606F97-C0FE-52D1-9EF3-BDB931CAA35A">
+              <SHORT-NAME>CameraDriverLayer_cameraStatusOut_SensorFusionMiddleware_cameraStatusIn</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/CameraDriverLayer_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/CameraDriverLayer/cameraStatusOut</TARGET-P-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/SensorFusionMiddleware_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/SensorFusionMiddleware/cameraStatusIn</TARGET-R-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR UUID="2DA88B1E-CC5F-57AD-90E7-FD14DFFF6E7B">
+              <SHORT-NAME>LidarDriverLayer_lidarScanOut_SensorFusionMiddleware_lidarIn</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/LidarDriverLayer_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/LidarDriverLayer/lidarScanOut</TARGET-P-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/SensorFusionMiddleware_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/SensorFusionMiddleware/lidarIn</TARGET-R-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR UUID="F2294AF1-6583-5E8E-8AD7-3BD8F8DB4C52">
+              <SHORT-NAME>LidarDriverLayer_lidarStatusOut_SensorFusionMiddleware_lidarStatusIn</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/LidarDriverLayer_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/LidarDriverLayer/lidarStatusOut</TARGET-P-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/SensorFusionMiddleware_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/SensorFusionMiddleware/lidarStatusIn</TARGET-R-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
             <ASSEMBLY-SW-CONNECTOR UUID="FC0136AA-B3D4-5002-8811-01583E4F3100">
               <SHORT-NAME>SensorDriverLayer_lightDataOut_SensorFusionMiddleware_lightIn</SHORT-NAME>
               <PROVIDER-IREF>
@@ -179,6 +253,17 @@
               <REQUESTER-IREF>
                 <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/TigerDetectionApp_Instance</CONTEXT-COMPONENT-REF>
                 <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/TigerDetectionApp/fusedDataIn</TARGET-R-PORT-REF>
+              </REQUESTER-IREF>
+            </ASSEMBLY-SW-CONNECTOR>
+            <ASSEMBLY-SW-CONNECTOR UUID="4904A33E-4DB1-5679-9067-262B3296DE6E">
+              <SHORT-NAME>SensorFusionMiddleware_objectListOut_TigerDetectionApp_objectListIn</SHORT-NAME>
+              <PROVIDER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/SensorFusionMiddleware_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/SensorFusionMiddleware/objectListOut</TARGET-P-PORT-REF>
+              </PROVIDER-IREF>
+              <REQUESTER-IREF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/TigerDetectionApp_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/TigerDetectionApp/objectListIn</TARGET-R-PORT-REF>
               </REQUESTER-IREF>
             </ASSEMBLY-SW-CONNECTOR>
             <ASSEMBLY-SW-CONNECTOR UUID="DBA6A011-CE6F-579D-834A-9A25D3A968E4">

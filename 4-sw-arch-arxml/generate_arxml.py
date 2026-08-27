@@ -4,9 +4,16 @@
 The lists in this file define the test architecture and the generator writes a
 split AUTOSAR_00046 project.
 
+The model is a small camera + lidar perception stack: sensor driver layers feed
+a fusion middleware which produces a fused object list for the detection app and
+the warning manager. The port interfaces are organised into abstraction levels —
+per-sensor detection interfaces (camera / lidar), sensor status/self-report
+interfaces, and the fused object-level interface — so the architecture reads like
+a realistic sensor-to-fusion boundary rather than generic frame plumbing.
+
 Usage:
     python3 -m pip install autosar-data
-    python3 generate_from_scratch.py --overwrite
+    python3 generate_arxml.py --overwrite
 """
 
 from __future__ import annotations
@@ -68,11 +75,84 @@ INTERFACES = {
         ("trackConfidence", "float32"),
         ("lastDetectionId", "uint32"),
     ),
+    # ── Layered perception interfaces ────────────────────────────────────────
+    # The interfaces below organise the sensor->fusion boundary into three
+    # abstraction levels: per-sensor DETECTION level (camera / lidar, close to
+    # the measurement), sensor self-representation (STATUS), and the fused,
+    # sensor-agnostic OBJECT level produced by the fusion unit.
+    #
+    # Camera self-representation: how healthy the camera path is this cycle.
+    # A degraded/blocked camera is the classic source of a perception
+    # insufficiency, so this gives that concern a real interface to attach to.
+    "SRI_CameraStatus": (
+        ("blockageLevel", "float32"),   # 0.0 clear … 1.0 fully blocked
+        ("degraded", "boolean"),
+        ("fovValid", "boolean"),        # field-of-view within spec
+        ("latencyMs", "uint16"),
+    ),
+    # Lidar detection level: a summary of the current scan. Scalar fields stand
+    # in for the primary/aggregated detection of the scan (a demo simplification
+    # of what would be a per-detection list).
+    "SRI_LidarScan": (
+        ("scanId", "uint32"),
+        ("scanTimestampMs", "uint32"),
+        ("pointCount", "uint32"),
+        ("nearestRangeM", "float32"),
+        ("nearestAzimuthDeg", "float32"),
+        ("nearestElevationDeg", "float32"),
+        ("meanIntensity", "float32"),   # reflectivity
+        ("existenceProb", "float32"),   # data qualifier for the detection
+        ("rangeStatus", "uint8"),
+    ),
+    # Lidar self-representation.
+    "SRI_LidarStatus": (
+        ("blockageLevel", "float32"),
+        ("degraded", "boolean"),
+        ("pointDensityOk", "boolean"),
+        ("latencyMs", "uint16"),
+    ),
+    # Object level: the fused object list the fusion unit hands to the
+    # application. objectCount conveys the list length; the remaining scalar
+    # fields describe the primary fused object (kinematics, dimensions,
+    # classification and its existence probability) in the fusion reference
+    # frame (a demo simplification of a per-object list).
+    "SRI_ObjectList": (
+        ("cycleId", "uint32"),
+        ("objectCount", "uint16"),
+        ("objectId", "uint32"),
+        ("posX_m", "float32"),
+        ("posY_m", "float32"),
+        ("posZ_m", "float32"),
+        ("velX_mps", "float32"),
+        ("velY_mps", "float32"),
+        ("yaw_deg", "float32"),
+        ("length_m", "float32"),
+        ("width_m", "float32"),
+        ("height_m", "float32"),
+        ("classId", "uint8"),
+        ("classConfidence", "float32"),
+        ("existenceProb", "float32"),
+        ("measTimestampMs", "uint32"),
+    ),
 }
 
 COMPONENTS = {
     "CameraDriverLayer": {
-        "provides": (("rgbDataOut", "SRI_RGBFrameReady"), ("irDataOut", "SRI_IRFrameReady")),
+        "provides": (
+            ("rgbDataOut", "SRI_RGBFrameReady"),
+            ("irDataOut", "SRI_IRFrameReady"),
+            # Camera self-representation (blockage / degradation / FoV validity).
+            ("cameraStatusOut", "SRI_CameraStatus"),
+        ),
+        "requires": (),
+    },
+    # Dedicated lidar sensor path (detection level + self-representation),
+    # mirroring the LidarSensor already present in the system-design stage.
+    "LidarDriverLayer": {
+        "provides": (
+            ("lidarScanOut", "SRI_LidarScan"),
+            ("lidarStatusOut", "SRI_LidarStatus"),
+        ),
         "requires": (),
     },
     "SensorDriverLayer": {
@@ -80,12 +160,19 @@ COMPONENTS = {
         "requires": (("lightHWIn", "SRI_LightLevel"), ("tempHWIn", "SRI_AmbientTemp")),
     },
     "SensorFusionMiddleware": {
-        "provides": (("fusedOut", "SRI_FusedDataReady"),),
+        "provides": (
+            ("fusedOut", "SRI_FusedDataReady"),
+            # Object-level output: the fused object list handed to the app.
+            ("objectListOut", "SRI_ObjectList"),
+        ),
         "requires": (
             ("rgbIn", "SRI_RGBFrameReady"),
             ("irIn", "SRI_IRFrameReady"),
+            ("lidarIn", "SRI_LidarScan"),
             ("lightIn", "SRI_LightLevel"),
             ("tempIn", "SRI_AmbientTemp"),
+            ("cameraStatusIn", "SRI_CameraStatus"),
+            ("lidarStatusIn", "SRI_LidarStatus"),
             ("trackingHintIn", "SRI_TrackingHint"),
         ),
     },
@@ -94,7 +181,10 @@ COMPONENTS = {
             ("detectionOut", "SRI_DetectionResult"),
             ("trackingHintOut", "SRI_TrackingHint"),
         ),
-        "requires": (("fusedDataIn", "SRI_FusedDataReady"),),
+        "requires": (
+            ("fusedDataIn", "SRI_FusedDataReady"),
+            ("objectListIn", "SRI_ObjectList"),
+        ),
     },
     "WarningManager": {
         "provides": (("acousticOut", "SRI_WarningCommand"), ("visualOut", "SRI_WarningCommand")),
@@ -105,9 +195,17 @@ COMPONENTS = {
 CONNECTIONS = (
     ("CameraDriverLayer", "rgbDataOut", "SensorFusionMiddleware", "rgbIn"),
     ("CameraDriverLayer", "irDataOut", "SensorFusionMiddleware", "irIn"),
+    # Camera status into fusion (health-aware fusion / degradation handling).
+    ("CameraDriverLayer", "cameraStatusOut", "SensorFusionMiddleware", "cameraStatusIn"),
+    # Lidar detection + status into fusion — camera and lidar form a diverse
+    # redundant pair at the sensor->fusion boundary.
+    ("LidarDriverLayer", "lidarScanOut", "SensorFusionMiddleware", "lidarIn"),
+    ("LidarDriverLayer", "lidarStatusOut", "SensorFusionMiddleware", "lidarStatusIn"),
     ("SensorDriverLayer", "lightDataOut", "SensorFusionMiddleware", "lightIn"),
     ("SensorDriverLayer", "tempDataOut", "SensorFusionMiddleware", "tempIn"),
     ("SensorFusionMiddleware", "fusedOut", "TigerDetectionApp", "fusedDataIn"),
+    # Object-level output into the application.
+    ("SensorFusionMiddleware", "objectListOut", "TigerDetectionApp", "objectListIn"),
     ("TigerDetectionApp", "detectionOut", "WarningManager", "detectionIn"),
     # Feedback edge: detector's tracking hint flows back into fusion, closing
     # the loop SensorFusionMiddleware <-> TigerDetectionApp.
@@ -141,39 +239,7 @@ def only_in_file(element: Element, selected_file, all_files) -> None:
             element.remove_from_file(arxml_file)
 
 
-def variant_components(variant: str) -> dict:
-    """Return the baseline model or the deliberately small V2 evolution."""
-    components = {
-        component_name: {
-            "provides": tuple(definition["provides"]),
-            "requires": tuple(definition["requires"]),
-        }
-        for component_name, definition in COMPONENTS.items()
-    }
-    if variant == "v2":
-        components["CameraDriverLayer"]["provides"] = (
-            ("rgbDataOut", "SRI_RGBFrameReady"),
-            ("irDataOutChanged", "SRI_IRFrameReady"),
-            ("newPort", "SRI_IRFrameReady"),
-        )
-    return components
-
-
-def variant_connections(variant: str) -> tuple:
-    if variant == "v2":
-        return tuple(
-            (
-                provider_component,
-                "irDataOutChanged" if provider_port == "irDataOut" else provider_port,
-                requester_component,
-                requester_port,
-            )
-            for provider_component, provider_port, requester_component, requester_port in CONNECTIONS
-        )
-    return CONNECTIONS
-
-
-def build_model(output: Path, variant: str) -> AutosarModel:
+def build_model(output: Path) -> AutosarModel:
     output.mkdir(parents=True, exist_ok=True)
     model = AutosarModel()
     files = {
@@ -223,7 +289,7 @@ def build_model(output: Path, variant: str) -> AutosarModel:
     component_elements = component_package.create_sub_element("ELEMENTS")
     swcs: dict[str, Element] = {}
     ports: dict[tuple[str, str], Element] = {}
-    for component_name, definition in variant_components(variant).items():
+    for component_name, definition in COMPONENTS.items():
         swc = named(
             component_elements,
             "APPLICATION-SW-COMPONENT-TYPE",
@@ -232,14 +298,11 @@ def build_model(output: Path, variant: str) -> AutosarModel:
         )
         swc_ports = swc.create_sub_element("PORTS")
         for port_name, interface_name in definition["provides"]:
-            # A renamed port retains its generated identity across the V1 → V2
-            # evolution; the new port receives a new deterministic UUID.
-            port_identity = "irDataOut" if port_name == "irDataOutChanged" else port_name
             port = named(
                 swc_ports,
                 "P-PORT-PROTOTYPE",
                 port_name,
-                f"swc:{component_name}:pport:{port_identity}",
+                f"swc:{component_name}:pport:{port_name}",
             )
             reference(port, "PROVIDED-INTERFACE-TREF", interfaces[interface_name])
             ports[(component_name, port_name)] = port
@@ -267,7 +330,7 @@ def build_model(output: Path, variant: str) -> AutosarModel:
         reference(instance, "TYPE-TREF", swc)
         instances[component_name] = instance
     connectors = composition.create_sub_element("CONNECTORS")
-    for provider_component, provider_port, requester_component, requester_port in variant_connections(variant):
+    for provider_component, provider_port, requester_component, requester_port in CONNECTIONS:
         connector_name = f"{provider_component}_{provider_port}_{requester_component}_{requester_port}"
         connector = named(
             connectors,
@@ -298,7 +361,7 @@ def build_model(output: Path, variant: str) -> AutosarModel:
     return model
 
 
-def generate(output: Path, overwrite: bool, variant: str) -> None:
+def generate(output: Path, overwrite: bool) -> None:
     output = output.resolve()
     if output.exists():
         if not overwrite:
@@ -306,7 +369,7 @@ def generate(output: Path, overwrite: bool, variant: str) -> None:
         if not output.is_dir():
             raise ValueError(f"Output is not a directory: {output}")
         shutil.rmtree(output)
-    model = build_model(output, variant)
+    model = build_model(output)
     model.write()
 
     verification = AutosarModel()
@@ -324,15 +387,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--overwrite", action="store_true")
-    parser.add_argument(
-        "--variant",
-        choices=("v1", "v2"),
-        default="v1",
-        help="Generate the baseline architecture (v1) or its small port evolution (v2).",
-    )
     arguments = parser.parse_args()
     try:
-        generate(arguments.output, arguments.overwrite, arguments.variant)
+        generate(arguments.output, arguments.overwrite)
     except (OSError, RuntimeError, ValueError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
