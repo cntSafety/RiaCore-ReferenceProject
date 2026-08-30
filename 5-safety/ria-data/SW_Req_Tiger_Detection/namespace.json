@@ -1,7 +1,5 @@
 {
-  "categorizational_metamodels": [
-    "SAFETY_ANALYSIS"
-  ],
+  "categorizational_metamodels": [],
   "directory": "SW_Req_Tiger_Detection",
   "metamodel": "SN_sw_req_tiger_detection",
   "metamodel_version": "1.0.0",

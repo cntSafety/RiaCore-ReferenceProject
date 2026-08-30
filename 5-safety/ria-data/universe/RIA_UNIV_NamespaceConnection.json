@@ -1,7 +1,6 @@
 [
 {"dst_name":"SW_Safety_Analysis","src_name":"SW_Arch_Arxml_Tiger_Detection"},
 {"dst_name":"SW_Safety_Analysis","src_name":"SW_Req_Tiger_Detection"},
-{"dst_name":"Sys_Monitoring_Analysis","src_name":"SW_Req_Tiger_Detection"},
 {"dst_name":"Sys_Design_Analysis","src_name":"Sys_Req_Tiger_Detection"},
 {"dst_name":"Sys_Monitoring_Analysis","src_name":"Sys_Req_Tiger_Detection"},
 {"dst_name":"Sys_Design_Analysis","src_name":"System_Model_Tiger_Detection"},

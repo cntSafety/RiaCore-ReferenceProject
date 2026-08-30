@@ -1,0 +1,114 @@
+[2026-08-30T16:52:07.846Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:07.848Z] [INFO ] [Workspace] full re-export triggered: .gitattributes created/updated — normalizing line endings
+[2026-08-30T16:52:07.851Z] [INFO ] [Workspace] store started — 0 namespace(s) to export (0 total in DB)
+[2026-08-30T16:52:07.922Z] [INFO ] [Workspace] store done — written=0, skipped=0, files=31, records=109, elapsed=75ms
+[2026-08-30T16:52:07.923Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:08.026Z] [INFO ] [Workspace] Import started  runId="c55d39eb-d9b9-4ee0-9acb-9dd6b3bcdd14" namespace="Tiger_Safety_Goals" metamodel="SN_tiger_safety_goals" configPath="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\ria-config\\importer-config\\sphinx_needs\\sphinx_needs-SafetyGoals-import-config.yaml" triggeredBy="cli"
+[2026-08-30T16:52:08.287Z] [INFO ] [Workspace] Parsed 1 source file(s)
+[2026-08-30T16:52:08.287Z] [INFO ] [Workspace] Import completed  runId="c55d39eb-d9b9-4ee0-9acb-9dd6b3bcdd14" namespace="Tiger_Safety_Goals" conceptsCreated=2 relationshipsCreated=1 filesProcessed=1 durationMs=36
+[2026-08-30T16:52:08.287Z] [INFO ] [Workspace] No cross-namespace boundary impact detected  stableCount=0
+[2026-08-30T16:52:08.320Z] [INFO ] [Workspace] created default view 'Tiger_Safety_Goals Model' for imported namespace 'Tiger_Safety_Goals'
+[2026-08-30T16:52:08.320Z] [INFO ] [Workspace] import: created default view(s): Tiger_Safety_Goals Model
+[2026-08-30T16:52:09.389Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:09.484Z] [INFO ] [Workspace] Import started  runId="b65625fd-52a6-4fd5-833a-c6fb28aebd34" namespace="Sys_Req_Tiger_Detection" metamodel="SN_sys_req_tiger_detection" configPath="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\ria-config\\importer-config\\sphinx_needs\\sphinx_needs-SysReq-import-config.yaml" triggeredBy="cli"
+[2026-08-30T16:52:09.908Z] [INFO ] [Workspace] Parsed 1 source file(s)
+[2026-08-30T16:52:09.908Z] [WARN ] [Workspace] Skipped 1 unrecognised element type(s) — not in metamodel  skipped={"missing_target:refines":5}
+[2026-08-30T16:52:09.908Z] [INFO ] [Workspace] Import completed  runId="b65625fd-52a6-4fd5-833a-c6fb28aebd34" namespace="Sys_Req_Tiger_Detection" conceptsCreated=21 relationshipsCreated=45 filesProcessed=1 durationMs=77
+[2026-08-30T16:52:09.908Z] [INFO ] [Workspace] No cross-namespace boundary impact detected  stableCount=0
+[2026-08-30T16:52:09.940Z] [INFO ] [Workspace] created default view 'Sys_Req_Tiger_Detection Model' for imported namespace 'Sys_Req_Tiger_Detection'
+[2026-08-30T16:52:09.941Z] [INFO ] [Workspace] import: created default view(s): Sys_Req_Tiger_Detection Model
+[2026-08-30T16:52:11.040Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:11.769Z] [INFO ] [Workspace] Import started  runId="800d7159-a025-4192-92c0-03d3e90e9324" namespace="System_Model_Tiger_Detection" metamodel="SysMLv2" configPath="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\ria-config\\importer-config\\sysml_v2\\sysml_v2-SysMLTiger-import-config.yaml" triggeredBy="cli"
+[2026-08-30T16:52:14.804Z] [INFO ] [Workspace] Parsed 1 source file(s)
+[2026-08-30T16:52:14.804Z] [WARN ] [Workspace] Skipped 12 unrecognised element type(s) — not in metamodel  skipped={"OwningMembership":185,"FeatureMembership":174,"EndFeatureMembership":80,"ParameterMembership":51,"Membership":25,"TransitionFeatureMembership":21,"ReturnParameterMembership":17,"StateSubactionMembership":8,"ConjugatedPortTyping":7,"PortConjugation":5,"ConjugatedPortDefinition":5,"TriggerInvocationExpression":3}
+[2026-08-30T16:52:14.804Z] [INFO ] [Workspace] Import completed  runId="800d7159-a025-4192-92c0-03d3e90e9324" namespace="System_Model_Tiger_Detection" conceptsCreated=792 relationshipsCreated=4840 filesProcessed=1 durationMs=2523
+[2026-08-30T16:52:14.805Z] [INFO ] [Workspace] No cross-namespace boundary impact detected  stableCount=0
+[2026-08-30T16:52:14.839Z] [INFO ] [Workspace] created default view 'System_Model_Tiger_Detection Model' for imported namespace 'System_Model_Tiger_Detection'
+[2026-08-30T16:52:14.841Z] [INFO ] [Workspace] import: created default view(s): System_Model_Tiger_Detection Model
+[2026-08-30T16:52:16.003Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:16.095Z] [INFO ] [Workspace] Import started  runId="a5f92274-aa2e-4bf3-8acc-bf61ec69850d" namespace="SW_Req_Tiger_Detection" metamodel="SN_sw_req_tiger_detection" configPath="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\ria-config\\importer-config\\sphinx_needs\\sphinx_needs-SWReq-import-config.yaml" triggeredBy="cli"
+[2026-08-30T16:52:16.389Z] [INFO ] [Workspace] Parsed 1 source file(s)
+[2026-08-30T16:52:16.389Z] [WARN ] [Workspace] Skipped 1 unrecognised element type(s) — not in metamodel  skipped={"missing_target:satisfies":33}
+[2026-08-30T16:52:16.389Z] [INFO ] [Workspace] Import completed  runId="a5f92274-aa2e-4bf3-8acc-bf61ec69850d" namespace="SW_Req_Tiger_Detection" conceptsCreated=31 relationshipsCreated=30 filesProcessed=1 durationMs=69
+[2026-08-30T16:52:16.389Z] [INFO ] [Workspace] No cross-namespace boundary impact detected  stableCount=0
+[2026-08-30T16:52:16.427Z] [INFO ] [Workspace] created default view 'SW_Req_Tiger_Detection Model' for imported namespace 'SW_Req_Tiger_Detection'
+[2026-08-30T16:52:16.434Z] [INFO ] [Workspace] import: created default view(s): SW_Req_Tiger_Detection Model
+[2026-08-30T16:52:17.530Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:17.672Z] [INFO ] [Workspace] Import started  runId="724ae4b1-7525-4fc3-a230-174178841bf5" namespace="SW_Arch_Arxml_Tiger_Detection" metamodel="SW_ARXML" configPath="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\ria-config\\importer-config\\arxml\\arxml-autosar-import-config.yaml" triggeredBy="cli"
+[2026-08-30T16:52:18.243Z] [INFO ] [Workspace] Parsed 4 source file(s)
+[2026-08-30T16:52:18.243Z] [INFO ] [Workspace] Import completed  runId="724ae4b1-7525-4fc3-a230-174178841bf5" namespace="SW_Arch_Arxml_Tiger_Detection" conceptsCreated=75 relationshipsCreated=105 filesProcessed=4 durationMs=225
+[2026-08-30T16:52:18.243Z] [INFO ] [Workspace] No cross-namespace boundary impact detected  stableCount=0
+[2026-08-30T16:52:18.276Z] [INFO ] [Workspace] created default view 'SW_Arch_Arxml_Tiger_Detection Model' for imported namespace 'SW_Arch_Arxml_Tiger_Detection'
+[2026-08-30T16:52:18.282Z] [INFO ] [Workspace] import: created default view(s): SW_Arch_Arxml_Tiger_Detection Model
+[2026-08-30T16:52:19.265Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:20.352Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:20.593Z] [INFO ] [Workspace] store started — 6 namespace(s) to export (6 total in DB)
+[2026-08-30T16:52:20.943Z] [INFO ] [Workspace] write SW_Arch_Arxml_Tiger_Detection: 12 concept file(s), 17 relationship file(s)
+[2026-08-30T16:52:20.962Z] [INFO ] [Workspace] write SW_Req_Tiger_Detection: 2 concept file(s), 1 relationship file(s)
+[2026-08-30T16:52:20.972Z] [INFO ] [Workspace] write Sys_Design_Analysis: 0 concept file(s), 0 relationship file(s)
+[2026-08-30T16:52:20.986Z] [INFO ] [Workspace] write Sys_Req_Tiger_Detection: 2 concept file(s), 2 relationship file(s)
+[2026-08-30T16:52:21.229Z] [INFO ] [Workspace] write System_Model_Tiger_Detection: 39 concept file(s), 22 relationship file(s)
+[2026-08-30T16:52:21.241Z] [INFO ] [Workspace] write Tiger_Safety_Goals: 2 concept file(s), 1 relationship file(s)
+[2026-08-30T16:52:21.247Z] [INFO ] [Workspace] store done — written=6, skipped=0, files=137, records=15196, elapsed=656ms
+[2026-08-30T16:52:22.393Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:24.142Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:25.372Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:27.007Z] [INFO ] [Workspace] store started — 6 namespace(s) to export (6 total in DB)
+[2026-08-30T16:52:27.384Z] [WARN ] [Workspace] Sys_Design_Analysis: missing file on disk concepts/malfunction.json — forcing re-export
+[2026-08-30T16:52:27.396Z] [INFO ] [Workspace] write Sys_Design_Analysis: 6 concept file(s), 4 relationship file(s)
+[2026-08-30T16:52:27.651Z] [INFO ] [Workspace] write System_Model_Tiger_Detection: 39 concept file(s), 22 relationship file(s)
+[2026-08-30T16:52:27.667Z] [INFO ] [Workspace] store done — written=2, skipped=4, files=104, records=15019, elapsed=663ms
+[2026-08-30T16:52:28.673Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:28.980Z] [INFO ] [Workspace] store started — 7 namespace(s) to export (7 total in DB)
+[2026-08-30T16:52:29.342Z] [INFO ] [Workspace] write SW_Safety_Analysis: 0 concept file(s), 0 relationship file(s)
+[2026-08-30T16:52:29.582Z] [INFO ] [Workspace] store done — written=1, skipped=6, files=32, records=9542, elapsed=604ms
+[2026-08-30T16:52:30.633Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:32.524Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:33.733Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:36.613Z] [INFO ] [Workspace] store started — 7 namespace(s) to export (7 total in DB)
+[2026-08-30T16:52:36.987Z] [INFO ] [Workspace] write SW_Arch_Arxml_Tiger_Detection: 12 concept file(s), 17 relationship file(s)
+[2026-08-30T16:52:37.011Z] [WARN ] [Workspace] SW_Safety_Analysis: missing file on disk concepts/malfunction.json — forcing re-export
+[2026-08-30T16:52:37.021Z] [INFO ] [Workspace] write SW_Safety_Analysis: 6 concept file(s), 4 relationship file(s)
+[2026-08-30T16:52:37.266Z] [INFO ] [Workspace] store done — written=2, skipped=5, files=72, records=9972, elapsed=655ms
+[2026-08-30T16:52:38.406Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:38.728Z] [INFO ] [Workspace] store started — 8 namespace(s) to export (8 total in DB)
+[2026-08-30T16:52:39.141Z] [INFO ] [Workspace] write Sys_Monitoring_Analysis: 0 concept file(s), 0 relationship file(s)
+[2026-08-30T16:52:39.369Z] [INFO ] [Workspace] store done — written=1, skipped=7, files=32, records=9882, elapsed=643ms
+[2026-08-30T16:52:40.468Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:42.615Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:43.996Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:44.834Z] [INFO ] [Workspace] store started — 8 namespace(s) to export (8 total in DB)
+[2026-08-30T16:52:45.237Z] [WARN ] [Workspace] Sys_Monitoring_Analysis: missing file on disk concepts/malfunction.json — forcing re-export
+[2026-08-30T16:52:45.247Z] [INFO ] [Workspace] write Sys_Monitoring_Analysis: 4 concept file(s), 3 relationship file(s)
+[2026-08-30T16:52:45.491Z] [INFO ] [Workspace] write System_Model_Tiger_Detection: 39 concept file(s), 22 relationship file(s)
+[2026-08-30T16:52:45.508Z] [INFO ] [Workspace] store done — written=2, skipped=6, files=101, records=15570, elapsed=676ms
+[2026-08-30T16:52:46.677Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:46.686Z] [INFO ] [Workspace] load started — 8 namespace(s) in manifest
+[2026-08-30T16:52:47.411Z] [INFO ] [Workspace] import SW_Arch_Arxml_Tiger_Detection: new namespace  hash="sha256:eb6cb4ae506ebd403cbc6c0e981c5a4c1a21b4834220cc648f757576e663e430"
+[2026-08-30T16:52:47.578Z] [INFO ] [Workspace] import SW_Req_Tiger_Detection: new namespace  hash="sha256:322e34c0e24a7e25a10d7b9b464228fb5506e5393e52729bcc475446597a949c"
+[2026-08-30T16:52:47.622Z] [INFO ] [Workspace] import SW_Safety_Analysis: new namespace  hash="sha256:6397d219210e9670bc1ee2a389c740707851e444e09340fa914817abc6571b1a"
+[2026-08-30T16:52:47.697Z] [INFO ] [Workspace] import Sys_Design_Analysis: new namespace  hash="sha256:fcaffbff29d8b06f14eb7dd7b752587c78c4c01caa0e3b1943d8faded8665c07"
+[2026-08-30T16:52:47.753Z] [INFO ] [Workspace] import Sys_Monitoring_Analysis: new namespace  hash="sha256:e1ed0128570bb66303332e446011379be4ed0a7a10dcaff5d1344fc324494ba2"
+[2026-08-30T16:52:47.802Z] [INFO ] [Workspace] import Sys_Req_Tiger_Detection: new namespace  hash="sha256:bbcb0a2a84c98870a356b7532d56c63b18ebd94d380112bf3f8c85faf538a3be"
+[2026-08-30T16:52:47.859Z] [INFO ] [Workspace] import System_Model_Tiger_Detection: new namespace  hash="sha256:8713de5c783f9e370cf5795c29b2cd4bdcd2a28d80c1ef31282c24736ff82cc3"
+[2026-08-30T16:52:50.081Z] [INFO ] [Workspace] import Tiger_Safety_Goals: new namespace  hash="sha256:e08a1cc58b8aebdfb8961f9195819c4bed49b4a99081592750dd7ff6e9792b7c"
+[2026-08-30T16:52:50.313Z] [INFO ] [Workspace] load done — imported=8, skipped=0, records=10875, elapsed=3634ms
+[2026-08-30T16:52:51.416Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:52.598Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:53.790Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:54.962Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:56.131Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:57.333Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:58.623Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:52:59.809Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:00.964Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:02.115Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:03.294Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:04.474Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:05.902Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:07.090Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:08.274Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:09.474Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:10.635Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:11.812Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"
+[2026-08-30T16:53:13.021Z] [INFO ] [Workspace] Workspace operation logger started  logFile="C:\\Users\\simon\\dev\\ria\\RiaCoreDev5\\qualification\\ref-project\\5-safety\\logs\\workspace-2026-08-30.log"

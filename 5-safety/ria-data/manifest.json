@@ -140,32 +140,36 @@
     "cross_namespace/RIA_UNIV_NSR_SOURCE.json": 0,
     "cross_namespace/RIA_UNIV_NSR_TARGET.json": 0,
     "cross_namespace/RIA_UNIV_NamespaceRelation.json": 0,
-    "meta/RIA_META_CATEGORIZEDBY.json": 9,
-    "meta/RIA_META_CONCEPT_ATTRIBUTE.json": 4076,
-    "meta/RIA_META_CONCEPT_SUBTYPEOF.json": 153,
-    "meta/RIA_META_Concept.json": 230,
+    "meta/RIA_META_CATEGORIZEDBY.json": 8,
+    "meta/RIA_META_CONCEPT_ATTRIBUTE.json": 4104,
+    "meta/RIA_META_CONCEPT_SUBTYPEOF.json": 160,
+    "meta/RIA_META_Concept.json": 239,
     "meta/RIA_META_DEFINEDBY.json": 8,
-    "meta/RIA_META_DEFINES_CONCEPT.json": 230,
-    "meta/RIA_META_DEFINES_RELATIONSHIP.json": 224,
+    "meta/RIA_META_DEFINES_CONCEPT.json": 239,
+    "meta/RIA_META_DEFINES_RELATIONSHIP.json": 231,
     "meta/RIA_META_EdgeAttribute.json": 0,
-    "meta/RIA_META_Metamodel.json": 8,
-    "meta/RIA_META_NodeAttribute.json": 4076,
+    "meta/RIA_META_Metamodel.json": 9,
+    "meta/RIA_META_NodeAttribute.json": 4104,
     "meta/RIA_META_REL_ATTRIBUTE.json": 0,
-    "meta/RIA_META_REL_SOURCE.json": 206,
+    "meta/RIA_META_REL_SOURCE.json": 213,
     "meta/RIA_META_REL_SUBTYPEOF.json": 0,
-    "meta/RIA_META_REL_TARGET.json": 122,
-    "meta/RIA_META_Relationship.json": 224,
-    "sourcemaster/RIA_SRC_ImportRun.json": 10,
-    "sourcemaster/RIA_SRC_RUN_FOR.json": 10,
+    "meta/RIA_META_REL_TARGET.json": 129,
+    "meta/RIA_META_Relationship.json": 231,
+    "sourcemaster/RIA_SRC_ImportRun.json": 5,
+    "sourcemaster/RIA_SRC_RUN_FOR.json": 5,
     "sourcemaster/RIA_SRC_Source.json": 5,
     "sourcemaster/RIA_SRC_TARGETS_NS.json": 5,
-    "universe/RIA_UNIV_CanvasLayout.json": 8,
-    "universe/RIA_UNIV_NamespaceConnection.json": 9
+    "universe/RIA_UNIV_CanvasLayout.json": 0,
+    "universe/RIA_UNIV_NamespaceConnection.json": 8,
+    "universe/RIA_UNIV_VIEW_CATEGORIZEDBY.json": 0,
+    "universe/RIA_UNIV_VIEW_DEFINEDBY.json": 5,
+    "universe/RIA_UNIV_VIEW_SOURCE.json": 5,
+    "universe/RIA_UNIV_View.json": 5
   },
-  "meta_hash": "sha256:d8def91debd4fdaaa1e82abfd9d7e1e6b251f0ed9a7514d6904bc1ff2385884f",
+  "meta_hash": "sha256:b5d89f33172fe340520fe22631d632a3b26d601a521501cab5ad7686474da1bb",
   "metamodel_versions": {
     "MONITORING_ANALYSIS": "1.0.0",
-    "SAFETY_ANALYSIS": "4.0.5",
+    "SAFETY_ANALYSIS": "4.0.6",
     "SN_sw_req_tiger_detection": "1.0.0",
     "SN_sys_req_tiger_detection": "1.0.0",
     "SN_tiger_safety_goals": "1.0.0",
@@ -174,13 +178,13 @@
     "SysMLv2": "0.3.1"
   },
   "namespace_hashes": {
-    "SW_Arch_Arxml_Tiger_Detection": "sha256:e9a661f79cea6b0acb2d0926013d47a5368aa395bda1d61496d4c7cfcb1e7bac",
+    "SW_Arch_Arxml_Tiger_Detection": "sha256:eb6cb4ae506ebd403cbc6c0e981c5a4c1a21b4834220cc648f757576e663e430",
     "SW_Req_Tiger_Detection": "sha256:322e34c0e24a7e25a10d7b9b464228fb5506e5393e52729bcc475446597a949c",
-    "SW_Safety_Analysis": "sha256:05020d056666eec2f8142d2b24a271b42b4a6871737707bcf0358101699a9d7c",
-    "Sys_Design_Analysis": "sha256:0756e8f55860a3a4bb201a04debcd933d3c42d704365d9c5ec1c75f56add3508",
-    "Sys_Monitoring_Analysis": "sha256:0339e60c58f5fd96d07d392e6cf7814d5f00d0b37d5c2a4e5438279af5bf5637",
+    "SW_Safety_Analysis": "sha256:6397d219210e9670bc1ee2a389c740707851e444e09340fa914817abc6571b1a",
+    "Sys_Design_Analysis": "sha256:fcaffbff29d8b06f14eb7dd7b752587c78c4c01caa0e3b1943d8faded8665c07",
+    "Sys_Monitoring_Analysis": "sha256:e1ed0128570bb66303332e446011379be4ed0a7a10dcaff5d1344fc324494ba2",
     "Sys_Req_Tiger_Detection": "sha256:bbcb0a2a84c98870a356b7532d56c63b18ebd94d380112bf3f8c85faf538a3be",
-    "System_Model_Tiger_Detection": "sha256:5fdd149c9974535debc1b2937509a7e41f4e12a1f978af679e8080ded5772111",
+    "System_Model_Tiger_Detection": "sha256:8713de5c783f9e370cf5795c29b2cd4bdcd2a28d80c1ef31282c24736ff82cc3",
     "Tiger_Safety_Goals": "sha256:e08a1cc58b8aebdfb8961f9195819c4bed49b4a99081592750dd7ff6e9792b7c"
   },
   "namespaces": [
@@ -203,7 +207,7 @@
     {
       "directory": "SW_Safety_Analysis",
       "metamodel": "SAFETY_ANALYSIS",
-      "metamodel_version": "4.0.5",
+      "metamodel_version": "4.0.6",
       "name": "SW_Safety_Analysis",
       "namespace_owning_application": "Safety-Analysis",
       "namespace_role": "authored"
@@ -249,9 +253,13 @@
       "namespace_role": "imported"
     }
   ],
-  "schema_version": "1.3.0",
+  "schema_version": "1.4.0",
   "universe_hashes": {
-    "universe/RIA_UNIV_CanvasLayout.json": "sha256:4471871439d5c7c59546885dfb5922d1aa5cffa0a598a745636c6cbca306efca",
-    "universe/RIA_UNIV_NamespaceConnection.json": "sha256:4231e3f4208e81fd7f9e859a4b76004499772a7ee1069126520e7694a4a1f88d"
+    "universe/RIA_UNIV_CanvasLayout.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "universe/RIA_UNIV_NamespaceConnection.json": "sha256:e70506a196998eb9cefe3361f2d95ee53e6bad6a9abe035d889a159aa6d2e0b4",
+    "universe/RIA_UNIV_VIEW_CATEGORIZEDBY.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "universe/RIA_UNIV_VIEW_DEFINEDBY.json": "sha256:62bcd1a363a730ddae9d23cc76f0edd015e9614dd40ed1fe590286f19dbaaa78",
+    "universe/RIA_UNIV_VIEW_SOURCE.json": "sha256:064900281607d7b33ff04e7a00124a20705d7b5ddfc327384946a6a46359cd88",
+    "universe/RIA_UNIV_View.json": "sha256:97dac6b7587c902fe6c25facc16f3b9626c8285580d21681fba8669c16cde212"
   }
 }
