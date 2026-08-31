@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # -- Sphinx Configuration for Tiger Detection System - System Requirements --
 # This is the system-level requirements project.
 # The SW team can reference these needs via needs_external_needs or needimport.
@@ -39,6 +41,10 @@ version = "1.0.0"
 
 # Custom fields for system-level attributes
 needs_fields = {
+    "originating_task": {
+        "description": "Stable reference of the analysis task that generated this requirement",
+        "schema": {"type": "string"},
+    },
     "safety_level": {
         "description": "ASIL classification (A, B, C, D or QM)",
         "schema": {
@@ -80,9 +86,9 @@ needs_external_needs = [
         # base_url: where the safety-goals HTML is served. Absolute file:// URL
         # works for local browsing; for a hosted deployment replace it with the
         # real URL (e.g. https://docs.example.com/safety-goals/).
-        "base_url": "file:///C:/sandbox/RiaCoreDev/qualification/ref-project/0-safety-goals/_build/html",
+        "base_url": (Path(__file__).resolve().parent.parent / "0-safety-goals" / "_build" / "html").as_uri(),
         # json_path: relative to this conf.py.
-        "json_path": "../0-safety-goals/_build/html/needs.json",
+        "json_path": "../0-safety-goals/build_ref/needs.json",
         "id_prefix": "",
         "css_class": "safety_goal_link",
         "version": "1.0.0",

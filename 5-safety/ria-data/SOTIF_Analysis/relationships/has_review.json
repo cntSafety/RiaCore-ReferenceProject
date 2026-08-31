@@ -1,0 +1,4 @@
+[
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_review","source_stable_id":"13b378ab-5ed6-4f27-a534-01ee3f594128","target_stable_id":"44b168ca-d3ac-4ffc-898e-06d8a71e097c"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_review","source_stable_id":"dd240074-b732-4347-b080-f57811eacd56","target_stable_id":"25cabb41-228e-47bc-9129-0fbba5d86293"}
+]

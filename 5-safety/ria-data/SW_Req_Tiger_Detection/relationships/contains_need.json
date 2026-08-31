@@ -19,6 +19,8 @@
 {"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SEN_003"},
 {"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SEN_004"},
 {"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SEN_005"},
+{"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SEN_006"},
+{"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SEN_007"},
 {"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SM_001"},
 {"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SM_002"},
 {"attributes":{},"metamodel":"SN_sw_req_tiger_detection","namespace":"SW_Req_Tiger_Detection","relationship":"contains_need","source_stable_id":"requirements/swRequirements","target_stable_id":"SWREQ_SM_003"},

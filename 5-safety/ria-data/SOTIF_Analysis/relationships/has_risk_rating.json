@@ -1,0 +1,9 @@
+[
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"13b378ab-5ed6-4f27-a534-01ee3f594128","target_stable_id":"9dd6820f-a78f-4727-8d3c-6b572d82715d"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"815de5b7-6946-41f5-82fa-eed252440390","target_stable_id":"ea0a7da8-504a-4769-af5f-a51a2fdb6fdf"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"aaa7a978-b526-4277-8e43-3fde621e5fb0","target_stable_id":"8b44537d-fdac-4107-b9b4-f0d553e9f3c9"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"b2dffd1d-5630-4087-8f91-fd458d654480","target_stable_id":"a6f9e28a-2d66-4f04-8cc3-e97195463ef1"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"beb4f561-5d18-487a-b5c9-b6d5e474935e","target_stable_id":"046db445-4ae0-4005-9625-bd68a3fdc532"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"c0e7e201-bc22-4596-b734-28cf6f756b31","target_stable_id":"c4ed2665-e4ce-4e0d-9828-3085f767bd09"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_risk_rating","source_stable_id":"dd240074-b732-4347-b080-f57811eacd56","target_stable_id":"f86a18ee-2375-4e08-a677-04d33d90e144"}
+]

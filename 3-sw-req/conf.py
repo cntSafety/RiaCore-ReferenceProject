@@ -1,3 +1,5 @@
+from pathlib import Path
+
 # -- Sphinx Configuration for Tiger Detection System - SW Requirements --
 # Reference: https://sphinx-needs.readthedocs.io/en/stable/configuration.html
 #
@@ -52,6 +54,11 @@ needs_file = "needs.json"
 
 # Custom fields for SW-level attributes
 needs_fields = {
+    # Preserve the task origin on imported system requirements.
+    "originating_task": {
+        "description": "Stable reference of the analysis task that generated a requirement",
+        "schema": {"type": "string"},
+    },
     "safety_level": {
         "description": "ASIL classification (A, B, C, D or QM)",
         "schema": {
@@ -100,13 +107,20 @@ needs_links = {
 # Build 1-sys-req first to generate its needs.json, then build this project.
 needs_external_needs = [
     {
+        "base_url": (Path(__file__).resolve().parent.parent / "0-safety-goals" / "_build" / "html").as_uri(),
+        "json_path": "../0-safety-goals/build_ref/needs.json",
+        "id_prefix": "",
+        "css_class": "safety_goal_link",
+        "version": "1.0.0",
+    },
+    {
         # Absolute path for local file:// browsing.
         # Note: For a real deployment (web server), replace the file:/// URL with
         # the actual hosted URL like https://docs.example.com/sys-req/.
         # The file:// approach works for local browsing during development.
-        "base_url": "file:///C:/sandbox/RiaCoreDev/qualification/ref-project/1-sys-req/_build/html",
+        "base_url": (Path(__file__).resolve().parent.parent / "1-sys-req" / "_build" / "html").as_uri(),
         # json_path: relative to conf.py
-        "json_path": "../1-sys-req/_build/html/needs.json",
+        "json_path": "../1-sys-req/build_ref/needs.json",
         "id_prefix": "",
         "css_class": "sys_req_link",
         "version": "1.0.0",
@@ -121,3 +135,19 @@ needs_table_columns = "id;title;status;tags;outgoing"
 exclude_patterns = ["_build", ".venv", "Thumbs.db", ".DS_Store"]
 suppress_warnings = ["needs.json_load", "needs.load_external_need"]
 html_theme = "alabaster"
+
+
+def _copy_needs_json(app, exception):
+    """Keep the tracked importer input in sync with successful Sphinx builds."""
+    if exception is not None:
+        return
+    source = Path(app.outdir) / "needs.json"
+    if source.exists():
+        import shutil
+        target = Path(app.confdir) / "build_ref" / "needs.json"
+        target.parent.mkdir(exist_ok=True)
+        shutil.copy2(source, target)
+
+
+def setup(app):
+    app.connect("build-finished", _copy_needs_json)

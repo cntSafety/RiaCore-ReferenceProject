@@ -1,6 +1,7 @@
 {
   "categorizational_metamodels": [
     "MONITORING_ANALYSIS",
+    "SOTIF_ANALYSIS",
     "SYSTEM_SAFETY_ANALYSIS"
   ],
   "directory": "System_Model_Tiger_Detection",

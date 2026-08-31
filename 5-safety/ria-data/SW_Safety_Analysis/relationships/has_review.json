@@ -1,7 +1,6 @@
 [
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"038f4ba8-693f-4d05-a492-66ae5cfac41d","target_stable_id":"0ae16e1c-97c1-40e0-bd7f-863a5e4d08e6"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"11a72864-3de9-473f-afad-a8a3ad55f5c6","target_stable_id":"6562f624-d052-4653-b991-e18a5d3ad0fe"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"672e96ef-6bd1-4c5c-9f43-4f4f6455079d","target_stable_id":"9ed62ed0-68d5-4956-91aa-fb2b88413acc"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"93dbb391-93ea-4b4c-9a2e-f71fbe08b9af","target_stable_id":"5612dbb6-2744-40d8-b9cf-b2474a2957b2"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"ecf54cd4-cd30-4b51-a79b-264498d505a4","target_stable_id":"81607901-8501-4d4b-90dd-314959aef130"}
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"0119e4f4-f8dc-4056-a6b1-dad5a1066d2d","target_stable_id":"12678f7a-15b2-47c5-a429-b6a16f7add72"},
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"11f6fa32-98bc-48f0-8c82-6876f65b343d","target_stable_id":"0194a99f-efb1-4f83-86af-5266001e723e"},
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"3ade913f-a2bb-484b-88d5-5989e8e4faef","target_stable_id":"0c604bb4-d5ce-4d46-b91d-d1a5300fa434"},
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"a7fc1dcf-0175-4b6f-958d-edac598565c1","target_stable_id":"fb2e01a3-af7d-4f99-8b2f-aed074f7d2a4"}
 ]

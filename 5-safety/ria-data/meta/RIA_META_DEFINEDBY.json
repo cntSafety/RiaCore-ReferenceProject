@@ -1,4 +1,5 @@
 [
+{"dst_name":"SOTIF_ANALYSIS","src_name":"SOTIF_Analysis"},
 {"dst_name":"SW_ARXML","src_name":"SW_Arch_Arxml_Tiger_Detection"},
 {"dst_name":"SN_sw_req_tiger_detection","src_name":"SW_Req_Tiger_Detection"},
 {"dst_name":"SAFETY_ANALYSIS","src_name":"SW_Safety_Analysis"},

@@ -1,6 +1,7 @@
 {
   "categorizational_metamodels": [
-    "SAFETY_ANALYSIS"
+    "SAFETY_ANALYSIS",
+    "SOTIF_ANALYSIS"
   ],
   "directory": "SW_Arch_Arxml_Tiger_Detection",
   "metamodel": "SW_ARXML",

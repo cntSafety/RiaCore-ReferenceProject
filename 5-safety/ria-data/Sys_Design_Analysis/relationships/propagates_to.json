@@ -1,8 +1,6 @@
 [
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"358fce88-4455-4f50-90e8-82514289756d","target_stable_id":"bb1dfcc8-b686-4c80-a0e7-06b7f55ec711"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"8b30e9d2-c028-4350-a124-fcc5ab04333d","target_stable_id":"e0cc7305-4ee8-460e-887f-e1313296f0fb"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"90d5a6b0-849f-4aac-b06d-7111def5ea1e","target_stable_id":"be2cee3b-afdd-4521-b398-5266c759f7a1"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"a6cbf782-ada4-4cbf-8cc2-ed62cc18ed15","target_stable_id":"be2cee3b-afdd-4521-b398-5266c759f7a1"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"be2cee3b-afdd-4521-b398-5266c759f7a1","target_stable_id":"bb1dfcc8-b686-4c80-a0e7-06b7f55ec711"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"c6f773de-53a5-49ee-8609-8cb2f9cf11b7","target_stable_id":"be2cee3b-afdd-4521-b398-5266c759f7a1"}
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"4a423ea3-fb95-42de-bea4-fb112727612b","target_stable_id":"991dd6e8-319a-4a9b-b392-252fbec2f8a6"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"ba1d6fea-4cb7-4aaa-a547-73e75a57e370","target_stable_id":"4a423ea3-fb95-42de-bea4-fb112727612b"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"c2e6bbae-7547-4b5f-a11e-424121321be6","target_stable_id":"25f38bf9-40fe-46a9-a6a5-f1fed273e35a"},
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"propagates_to","source_stable_id":"d28638d7-bad4-444b-86c9-683afb6bfeee","target_stable_id":"991dd6e8-319a-4a9b-b392-252fbec2f8a6"}
 ]

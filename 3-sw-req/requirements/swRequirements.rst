@@ -15,7 +15,9 @@ These software requirements define the functional behavior of the Tiger
 Detection System software. They are **solution-agnostic** — they describe
 *what* the software must do, not *how* it is implemented. The mapping to a
 specific software architecture (e.g. AUTOSAR SWCs) is documented in the
-SW design (``5-sw-design``).
+SW architecture (``4-sw-arch-arxml``). The ``satisfies`` attributes below
+trace SW requirements to system requirements. ARXML ``DESC`` notes identify
+allocations of these SW requirements to elements and interfaces.
 
 Each SW requirement traces to one or more system requirements (``TDS_*``)
 via the ``:satisfies:`` link. The ASIL is inherited from the highest-rated
@@ -45,7 +47,7 @@ State Management
    :safety_level: B
    :satisfies: TDS_OPS_001;TDS_OPS_002;TDS_OPS_003
 
-   The software shall implement a state machine with the states: **idle**,
+   The software shall implement a state machine with the states: **idle**, **starting**,
    **running**, and **degraded**. The state machine governs whether the
    detection pipeline is active, inactive, or operating with reduced
    capability.
@@ -59,8 +61,8 @@ State Management
 
    The software shall read a start command from the operator interface.
    Upon receiving the start command while in idle state, the software shall
-   transition to running state and activate the sensor scanning pipeline
-   within ``T_startup``.
+   transition to starting, activate acquisition and monitoring, and enter running
+   only after all required inputs are qualified within ``T_startup``.
 
    On failure to start: trigger safe state (SWREQ_SM_005).
 
@@ -72,7 +74,7 @@ State Management
    :satisfies: TDS_OPS_002
 
    The software shall read a stop command from the operator interface.
-   Upon receiving the stop command while in running or degraded state, the
+   Upon receiving the stop command while in starting, running or degraded state, the
    software shall transition to idle state and deactivate the sensor
    scanning pipeline.
 
@@ -83,7 +85,7 @@ State Management
    :safety_level: B
    :satisfies: TDS_OPS_003
 
-   The software shall provide the current operational state (idle, running,
+   The software shall provide the current operational state (idle, starting, running,
    or degraded) to the operator interface for display purposes. State
    changes shall be reported within 500 ms.
 
@@ -117,7 +119,8 @@ Sensor Acquisition
    :satisfies: TDS_SEN_001
 
    The software shall acquire image frames from the camera sensor at
-   ≥ ``F_sensor``. Acquisition shall only occur while in running state.
+   ≥ ``F_sensor``. Acquisition shall operate during starting, running and degraded states
+   so monitoring can qualify startup and recovery.
 
    On acquisition failure: trigger safe state (SWREQ_SM_005).
 
@@ -129,7 +132,8 @@ Sensor Acquisition
    :satisfies: TDS_SEN_002
 
    The software shall acquire 3D point-cloud data from the LiDAR sensor
-   at ≥ ``F_sensor``. Acquisition shall only occur while in running state.
+   at ≥ ``F_sensor``. Acquisition shall operate during starting, running and degraded states
+   so monitoring can qualify startup and recovery.
 
    On acquisition failure: trigger safe state (SWREQ_SM_005).
 
@@ -141,7 +145,8 @@ Sensor Acquisition
    :satisfies: TDS_SEN_003
 
    The software shall acquire thermal image data from the infrared sensor
-   at ≥ ``F_sensor``. Acquisition shall only occur while in running state.
+   at ≥ ``F_sensor``. Acquisition shall operate during starting, running and degraded states
+   so monitoring can qualify startup and recovery.
    The infrared channel shall be the primary detection source at night.
 
    On acquisition failure: trigger safe state (SWREQ_SM_005).
@@ -154,8 +159,10 @@ Sensor Acquisition
    :satisfies: TDS_SEN_004
 
    The software shall fuse data from camera, LiDAR, and infrared sensors
-   into a unified detection input. The fusion shall achieve a lower
-   false-negative rate than any single channel alone.
+   into a unified detection input. Fusion shall qualify status validity and
+   freshness, preserve modality identity, and output unclassified hypotheses
+   plus aligned sample/feature handles. Classification follows fusion;
+   verify complete-pipeline performance rather than assuming a diversity gain.
 
 .. req:: Sensor Health Monitoring
    :id: SWREQ_SEN_005
@@ -170,6 +177,27 @@ Sensor Acquisition
    transition (SWREQ_SM_005).
 
    All three channels are required for specified detection performance.
+
+
+.. req:: Thermal Evidence Evaluation
+   :id: SWREQ_SEN_007
+   :status: open
+   :tags: sensor;thermal;fusion;SOTIF
+   :safety_level: B
+   :satisfies: TDS_SEN_007
+
+   The software shall qualify the LWIR frame and channel-status information,
+   align usable thermal observations with RGB and lidar observations, and
+   deliver the combined evidence to tiger classification. Camouflage and
+   partial concealment shall be included in the specified detection-performance
+   and timing verification. Stale, invalid or insufficient thermal evidence
+   shall not be treated as confirmation that a tiger is absent; capability
+   limitations shall feed the unavailable-state decision.
+
+   This is the software contribution to SOTIF runtime measure ``SOTIF_RT_001``.
+   InfraredAcquisition supplies thermal observations and status, Fusion
+   qualifies and aligns the evidence, and TigerDetectionApp performs final
+   classification and the operational-state decision.
 
 
 Detection Algorithm
@@ -319,8 +347,9 @@ ODD Monitoring
    :safety_level: B
    :satisfies: TDS_ODD_003
 
-   When conditions return within ODD and remain stable for ≥ 10 s, the
-   software shall return to running state and clear the ODD warning.
+   Return to running only when conditions and all three required sensor
+   channels are qualified and remain stable for ``T_recovery_stable``.
+   Unknown, invalid or stale status cannot authorize recovery.
 
 .. req:: Rain Intensity Detection
    :id: SWREQ_ODD_004
@@ -418,3 +447,19 @@ Full Traceability Flow
 .. needflow::
    :filter: id.startswith("SWREQ") or is_external
    :link_types: satisfies
+
+
+.. req:: Modality-Specific Capability Reports
+   :id: SWREQ_SEN_006
+   :status: open
+   :tags: sensor;status;architecture
+   :safety_level: B
+   :satisfies: TDS_SEN_005;TDS_SEN_006;TDS_ODD_006
+
+   Publish separate RGB, infrared and lidar capability reports containing
+   validity, timestamp, acquisition validity and qualified blockage estimates.
+   Infrared additionally reports calibration and contrast-estimate validity.
+   Treat reports older than ``T_status_max_age`` or unknown estimates as
+   insufficient evidence of capability. Status does not establish classifier
+   generalization or guaranteed target recognition. Determine explicitly which
+   information is measured by hardware and which is estimated by host software.

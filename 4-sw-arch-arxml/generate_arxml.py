@@ -4,12 +4,13 @@
 The lists in this file define the test architecture and the generator writes a
 split AUTOSAR_00046 project.
 
-The model is a small camera + lidar perception stack: sensor driver layers feed
-a fusion middleware which produces a fused object list for the detection app and
-the warning manager. The port interfaces are organised into abstraction levels —
-per-sensor detection interfaces (camera / lidar), sensor status/self-report
-interfaces, and the fused object-level interface — so the architecture reads like
-a realistic sensor-to-fusion boundary rather than generic frame plumbing.
+RGB, thermal infrared, and lidar have separate acquisition and capability reports.
+The acquisition SWCs include host-side channel-quality assessment; embedded
+blockage or object detection is not assumed. Fusion produces aligned data and
+unclassified object hypotheses. TigerDetectionApp owns tiger classification,
+temporal confirmation, and operational state. DESC notes hold SW
+requirement allocations. System requirement links remain in the SW RST
+requirements' satisfies attributes.
 
 Usage:
     python3 -m pip install autosar-data
@@ -19,6 +20,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import sys
 import uuid
@@ -57,6 +59,9 @@ INTERFACES = {
         ("bboxW", "uint32"),
         ("bboxH", "uint32"),
         ("timestampMs", "uint32"),
+        ("bearingDeg", "float32"),
+        ("distanceM", "float32"),
+        ("resultValid", "boolean"),
     ),
     "SRI_WarningCommand": (
         ("active", "boolean"),
@@ -77,17 +82,36 @@ INTERFACES = {
     ),
     # ── Layered perception interfaces ────────────────────────────────────────
     # The interfaces below organise the sensor->fusion boundary into three
-    # abstraction levels: per-sensor DETECTION level (camera / lidar, close to
-    # the measurement), sensor self-representation (STATUS), and the fused,
-    # sensor-agnostic OBJECT level produced by the fusion unit.
+    # abstraction levels: per-sensor measurements (RGB / LWIR frames and lidar
+    # scan summaries), channel capability (STATUS), and the fused,
+    # sensor-agnostic unclassified OBJECT hypotheses produced by fusion.
     #
     # Camera self-representation: how healthy the camera path is this cycle.
     # A degraded/blocked camera is the classic source of a perception
     # insufficiency, so this gives that concern a real interface to attach to.
     "SRI_CameraStatus": (
+        ("statusValid", "boolean"),   # false means unknown, not healthy
+        ("statusTimestampMs", "uint32"),
+        ("dataValid", "boolean"),     # acquisition validity, not recognition coverage
+        ("blockageEstimateValid", "boolean"),
         ("blockageLevel", "float32"),   # 0.0 clear … 1.0 fully blocked
         ("degraded", "boolean"),
         ("fovValid", "boolean"),        # field-of-view within spec
+        ("latencyMs", "uint16"),
+    ),
+    # Separate LWIR channel. These are software estimates plus device diagnostics,
+    # not a promise that every infrared camera supplies a built-in detector.
+    "SRI_InfraredStatus": (
+        ("statusValid", "boolean"),
+        ("statusTimestampMs", "uint32"),
+        ("dataValid", "boolean"),
+        ("blockageEstimateValid", "boolean"),
+        ("blockageLevel", "float32"),
+        ("degraded", "boolean"),
+        ("fovValid", "boolean"),
+        ("calibrationValid", "boolean"),
+        ("contrastEstimateValid", "boolean"),
+        ("contrastAdequate", "boolean"),
         ("latencyMs", "uint16"),
     ),
     # Lidar detection level: a summary of the current scan. Scalar fields stand
@@ -106,15 +130,20 @@ INTERFACES = {
     ),
     # Lidar self-representation.
     "SRI_LidarStatus": (
+        ("statusValid", "boolean"),
+        ("statusTimestampMs", "uint32"),
+        ("dataValid", "boolean"),
+        ("blockageEstimateValid", "boolean"),
         ("blockageLevel", "float32"),
         ("degraded", "boolean"),
         ("pointDensityOk", "boolean"),
+        ("fovValid", "boolean"),
         ("latencyMs", "uint16"),
     ),
     # Object level: the fused object list the fusion unit hands to the
     # application. objectCount conveys the list length; the remaining scalar
     # fields describe the primary fused object (kinematics, dimensions,
-    # classification and its existence probability) in the fusion reference
+    # and its existence probability) in the fusion reference
     # frame (a demo simplification of a per-object list).
     "SRI_ObjectList": (
         ("cycleId", "uint32"),
@@ -129,41 +158,60 @@ INTERFACES = {
         ("length_m", "float32"),
         ("width_m", "float32"),
         ("height_m", "float32"),
-        ("classId", "uint8"),
-        ("classConfidence", "float32"),
         ("existenceProb", "float32"),
         ("measTimestampMs", "uint32"),
+    ),
+    "SRI_PerceptionCapability": (
+        ("statusValid", "boolean"),
+        ("detectionAvailable", "boolean"),
+        ("oddWithinLimits", "boolean"),
+        ("reasonCode", "uint8"),
+        ("statusTimestampMs", "uint32"),
+    ),
+    "SRI_ControlCommand": (("command", "uint8"), ("sequenceCounter", "uint32")),
+    "SRI_SystemStatus": (
+        ("state", "uint8"),  # 0 idle, 1 starting, 2 running, 3 degraded
+        ("detectionAvailable", "boolean"),
+        ("reasonCode", "uint8"),
+        ("statusTimestampMs", "uint32"),
     ),
 }
 
 COMPONENTS = {
-    "CameraDriverLayer": {
+    "CameraAcquisition": {
         "provides": (
             ("rgbDataOut", "SRI_RGBFrameReady"),
-            ("irDataOut", "SRI_IRFrameReady"),
             # Camera self-representation (blockage / degradation / FoV validity).
             ("cameraStatusOut", "SRI_CameraStatus"),
         ),
         "requires": (),
     },
+    "InfraredAcquisition": {
+        "provides": (
+            ("irDataOut", "SRI_IRFrameReady"),
+            ("infraredStatusOut", "SRI_InfraredStatus"),
+        ),
+        "requires": (),
+    },
     # Dedicated lidar sensor path (detection level + self-representation),
     # mirroring the LidarSensor already present in the system-design stage.
-    "LidarDriverLayer": {
+    "LidarAcquisition": {
         "provides": (
             ("lidarScanOut", "SRI_LidarScan"),
             ("lidarStatusOut", "SRI_LidarStatus"),
         ),
         "requires": (),
     },
-    "SensorDriverLayer": {
+    "AmbientSensorsDriver": {
         "provides": (("lightDataOut", "SRI_LightLevel"), ("tempDataOut", "SRI_AmbientTemp")),
         "requires": (("lightHWIn", "SRI_LightLevel"), ("tempHWIn", "SRI_AmbientTemp")),
     },
-    "SensorFusionMiddleware": {
+    "Fusion": {
         "provides": (
             ("fusedOut", "SRI_FusedDataReady"),
             # Object-level output: the fused object list handed to the app.
             ("objectListOut", "SRI_ObjectList"),
+            ("capabilityOut", "SRI_PerceptionCapability"),
         ),
         "requires": (
             ("rgbIn", "SRI_RGBFrameReady"),
@@ -172,6 +220,7 @@ COMPONENTS = {
             ("lightIn", "SRI_LightLevel"),
             ("tempIn", "SRI_AmbientTemp"),
             ("cameraStatusIn", "SRI_CameraStatus"),
+            ("infraredStatusIn", "SRI_InfraredStatus"),
             ("lidarStatusIn", "SRI_LidarStatus"),
             ("trackingHintIn", "SRI_TrackingHint"),
         ),
@@ -180,36 +229,90 @@ COMPONENTS = {
         "provides": (
             ("detectionOut", "SRI_DetectionResult"),
             ("trackingHintOut", "SRI_TrackingHint"),
+            ("systemStatusOut", "SRI_SystemStatus"),
         ),
         "requires": (
             ("fusedDataIn", "SRI_FusedDataReady"),
             ("objectListIn", "SRI_ObjectList"),
+            ("capabilityIn", "SRI_PerceptionCapability"),
+            ("controlIn", "SRI_ControlCommand"),
         ),
     },
     "WarningManager": {
         "provides": (("acousticOut", "SRI_WarningCommand"), ("visualOut", "SRI_WarningCommand")),
-        "requires": (("detectionIn", "SRI_DetectionResult"),),
+        "requires": (("detectionIn", "SRI_DetectionResult"), ("systemStatusIn", "SRI_SystemStatus")),
+    },
+    "OperatorInterface": {
+        "provides": (("controlOut", "SRI_ControlCommand"),),
+        "requires": (("systemStatusIn", "SRI_SystemStatus"),),
     },
 }
 
+# Software requirement allocations.
+# Only SW requirement IDs belong here; their system parents are maintained by
+# :satisfies: in 3-sw-req/requirements/swRequirements.rst.
+COMPONENT_REQUIREMENTS = {
+    "CameraAcquisition": ("SWREQ_SEN_001", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_005", "SWREQ_ODD_006"),
+    "InfraredAcquisition": ("SWREQ_SEN_003", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_006", "SWREQ_SEN_007"),
+    "LidarAcquisition": ("SWREQ_SEN_002", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_004", "SWREQ_ODD_006"),
+    "AmbientSensorsDriver": ("SWREQ_ODD_001",),
+    "Fusion": ("SWREQ_SEN_004", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ALG_002",
+                               "SWREQ_ODD_001", "SWREQ_ODD_004", "SWREQ_ODD_005", "SWREQ_ODD_006",
+                               "SWREQ_ENV_001", "SWREQ_ENV_002", "SWREQ_ENV_004", "SWREQ_SEN_007"),
+    "TigerDetectionApp": ("SWREQ_ALG_001", "SWREQ_ALG_002", "SWREQ_ALG_003", "SWREQ_ALG_004", "SWREQ_ALG_005",
+                          "SWREQ_SM_001", "SWREQ_SM_002", "SWREQ_SM_003", "SWREQ_SM_004", "SWREQ_SM_005",
+                          "SWREQ_ODD_002", "SWREQ_ODD_003", "SWREQ_ENV_001", "SWREQ_ENV_002", "SWREQ_ENV_003", "SWREQ_ENV_004", "SWREQ_SEN_007"),
+    "WarningManager": ("SWREQ_WRN_001", "SWREQ_WRN_002", "SWREQ_WRN_003", "SWREQ_WRN_004", "SWREQ_WRN_005",
+                       "SWREQ_SM_005", "SWREQ_ODD_002"),
+    "OperatorInterface": ("SWREQ_SM_002", "SWREQ_SM_003", "SWREQ_SM_004", "SWREQ_SM_005", "SWREQ_ODD_002"),
+}
+
+# An interface supports these requirements through its data contract. Providing
+# or consuming it alone does not fulfill the complete behavioral requirement.
+INTERFACE_REQUIREMENTS = {
+    "SRI_LightLevel": ("SWREQ_ODD_001",),
+    "SRI_RgbIn": ("SWREQ_SEN_001",),
+    "SRI_RGBFrameReady": ("SWREQ_SEN_001", "SWREQ_SEN_004"),
+    "SRI_IRFrameReady": ("SWREQ_SEN_003", "SWREQ_SEN_004", "SWREQ_SEN_007"),
+    "SRI_AmbientTemp": ("SWREQ_ODD_001",),
+    "SRI_FusedDataReady": ("SWREQ_SEN_004", "SWREQ_ALG_001", "SWREQ_SEN_007"),
+    "SRI_DetectionResult": ("SWREQ_ALG_005", "SWREQ_WRN_001", "SWREQ_WRN_004", "SWREQ_SEN_007"),
+    "SRI_WarningCommand": ("SWREQ_WRN_001", "SWREQ_WRN_002", "SWREQ_WRN_003", "SWREQ_WRN_004", "SWREQ_WRN_005",
+                           "SWREQ_SM_005", "SWREQ_ODD_002"),
+    "SRI_TrackingHint": ("SWREQ_ALG_004", "SWREQ_SEN_004"),
+    "SRI_CameraStatus": ("SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_005", "SWREQ_ODD_006"),
+    "SRI_InfraredStatus": ("SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_006", "SWREQ_SEN_007"),
+    "SRI_LidarScan": ("SWREQ_SEN_002", "SWREQ_SEN_004"),
+    "SRI_LidarStatus": ("SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_004", "SWREQ_ODD_006"),
+    "SRI_ObjectList": ("SWREQ_SEN_004", "SWREQ_ALG_001", "SWREQ_SEN_007"),
+    "SRI_PerceptionCapability": ("SWREQ_SEN_005", "SWREQ_ODD_001", "SWREQ_ODD_003", "SWREQ_SM_005", "SWREQ_SEN_007"),
+    "SRI_ControlCommand": ("SWREQ_SM_002", "SWREQ_SM_003"),
+    "SRI_SystemStatus": ("SWREQ_SM_004", "SWREQ_SM_005", "SWREQ_ODD_002", "SWREQ_SEN_007"),
+}
+
 CONNECTIONS = (
-    ("CameraDriverLayer", "rgbDataOut", "SensorFusionMiddleware", "rgbIn"),
-    ("CameraDriverLayer", "irDataOut", "SensorFusionMiddleware", "irIn"),
+    ("CameraAcquisition", "rgbDataOut", "Fusion", "rgbIn"),
+    ("InfraredAcquisition", "irDataOut", "Fusion", "irIn"),
+    ("InfraredAcquisition", "infraredStatusOut", "Fusion", "infraredStatusIn"),
     # Camera status into fusion (health-aware fusion / degradation handling).
-    ("CameraDriverLayer", "cameraStatusOut", "SensorFusionMiddleware", "cameraStatusIn"),
+    ("CameraAcquisition", "cameraStatusOut", "Fusion", "cameraStatusIn"),
     # Lidar detection + status into fusion — camera and lidar form a diverse
     # redundant pair at the sensor->fusion boundary.
-    ("LidarDriverLayer", "lidarScanOut", "SensorFusionMiddleware", "lidarIn"),
-    ("LidarDriverLayer", "lidarStatusOut", "SensorFusionMiddleware", "lidarStatusIn"),
-    ("SensorDriverLayer", "lightDataOut", "SensorFusionMiddleware", "lightIn"),
-    ("SensorDriverLayer", "tempDataOut", "SensorFusionMiddleware", "tempIn"),
-    ("SensorFusionMiddleware", "fusedOut", "TigerDetectionApp", "fusedDataIn"),
+    ("LidarAcquisition", "lidarScanOut", "Fusion", "lidarIn"),
+    ("LidarAcquisition", "lidarStatusOut", "Fusion", "lidarStatusIn"),
+    ("AmbientSensorsDriver", "lightDataOut", "Fusion", "lightIn"),
+    ("AmbientSensorsDriver", "tempDataOut", "Fusion", "tempIn"),
+    ("Fusion", "fusedOut", "TigerDetectionApp", "fusedDataIn"),
     # Object-level output into the application.
-    ("SensorFusionMiddleware", "objectListOut", "TigerDetectionApp", "objectListIn"),
+    ("Fusion", "objectListOut", "TigerDetectionApp", "objectListIn"),
+    ("Fusion", "capabilityOut", "TigerDetectionApp", "capabilityIn"),
+    ("OperatorInterface", "controlOut", "TigerDetectionApp", "controlIn"),
+    ("TigerDetectionApp", "systemStatusOut", "OperatorInterface", "systemStatusIn"),
+    ("TigerDetectionApp", "systemStatusOut", "WarningManager", "systemStatusIn"),
     ("TigerDetectionApp", "detectionOut", "WarningManager", "detectionIn"),
     # Feedback edge: detector's tracking hint flows back into fusion, closing
-    # the loop SensorFusionMiddleware <-> TigerDetectionApp.
-    ("TigerDetectionApp", "trackingHintOut", "SensorFusionMiddleware", "trackingHintIn"),
+    # the loop Fusion <-> TigerDetectionApp.
+    ("TigerDetectionApp", "trackingHintOut", "Fusion", "trackingHintIn"),
 )
 
 
@@ -239,7 +342,25 @@ def only_in_file(element: Element, selected_file, all_files) -> None:
             element.remove_from_file(arxml_file)
 
 
+def requirement_note(element: Element, requirements: tuple[str, ...]) -> None:
+    paragraph = element.create_sub_element("DESC").create_sub_element("L-2")
+    paragraph.set_attribute("L", "EN")
+    paragraph.character_data = f"SW requirements: {', '.join(requirements)}."
+
+
+def validate_requirement_allocations() -> None:
+    source = (PROJECT_DIRECTORY.parent / "3-sw-req/requirements/swRequirements.rst").read_text(encoding="utf-8")
+    known = set(re.findall(r"^\s*:id:\s*(SWREQ_[A-Z0-9_]+)\s*$", source, re.MULTILINE))
+    for definitions, allocations in ((COMPONENTS, COMPONENT_REQUIREMENTS), (INTERFACES, INTERFACE_REQUIREMENTS)):
+        if set(definitions) != set(allocations):
+            raise ValueError("Requirement allocation keys do not match the architecture definition")
+        for element, requirements in allocations.items():
+            if not requirements or len(set(requirements)) != len(requirements) or not set(requirements) <= known:
+                raise ValueError(f"Invalid SW requirement allocation for {element}: {requirements}")
+
+
 def build_model(output: Path) -> AutosarModel:
+    validate_requirement_allocations()
     output.mkdir(parents=True, exist_ok=True)
     model = AutosarModel()
     files = {
@@ -273,6 +394,7 @@ def build_model(output: Path) -> AutosarModel:
             interface_name,
             f"interface:{interface_name}",
         )
+        requirement_note(interface, INTERFACE_REQUIREMENTS[interface_name])
         variables = interface.create_sub_element("DATA-ELEMENTS")
         for data_element_name, type_name in data_elements:
             variable = named(
@@ -296,6 +418,7 @@ def build_model(output: Path) -> AutosarModel:
             component_name,
             f"swc:{component_name}",
         )
+        requirement_note(swc, COMPONENT_REQUIREMENTS[component_name])
         swc_ports = swc.create_sub_element("PORTS")
         for port_name, interface_name in definition["provides"]:
             port = named(
@@ -304,10 +427,12 @@ def build_model(output: Path) -> AutosarModel:
                 port_name,
                 f"swc:{component_name}:pport:{port_name}",
             )
+            requirement_note(port, INTERFACE_REQUIREMENTS[interface_name])
             reference(port, "PROVIDED-INTERFACE-TREF", interfaces[interface_name])
             ports[(component_name, port_name)] = port
         for port_name, interface_name in definition["requires"]:
             port = named(swc_ports, "R-PORT-PROTOTYPE", port_name, f"swc:{component_name}:rport:{port_name}")
+            requirement_note(port, INTERFACE_REQUIREMENTS[interface_name])
             reference(port, "REQUIRED-INTERFACE-TREF", interfaces[interface_name])
             ports[(component_name, port_name)] = port
         swcs[component_name] = swc

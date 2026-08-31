@@ -2,15 +2,15 @@ package TigerDetectionSystemExample {
     private import ScalarValues::*;
 
     doc /*
-        Architecture model for the Tiger Detection System (initial baseline).
-        This model reflects only the initial system requirements in
-        ../1-sys-req/requirements/tigerDetectionReq.rst: detect a tiger and warn
-        the operator, with start/stop control. The safe-state, sensor-degradation
-        and operating-condition-monitoring functions are NOT modelled here — they
-        are improvements raised as tasks by the system-level safety analysis and
-        will be added once the requirements are updated. Documentation items below
-        cite the corresponding Sphinx-Needs TDS_* IDs; use those IDs to navigate
-        the rendered requirements rather than duplicating requirement text here.
+        Monitored RGB + LWIR + lidar reference architecture. Sensor hardware
+        supplies measurements and available device diagnostics; channel-quality
+        and blockage estimation are host software functions, not guaranteed
+        embedded camera features. Fusion aligns data and produces unclassified
+        hypotheses; ScanForTiger owns tiger classification. Requirement references identify the system contracts; SW requirements
+        trace to them through the RST satisfies attributes.
+        This is a behavioral/interface specification, not executable perception
+        software or validated safety evidence. Healthy status does not establish
+        SOTIF performance for every pose, target size, or thermal contrast.
     */
 
     item def TigerDetection {
@@ -23,6 +23,8 @@ package TigerDetectionSystemExample {
         attribute confidence : Real;
         attribute bearing    : Real;
         attribute distance   : Real;
+        attribute resultValid : Boolean;
+        attribute timestampMs : Integer;
     }
 
     abstract item def ControlCommand;
@@ -33,9 +35,12 @@ package TigerDetectionSystemExample {
         doc /*
             Raw output of a single sensor modality, fed to the fusion pipeline.
             The valid flag indicates the sensor produced usable data this cycle
-            (within its operating conditions). Requirement: TDS_SEN_004.
+            (acquisition integrity only, not guaranteed recognition capability).
+            Requirement: TDS_SEN_004.
         */
         attribute valid : Boolean;
+        attribute timestampMs : Integer;
+        attribute sampleId : Integer;
     }
 
     item def CameraFrame :> SensorData {
@@ -75,6 +80,153 @@ package TigerDetectionSystemExample {
         out item thermal : InfraredFrame;
     }
 
+    item def DeviceDiagnostics {
+        doc /* Device diagnostics are availability-qualified; unknown is not healthy. */
+        attribute diagnosticsValid : Boolean;
+        attribute deviceHealthy : Boolean;
+        attribute calibrationValid : Boolean;
+    }
+    item def SensorCapability {
+        doc /* Host estimates; validity and freshness must be checked before use. */
+        attribute statusValid : Boolean;
+        attribute statusTimestampMs : Integer;
+        attribute dataValid : Boolean;
+        attribute blockageEstimateValid : Boolean;
+        attribute blockageLevel : Real;
+        attribute degraded : Boolean;
+        attribute fovValid : Boolean;
+        attribute latencyMs : Integer;
+    }
+    item def CameraCapability :> SensorCapability;
+    item def InfraredCapability :> SensorCapability {
+        attribute calibrationValid : Boolean;
+        attribute contrastEstimateValid : Boolean;
+        attribute contrastAdequate : Boolean;
+    }
+    item def LidarCapability :> SensorCapability {
+        attribute pointDensityOk : Boolean;
+    }
+    item def AmbientConditions {
+        attribute illuminanceLux : Real;
+        attribute temperatureDegC : Real;
+        attribute humidityPercent : Real;
+        attribute valid : Boolean;
+    }
+    item def FusedPerceptionInput {
+        doc /* Handle to aligned multimodal samples/features, not a tiger verdict. */
+        attribute fusedDataId : Integer;
+        attribute syncTimestampMs : Integer;
+    }
+    item def ObjectHypotheses {
+        doc /* Unclassified fused object hypotheses. Classifier ownership remains in ScanForTiger. */
+        attribute objectCount : Integer;
+        attribute primaryObjectId : Integer;
+        attribute existenceProb : Real;
+    }
+    item def TrackingHint {
+        doc /* Previous-cycle ROI hint; cannot suppress full-scene reacquisition. */
+        attribute roiValid : Boolean;
+        attribute lastDetectionId : Integer;
+        attribute trackConfidence : Real;
+    }
+    item def PerceptionCapability {
+        attribute statusValid : Boolean;
+        attribute detectionAvailable : Boolean;
+        attribute oddWithinLimits : Boolean;
+        attribute reasonCode : Integer;
+        attribute statusTimestampMs : Integer;
+    }
+    enum def OperationalState { idle; starting; running; degraded; }
+    item def SystemStatus {
+        attribute mode : OperationalState;
+        attribute detectionAvailable : Boolean;
+        attribute reasonCode : Integer;
+        attribute statusTimestampMs : Integer;
+    }
+    abstract item def CapabilityEvent;
+    item def CapabilityAvailable :> CapabilityEvent;
+    item def CapabilityUnavailable :> CapabilityEvent;
+    item def RecoveryQualified :> CapabilityEvent;
+    item def StartupTimeout :> CapabilityEvent;
+    port def DiagnosticPort { out item diagnostics : DeviceDiagnostics; }
+    port def CapabilityEventPort { out item notification : CapabilityEvent; }
+    port def SystemStatusPort { out item status : SystemStatus; }
+    port def AmbientConditionsPort { out item conditions : AmbientConditions; }
+
+    action def ReadDeviceDiagnostics { out diagnostics : DeviceDiagnostics; }
+    action def MeasureAmbientConditions { out conditions : AmbientConditions; }
+    action def AssessCameraCapability {
+        doc /* RGB acquisition freshness, saturation, blockage and usable-FoV estimates. TDS_SEN_005, TDS_ODD_005, TDS_ODD_006. */
+        in sampleInput : CameraFrame;
+        in diagnostics : DeviceDiagnostics;
+        out status : CameraCapability;
+    }
+    action def AssessInfraredCapability {
+        doc /* LWIR calibration, freshness, blockage and contrast estimates. Thermal-specific thresholds require validation; no perfect blockage observability is assumed. TDS_SEN_005, TDS_ODD_006. */
+        in sampleInput : InfraredFrame;
+        in diagnostics : DeviceDiagnostics;
+        out status : InfraredCapability;
+    }
+    action def AssessLidarCapability {
+        doc /* Lidar scan freshness, blockage and point-density estimates. */
+        in cloud : LidarPointCloud;
+        in diagnostics : DeviceDiagnostics;
+        out status : LidarCapability;
+    }
+    action def FuseSensorData {
+        doc /* Aligns samples/features, qualifies each input and produces unclassified hypotheses. Invalid/unknown status is never treated as healthy. TDS_SEN_004. */
+        in cameraFrame : CameraFrame;
+        in lidarCloud : LidarPointCloud;
+        in thermalFrame : InfraredFrame;
+        in cameraStatus : CameraCapability;
+        in infraredStatus : InfraredCapability;
+        in lidarStatus : LidarCapability;
+        in trackingHint : TrackingHint;
+        out fusedData : FusedPerceptionInput;
+        out objects : ObjectHypotheses;
+    }
+    action def AssessOperatingCapability {
+        doc /* Combines channel status and environment evidence into current capability. Monitoring continues during startup and degraded mode. Startup/recovery timers belong to the lifecycle controller. TDS_SEN_005, TDS_ODD_001 through TDS_ODD_006. */
+        in cameraFrame : CameraFrame;
+        in lidarCloud : LidarPointCloud;
+        in thermalFrame : InfraredFrame;
+        in cameraStatus : CameraCapability;
+        in infraredStatus : InfraredCapability;
+        in lidarStatus : LidarCapability;
+        in ambient : AmbientConditions;
+        out capability : PerceptionCapability;
+    }
+    action def QualifyCapabilityEvents {
+        doc /* The lifecycle controller uses current operational state, state-entry timestamp and capability history. Produce CapabilityAvailable after startup qualification; CapabilityUnavailable on loss; RecoveryQualified only after T_recovery_stable; StartupTimeout after T_startup without qualification. */
+        in capability : PerceptionCapability;
+        in currentState : SystemStatus;
+        out notification : CapabilityEvent;
+    }
+    action def PresentSystemStatus {
+        doc /* Displays starting, running, idle or SYSTEM NOT OPERATIONAL with reason. TDS_OPS_003, TDS_SAF_006. */
+        in status : SystemStatus;
+    }
+    action def IndicateUnavailable {
+        doc /* Distinct periodic unavailable alert for starting/degraded; never indicates that detection is operational. TDS_SAF_006. */
+        in status : SystemStatus;
+    }
+    action def ReportIdle {
+        doc /* Publish mode=idle, detectionAvailable=false, current reason and timestamp. */
+        out status : SystemStatus;
+    }
+    action def ReportStarting {
+        doc /* Publish mode=starting, detectionAvailable=false, current reason and timestamp. */
+        out status : SystemStatus;
+    }
+    action def ReportRunning {
+        doc /* Publish mode=running, detectionAvailable=true, current reason and timestamp. */
+        out status : SystemStatus;
+    }
+    action def ReportDegraded {
+        doc /* Publish mode=degraded, detectionAvailable=false, current reason and timestamp. */
+        out status : SystemStatus;
+    }
+
     action def StartTigerDetection {
         doc /* Produces the start command initiated by the operator. Requirement: TDS_OPS_001. */
         out cmd : StartCommand;
@@ -112,17 +264,12 @@ package TigerDetectionSystemExample {
     }
 
     action def ScanForTiger {
-        doc /*
-            Fuses the camera, LiDAR, and infrared inputs and classifies the
-            result, producing a TigerDetection. The fused pipeline achieves a
-            lower missed-detection rate than any single sensor alone.
-            Requirements: TDS_SAF_003, TDS_SAF_004, TDS_SAF_005, TDS_SEN_004,
-            TDS_ALG_001, TDS_ALG_002, TDS_ALG_003, TDS_ALG_004.
-        */
-        in  cameraFrame  : CameraFrame;
-        in  lidarCloud   : LidarPointCloud;
-        in  thermalFrame : InfraredFrame;
-        out result       : TigerDetection;
+        doc /* Performs tiger/non-tiger classification AFTER fusion and temporal confirmation, using both fused features and unclassified object hypotheses. It qualifies the result using current capability; a negative classification or healthy sensor status does not prove SOTIF coverage. Requirements: TDS_ALG_001 through TDS_ALG_004, TDS_SAF_003 through TDS_SAF_005. */
+        in fusedData : FusedPerceptionInput;
+        in objects : ObjectHypotheses;
+        in capability : PerceptionCapability;
+        out result : TigerDetection;
+        out hint : TrackingHint;
     }
 
     action def ReceiveControl {
@@ -157,15 +304,20 @@ package TigerDetectionSystemExample {
     }
 
     state def PerceptionStateMachine {
-        doc /*
-            PerceptionSystem lifecycle: idle until StartCommand; scanning
-            until StopCommand. Requirements: TDS_OPS_001, TDS_OPS_002.
-        */
+        doc /* Abstract perception lifecycle. Degraded means detection is not credited, not an accepted reduced-sensor operating mode. */
         entry; then idle;
         state idle;
-            transition first idle accept StartCommand then scanning;
+        transition first idle accept StartCommand then starting;
+        state starting;
+        transition first starting accept CapabilityAvailable then scanning;
+        transition first starting accept StartupTimeout then degraded;
+        transition first starting accept StopCommand then idle;
         state scanning;
-            transition first scanning accept StopCommand then idle;
+        transition first scanning accept CapabilityUnavailable then degraded;
+        transition first scanning accept StopCommand then idle;
+        state degraded;
+        transition first degraded accept RecoveryQualified then scanning;
+        transition first degraded accept StopCommand then idle;
     }
 
     state def WarningStateMachine {
@@ -191,6 +343,9 @@ package TigerDetectionSystemExample {
         attribute startButtonPressed : Boolean = false;
         attribute stopButtonPressed  : Boolean = false;
         port controlOut : ControlOutputPort;
+        port systemStatusIn : ~SystemStatusPort;
+        perform action presentStatus : PresentSystemStatus;
+        flow stateDisplay from systemStatusIn.status to presentStatus.status;
         perform action startSystem : StartTigerDetection;
         perform action stopSystem  : StopTigerDetection;
         flow startCmd from startSystem.cmd to controlOut.command;
@@ -219,6 +374,9 @@ package TigerDetectionSystemExample {
         attribute frameRate : Real = 30;
         attribute maxRange  : Real = 65;
         port imageOut : CameraOutputPort;
+        port diagnosticOut : DiagnosticPort;
+        perform action readDiagnostics : ReadDeviceDiagnostics;
+        flow diagnosticsFlow from readDiagnostics.diagnostics to diagnosticOut.diagnostics;
         perform action capture : CaptureImage;
         flow imageFlow from capture.imageFrame to imageOut.imageFrame;
     }
@@ -231,6 +389,9 @@ package TigerDetectionSystemExample {
         attribute frameRate : Real = 30;
         attribute maxRange  : Real = 65;
         port cloudOut : LidarOutputPort;
+        port diagnosticOut : DiagnosticPort;
+        perform action readDiagnostics : ReadDeviceDiagnostics;
+        flow diagnosticsFlow from readDiagnostics.diagnostics to diagnosticOut.diagnostics;
         perform action scanLidar : ScanLidar;
         flow cloudFlow from scanLidar.cloud to cloudOut.cloud;
     }
@@ -243,29 +404,66 @@ package TigerDetectionSystemExample {
         attribute frameRate : Real = 30;
         attribute maxRange  : Real = 65;
         port thermalOut : InfraredOutputPort;
+        port diagnosticOut : DiagnosticPort;
+        perform action readDiagnostics : ReadDeviceDiagnostics;
+        flow diagnosticsFlow from readDiagnostics.diagnostics to diagnosticOut.diagnostics;
         perform action captureThermal : CaptureThermal;
         flow thermalFlow from captureThermal.thermal to thermalOut.thermal;
     }
 
-    part def ComputeUnit {
-        doc /*
-            Perception compute unit (processor + memory). Fuses the camera,
-            LiDAR, and infrared inputs and runs the detection/classification
-            pipeline, producing the TigerDetection result. A random hardware
-            fault here corrupts or halts the detection pipeline.
-            Requirements: TDS_SEN_004, TDS_ALG_001, TDS_ALG_002, TDS_ALG_003,
-            TDS_ALG_004.
-        */
-        port cameraIn     : ~CameraOutputPort;
-        port lidarIn      : ~LidarOutputPort;
-        port infraredIn   : ~InfraredOutputPort;
-        port detectionOut : DetectionOutputPort;
+    part def AmbientSensor {
+        doc /* Light and temperature/humidity acquisition. */
+        port ambientOut : AmbientConditionsPort;
+        perform action measure : MeasureAmbientConditions;
+        flow ambientFlow from measure.conditions to ambientOut.conditions;
+    }
 
+    part def ComputeUnit {
+        doc /* Host processor: separate RGB/LWIR/lidar acquisition and quality assessment, then fusion and tiger classification. Camera hardware is not assumed to execute host algorithms. */
+        port cameraIn : ~CameraOutputPort;
+        port lidarIn : ~LidarOutputPort;
+        port infraredIn : ~InfraredOutputPort;
+        port cameraDiagnosticIn : ~DiagnosticPort;
+        port infraredDiagnosticIn : ~DiagnosticPort;
+        port lidarDiagnosticIn : ~DiagnosticPort;
+        port ambientIn : ~AmbientConditionsPort;
+        port detectionOut : DetectionOutputPort;
+        port capabilityEventOut : CapabilityEventPort;
+        port systemStateIn : ~SystemStatusPort;
+        perform action assessCamera : AssessCameraCapability;
+        perform action assessInfrared : AssessInfraredCapability;
+        perform action assessLidar : AssessLidarCapability;
+        perform action fuse : FuseSensorData;
+        perform action monitor : AssessOperatingCapability;
+        perform action qualifyLifecycle : QualifyCapabilityEvents;
         perform action scan : ScanForTiger;
-        flow cameraFeed    from cameraIn.imageFrame  to scan.cameraFrame;
-        flow lidarFeed     from lidarIn.cloud        to scan.lidarCloud;
-        flow infraredFeed  from infraredIn.thermal   to scan.thermalFrame;
-        flow detectionFlow from scan.result          to detectionOut.detectionData;
+        flow cameraFeed from cameraIn.imageFrame to fuse.cameraFrame;
+        flow lidarFeed from lidarIn.cloud to fuse.lidarCloud;
+        flow infraredFeed from infraredIn.thermal to fuse.thermalFrame;
+        flow cameraAssessment from cameraIn.imageFrame to assessCamera.sampleInput;
+        flow infraredAssessment from infraredIn.thermal to assessInfrared.sampleInput;
+        flow lidarAssessment from lidarIn.cloud to assessLidar.cloud;
+        flow cameraDiagnostics from cameraDiagnosticIn.diagnostics to assessCamera.diagnostics;
+        flow infraredDiagnostics from infraredDiagnosticIn.diagnostics to assessInfrared.diagnostics;
+        flow lidarDiagnostics from lidarDiagnosticIn.diagnostics to assessLidar.diagnostics;
+        flow cameraStatus from assessCamera.status to fuse.cameraStatus;
+        flow infraredStatus from assessInfrared.status to fuse.infraredStatus;
+        flow lidarStatus from assessLidar.status to fuse.lidarStatus;
+        flow cameraMonitor from assessCamera.status to monitor.cameraStatus;
+        flow infraredMonitor from assessInfrared.status to monitor.infraredStatus;
+        flow lidarMonitor from assessLidar.status to monitor.lidarStatus;
+        flow cameraConditions from cameraIn.imageFrame to monitor.cameraFrame;
+        flow infraredConditions from infraredIn.thermal to monitor.thermalFrame;
+        flow lidarConditions from lidarIn.cloud to monitor.lidarCloud;
+        flow ambientConditions from ambientIn.conditions to monitor.ambient;
+        flow fusedFeed from fuse.fusedData to scan.fusedData;
+        flow objectsFeed from fuse.objects to scan.objects;
+        flow capabilityFeed from monitor.capability to scan.capability;
+        flow feedback from scan.hint to fuse.trackingHint;
+        flow lifecycleCapability from monitor.capability to qualifyLifecycle.capability;
+        flow lifecycleState from systemStateIn.status to qualifyLifecycle.currentState;
+        flow capabilityEvents from qualifyLifecycle.notification to capabilityEventOut.notification;
+        flow detectionFlow from scan.result to detectionOut.detectionData;
     }
 
     part def PerceptionSystem {
@@ -283,6 +481,17 @@ package TigerDetectionSystemExample {
         part lidar    : LidarSensor;
         part infrared : InfraredSensor;
         part compute  : ComputeUnit;
+        part ambient : AmbientSensor;
+        port capabilityEventIn : ~CapabilityEventPort;
+        port systemStatusOut : SystemStatusPort;
+        perform action reportIdle : ReportIdle;
+        perform action reportStarting : ReportStarting;
+        perform action reportRunning : ReportRunning;
+        perform action reportDegraded : ReportDegraded;
+        flow idleStatus from reportIdle.status to systemStatusOut.status;
+        flow startingStatus from reportStarting.status to systemStatusOut.status;
+        flow runningStatus from reportRunning.status to systemStatusOut.status;
+        flow degradedStatus from reportDegraded.status to systemStatusOut.status;
 
         perform action receiveControl : ReceiveControl;
         flow controlFlow from controlIn.command to receiveControl.cmd;
@@ -290,21 +499,29 @@ package TigerDetectionSystemExample {
         connect camera.imageOut    to compute.cameraIn;
         connect lidar.cloudOut     to compute.lidarIn;
         connect infrared.thermalOut to compute.infraredIn;
+        connect camera.diagnosticOut to compute.cameraDiagnosticIn;
+        connect infrared.diagnosticOut to compute.infraredDiagnosticIn;
+        connect lidar.diagnosticOut to compute.lidarDiagnosticIn;
+        connect ambient.ambientOut to compute.ambientIn;
+        connect compute.capabilityEventOut to capabilityEventIn;
+        connect systemStatusOut to compute.systemStateIn;
 
         flow detectionForward from compute.detectionOut.detectionData to detectionOut.detectionData;
 
         exhibit state perceptionBehavior {
             entry; then idle;
-
-            state idle;
-                accept cmd : StartCommand via controlIn
-                then scanning;
-
-            state scanning {
-                do compute.scan;
-            }
-                accept cmd : StopCommand via controlIn
-                then idle;
+            state idle { entry reportIdle; }
+                accept StartCommand via controlIn then starting;
+            state starting { entry reportStarting; }
+                accept CapabilityAvailable via capabilityEventIn then scanning;
+                accept StartupTimeout via capabilityEventIn then degraded;
+                accept StopCommand via controlIn then idle;
+            state scanning { entry reportRunning; do compute.scan; }
+                accept CapabilityUnavailable via capabilityEventIn then degraded;
+                accept StopCommand via controlIn then idle;
+            state degraded { entry reportDegraded; }
+                accept RecoveryQualified via capabilityEventIn then scanning;
+                accept StopCommand via controlIn then idle;
         }
     }
 
@@ -320,6 +537,9 @@ package TigerDetectionSystemExample {
         attribute warningTimedOut : Boolean = false;
 
         port detectionIn    : ~DetectionOutputPort;
+        port systemStatusIn : ~SystemStatusPort;
+        perform action indicateUnavailable : IndicateUnavailable;
+        flow unavailableStatus from systemStatusIn.status to indicateUnavailable.status;
 
         perform action handleAlert     : HandleTigerAlert;
         perform action activateAlarm   : ActivateTigerAlarm;
@@ -333,14 +553,14 @@ package TigerDetectionSystemExample {
             entry; then idle;
 
             state idle;
-                accept det : TigerDetection via detectionIn if det.detected
+                accept det : TigerDetection via detectionIn if det.detected and det.resultValid
                 do activateAlarm
                 then alertingChange;
 
             state alertingChange {
                 do warnUsers;
             }
-                accept det : TigerDetection via detectionIn if det.detected
+                accept det : TigerDetection via detectionIn if det.detected and det.resultValid
                 do activateAlarm
                 then alertingChange;
 
@@ -381,6 +601,8 @@ package TigerDetectionSystemExample {
 
         connect ui.controlOut           to perception.controlIn;
         connect perception.detectionOut to warnings.detectionIn;
+        connect perception.systemStatusOut to ui.systemStatusIn;
+        connect perception.systemStatusOut to warnings.systemStatusIn;
     }
 
     part tdsInstance : TigerDetectionSystem;

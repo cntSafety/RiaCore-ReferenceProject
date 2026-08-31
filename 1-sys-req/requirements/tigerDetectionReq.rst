@@ -6,12 +6,9 @@ Tiger Detection System - Requirements
 
 .. note::
 
-   This is a **simplified demonstration example**, created to show the RiaCore
-   round-trip: requirements → system design (SysML) → system-level safety
-   analysis (RiaCore) → derived improvement tasks. It is intentionally
-   incomplete and is **not** an authoritative safety specification. The safety
-   analysis does not rewrite these requirements directly; instead it raises
-   improvement tasks that define the next requirements update.
+   Safety-analysis findings are addressed through tasks that trace to the
+   affected requirements and design elements. Open tasks track the remaining
+   verification, validation and requirements updates.
 
 .. contents:: Table of Contents
    :local:
@@ -26,10 +23,19 @@ approaching tigers and warns exploration personnel. It combines camera, LiDAR,
 and infrared sensors with a detection algorithm. Warnings are issued via an
 audible alarm and a visual display.
 
-This document specifies the **initial** system — a first, deliberately naive
-version that detects and warns. It does not yet include monitoring of its own
-health or of its operating conditions; those improvements are captured as
-tasks by the safety analysis and fed back as a later requirements update.
+This revision specifies separate RGB, thermal infrared, and lidar sensing paths,
+channel-capability and operating-condition monitoring, and an explicit degraded
+state. Monitoring algorithms and thresholds remain subject to verification and
+SOTIF scenario validation; their presence is not evidence of residual-risk acceptance.
+
+SOTIF Case C1 identified insufficient sensing diversity in the original RGB-plus-lidar
+configuration. Camouflage and partial concealment motivated runtime measure
+``SOTIF_RT_001``: add LWIR sensing and evaluate thermal evidence alongside the
+other modalities. The measure is included in the current system and software
+architecture, and its task status is ``Done``. The resulting requirements identify
+that task using ``originating_task``. Performance validation and residual-risk
+acceptance remain open and are tracked separately. Follow-up Case C2 assesses
+the thermal measure's limitation when target–background thermal contrast is low.
 
 Safety Assumptions (Safety Element out of Context)
 ==================================================
@@ -41,33 +47,29 @@ who deploys the system in a concrete operational context:
 
 - **Assumed safety level:** ASIL B. This is an *assumed* safety requirement,
   to be confirmed by the integrator against the actual operational context.
-- **Assumed Fault Tolerance Time (FTT):** ``FTT`` = 1.0 s (example) — the
+- **Assumed Fault Tolerance Time (FTT):** ``FTT`` = 1.0 s — the
   maximum time the system may take, after a fault occurs, before it reaches the
   safe state and issues the corresponding indication.
 - **Assumed safe state:** the operator is informed that tiger detection is not
   operational and assumes manual vigilance. The system is a warning system with
   no actuator, so there is no physical safe position to command.
-- **The parameter values below are example values.** They are chosen only to
-  give a concrete discussion baseline for this imaginary example. They are
-  loosely inspired by automotive emergency-braking (AEB) literature — detection
-  ranges, latencies, and reaction times — and are **not validated**. AEB is a
-  good analogy: it helps the driver in most cases but is not perfect, so there
-  are situations where it may not react in time. A real integrator would
-  confirm every value for the actual operational context.
+- **Parameter validation:** the values below are preliminary design assumptions.
+  The integrator shall confirm each value for the operational context and provide
+  supporting verification and validation evidence before acceptance.
 
 Parameters
 ==========
 
-The following parameters are used throughout this specification. The values are
-**example values** giving a discussion baseline for this imaginary example
-(see the SEooC assumptions above) — not validated numbers.
+The following parameters are used throughout this specification. They form the
+preliminary design baseline and require validation against the SEooC assumptions
+and the intended operational context.
 
 .. list-table:: System Parameters
    :header-rows: 1
    :widths: 22 20 58
 
    * - Parameter
-     - Example value
+     - Value
      - Description
    * - ``FTT``
      - 1.0 s
@@ -119,6 +121,15 @@ The following parameters are used throughout this specification. The values are
    * - ``L_alarm_max``
      - 105 dB(A)
      - Maximum audible alarm level at 1 m
+
+Additional monitoring parameters (validation pending):
+
+- ``T_sensor_degradation`` = 0.5 s maximum detection time for observable loss.
+- ``T_odd_violation`` = 0.5 s maximum detection time for validated observable ODD excursions.
+- ``T_recovery_stable`` = 10 s of continuously qualified operation before recovery.
+- ``T_status_max_age`` = 0.1 s maximum age for a credited capability report.
+- The allocated fault budget is 0.5 s detection + 0.3 s response = 0.8 s,
+  within ``FTT`` = 1.0 s; actual worst-case latency requires verification.
 
 Operating Conditions
 ====================
@@ -224,7 +235,7 @@ Operational Requirements
    :safety_level: B
    :refines: TDS_OPS_001;TDS_OPS_002
 
-   The system shall indicate its state (idle, running) to the operator at
+   The system shall indicate its state (idle, starting, running, degraded) to the operator at
    all times.
 
    If the operator believes the system is running when it is not, they
@@ -241,7 +252,7 @@ Sensor Requirements
    :refines: TDS_SAF_002;TDS_SAF_003;TDS_SAF_004
 
    The system shall include a camera sensor for visible-spectrum imagery
-   at ≥ ``F_sensor`` fps, capable of identifying tigers up to
+   at ≥ ``F_sensor`` fps, supplying imagery for central tiger classification up to
    ``D_detection_range`` during daytime.
 
 .. req:: LiDAR Sensor
@@ -261,9 +272,15 @@ Sensor Requirements
    :tags: sensor;infrared
    :safety_level: B
    :refines: TDS_SAF_002;TDS_SAF_004
+   :originating_task: SOTIF_RT_001
 
-   The system shall include an infrared sensor for thermal detection up to
+   The system shall include a separate LWIR infrared imaging sensor for central
+   thermal-assisted detection up to
    ``D_detection_range`` at ≥ ``F_sensor`` fps. Primary modality at night.
+
+   Origin: SOTIF runtime measure ``SOTIF_RT_001`` adds the thermal modality to
+   the initial RGB-plus-lidar concept. Thermal-assisted evaluation is specified
+   by :need:`TDS_SEN_007`.
 
 .. req:: Sensor Fusion
    :id: TDS_SEN_004
@@ -272,9 +289,12 @@ Sensor Requirements
    :safety_level: B
    :refines: TDS_SEN_001;TDS_SEN_002;TDS_SEN_003
 
-   The system shall fuse camera, LiDAR, and infrared data. The fused
-   pipeline shall achieve a lower missed-detection rate than any single
-   sensor alone.
+   The system shall qualify and align separate camera, LiDAR, and infrared
+   measurements/features before central tiger classification. Fusion may produce
+   unclassified object hypotheses; tiger/non-tiger decisions belong to the
+   classifier. The complete pipeline shall demonstrate the required detection
+   performance over the validated scenarios. Sensor diversity alone is not
+   evidence of independence or improved detection performance.
 
 Algorithm Requirements
 ======================
@@ -389,8 +409,218 @@ Traceability
 
 .. needtable::
    :style: table
-   :columns: id;title;status;safety_level;refines
+   :columns: id;title;status;safety_level;refines;originating_task
 
 .. needflow::
    :filter: id.startswith("TDS")
    :link_types: refines
+
+
+Monitoring and Capability Requirements
+======================================
+
+.. req:: Unavailable Detection Indication
+   :id: TDS_SAF_006
+   :status: open
+   :tags: safety;state
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   When startup fails, a required sensor channel is unavailable, an internal
+   fault prevents reliable operation, or operating conditions are outside
+   validated limits, the system shall enter degraded state and display SYSTEM
+   NOT OPERATIONAL with a reason and a distinct periodic acoustic indication.
+   Respond within T_warning after detection; fault detection plus response
+   shall remain within FTT. Degraded operation is not credited as meeting
+   normal detection requirements.
+
+.. req:: Sensor Channel Health and Capability Monitoring
+   :id: TDS_SEN_005
+   :status: open
+   :tags: sensor;monitoring
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Monitor RGB, infrared and lidar channels independently. Reject missing,
+   stale, uninitialized or invalid measurements and unknown/stale capability
+   reports. Detect a required-channel loss within T_sensor_degradation and
+   request the unavailable indication. All three channels are required for the
+   currently specified detection performance; monitoring and acquisition shall
+   continue during startup and degraded operation to support qualification and
+   recovery.
+
+.. req:: Separate Visible and Thermal Channels
+   :id: TDS_SEN_006
+   :status: open
+   :tags: sensor;architecture
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Provide distinct acquisition and status interfaces for visible RGB and
+   thermal LWIR sensing. Do not substitute visible-camera status for infrared
+   status. Record source modality, calibration assumptions, timestamps and the
+   scope of each capability estimate. Embedded obstruction detection or object
+   classification is not assumed unless explicitly specified and validated for
+   the selected sensor.
+
+.. req:: Thermal-Assisted Detection of Camouflaged Tigers
+   :id: TDS_SEN_007
+   :status: open
+   :tags: sensor;thermal;fusion;SOTIF
+   :safety_level: B
+   :refines: TDS_SAF_002;TDS_SAF_003;TDS_SAF_004;TDS_SEN_003;TDS_SEN_004
+   :originating_task: SOTIF_RT_001
+   :verification_method: analysis;test
+
+   During operation, the system shall qualify and align LWIR observations with
+   RGB and lidar observations, and evaluate the combined evidence before
+   classifying a camouflaged or partly concealed target as tiger or non-tiger.
+   Within the specified operating envelope, the complete chain shall meet
+   ``P_fn_close``, ``P_fn_mid`` and ``P_encounter_detection`` and the specified
+   detection-to-warning timing, including the camouflage and partial-concealment
+   scenarios identified by SOTIF Case C1.
+
+   Qualification shall reject stale or invalid thermal observations. The
+   validated operating envelope shall state the minimum exposed target area,
+   spatial resolution and target/background thermal contrast for which this
+   measure is credited. Thermal sensing shall not be credited with seeing
+   through opaque cover. When observable evidence indicates insufficient
+   sensing capability, the system shall issue the unavailable indication
+   specified by :need:`TDS_SAF_006`.
+
+   Origin: completed runtime measure ``SOTIF_RT_001``, raised by SOTIF Case C1
+   after assessing the original RGB-plus-lidar configuration. Compare the original and
+   updated sensing chains using independent scenarios, including false-alarm
+   checks and the low-thermal-contrast limitation assessed in follow-up Case C2.
+   Completion of the runtime measure does not establish residual-risk acceptance.
+
+.. req:: Operating Condition Monitoring
+   :id: TDS_ODD_001
+   :status: open
+   :tags: ODD;monitoring
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Evaluate the defined operating conditions using sensor observations and
+   ambient information. Identify observable excursions within T_odd_violation.
+   Unknown or insufficient evidence shall not be interpreted as confirmation of
+   acceptable conditions. Document the validated observable conditions and
+   residual monitor limitations.
+
+.. req:: Operating Condition Violation Response
+   :id: TDS_ODD_002
+   :status: open
+   :tags: ODD;warning
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   On an identified operating-condition violation, enter degraded state and
+   identify the limiting condition to the operator using the unavailable
+   indication, distinct from a tiger warning.
+
+.. req:: Qualified Recovery
+   :id: TDS_ODD_003
+   :status: open
+   :tags: ODD;recovery
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Return from degraded to running only after operating conditions and all
+   required channel statuses are valid, fresh and stable for T_recovery_stable.
+   Continue monitoring while degraded. Do not recover merely because a fault
+   flag was cleared or an estimate is unknown.
+
+.. req:: Rain Limitation Monitoring
+   :id: TDS_ODD_004
+   :status: open
+   :tags: ODD;rain
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Assess heavy-rain effects using lidar attenuation and image-quality evidence
+   together with available ambient information. Validate rain thresholds and
+   detection time over representative scenarios. Do not assume that all rain-
+   induced limitations are observable.
+
+.. req:: Visible Channel Saturation Monitoring
+   :id: TDS_ODD_005
+   :status: open
+   :tags: ODD;light
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Assess sustained visible-channel saturation and the affected usable field of
+   view. Request degraded operation when the validated operating boundary is
+   exceeded. Keep visible-channel glare estimates distinct from infrared-
+   channel contrast and calibration estimates.
+
+.. req:: Sensor Obstruction Assessment
+   :id: TDS_ODD_006
+   :status: open
+   :tags: ODD;obstruction
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Estimate obstruction separately for RGB, infrared and lidar using modality-
+   appropriate image/point-cloud analysis and available device diagnostics
+   within T_sensor_degradation. Report estimate validity, severity and
+   timestamp. Distinguish unknown estimates from a clear aperture. Validate
+   coverage; a uniform thermal scene must not automatically be classified as a
+   blocked sensor.
+
+.. req:: Daytime Detection Performance
+   :id: TDS_ENV_001
+   :status: open
+   :tags: environment;day
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Meet the stated detection performance in the specified daytime conditions
+   using qualified sensor inputs and the complete fusion/classification
+   pipeline.
+
+.. req:: Visible Channel Glare Robustness
+   :id: TDS_ENV_002
+   :status: open
+   :tags: environment;glare
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Evaluate daytime glare and visible-image saturation, complementary modality
+   contribution and any resulting operating restriction. Validate both
+   detection performance and the capability-monitor response.
+
+.. req:: Nighttime and Thermal Contrast Performance
+   :id: TDS_ENV_003
+   :status: open
+   :tags: environment;night
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Meet the stated nighttime detection performance using thermal and lidar
+   information with qualified inputs. Include low target-background contrast
+   and thermal crossover scenarios; darkness does not imply adequate thermal
+   contrast.
+
+.. req:: Rain and Visibility Performance
+   :id: TDS_ENV_004
+   :status: open
+   :tags: environment;rain
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Validate detection within the specified rain and visibility envelope.
+   Outside that envelope provide an unavailable indication rather than
+   asserting full detection performance.
+
+.. req:: Condition-Dependent Sensor Contribution
+   :id: TDS_ENV_005
+   :status: open
+   :tags: environment;fusion
+   :safety_level: B
+   :refines: TDS_SAF_001
+
+   Specify sensor contribution and weighting by operating condition. The
+   current baseline still requires all three channels to be qualified; reduced-
+   sensor modes require their own validated performance requirements before
+   being credited.

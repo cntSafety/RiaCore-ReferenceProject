@@ -1,5 +1,3 @@
 [
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_review","source_stable_id":"a09df72c-8aa4-424d-9f85-cdd7bdfee29f","target_stable_id":"9c559537-8e99-4094-9848-49528dce5833"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_review","source_stable_id":"be2cee3b-afdd-4521-b398-5266c759f7a1","target_stable_id":"71be067d-50ca-4911-ac66-6792623009f9"},
-{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_review","source_stable_id":"c6f773de-53a5-49ee-8609-8cb2f9cf11b7","target_stable_id":"2bd99d07-ca63-4d18-95a4-2aab871aa7f6"}
+{"attributes":{},"metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis","relationship":"has_review","source_stable_id":"d06bc088-4588-4e20-8f10-6a179c78334c","target_stable_id":"d69253e7-60c6-4258-a988-380dbf819ac4"}
 ]

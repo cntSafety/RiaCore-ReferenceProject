@@ -1,0 +1,9 @@
+[
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"13b378ab-5ed6-4f27-a534-01ee3f594128","target_stable_id":"e3beec1d-1178-4261-9d1a-5f943fe62950"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"815de5b7-6946-41f5-82fa-eed252440390","target_stable_id":"4e14debd-1f91-4ac8-8891-92d82ce0333f"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"aaa7a978-b526-4277-8e43-3fde621e5fb0","target_stable_id":"ead3f085-12cd-4411-8203-6fe427fad031"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"b2dffd1d-5630-4087-8f91-fd458d654480","target_stable_id":"a140be5a-5cbe-43ce-89d7-48ca52ec8309"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"beb4f561-5d18-487a-b5c9-b6d5e474935e","target_stable_id":"b06ad875-8c4d-41fa-bd0f-1c8002d5c2bb"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"c0e7e201-bc22-4596-b734-28cf6f756b31","target_stable_id":"e3beec1d-1178-4261-9d1a-5f943fe62950"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"dd240074-b732-4347-b080-f57811eacd56","target_stable_id":"c54a4830-177d-4594-ad33-62054476ef78"}
+]
