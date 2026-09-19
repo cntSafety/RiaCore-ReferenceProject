@@ -1,1 +1,11 @@
-[]
+[
+{"element_key":"SOTIF_Analysis","element_kind":"analysis","layout_id":"analysis\u0000SOTIF_Analysis","x":573.0463472720057,"y":498.1922987374071},
+{"element_key":"SW_Safety_Analysis","element_kind":"analysis","layout_id":"analysis\u0000SW_Safety_Analysis","x":526.02329004971,"y":821.3306420711814},
+{"element_key":"Sys_Design_Analysis","element_kind":"analysis","layout_id":"analysis\u0000Sys_Design_Analysis","x":750.24625414104,"y":-82.63085161585431},
+{"element_key":"Sys_Monitoring_Analysis","element_kind":"analysis","layout_id":"analysis\u0000Sys_Monitoring_Analysis","x":608.5001164137072,"y":215.5768962122214},
+{"element_key":"SW_Arch_Arxml_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000SW_Arch_Arxml_Tiger_Detection","x":126.36938121156004,"y":926.4692182323699},
+{"element_key":"SW_Req_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000SW_Req_Tiger_Detection","x":-23.40004656548288,"y":703.1076779798515},
+{"element_key":"Sys_Req_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000Sys_Req_Tiger_Detection","x":-121.43094474682006,"y":448.43071191940567},
+{"element_key":"System_Model_Tiger_Detection","element_kind":"imported","layout_id":"imported\u0000System_Model_Tiger_Detection","x":-211.29260141304582,"y":218.26147040429427},
+{"element_key":"Tiger_Safety_Goals","element_kind":"imported","layout_id":"imported\u0000Tiger_Safety_Goals","x":-331.1081436346801,"y":-41.861656666225755}
+]

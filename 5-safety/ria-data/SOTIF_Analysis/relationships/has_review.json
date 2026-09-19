@@ -1,4 +1,4 @@
 [
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_review","source_stable_id":"8a5a6816-0d66-448d-aa4a-90a18aad15b8","target_stable_id":"1c7f6bf5-fff1-4106-a6a0-ba4b4e019754"},
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_review","source_stable_id":"9fe6a204-7497-449a-90e4-77cb5f4b4138","target_stable_id":"68f8b2f1-7fea-452f-93f2-209b1833b650"}
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_review","source_stable_id":"b4fdf7db-cdef-4d32-ac6c-54faada3c1c9","target_stable_id":"12644eb3-5e3c-4038-bbc0-82ad9842ddaf"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_review","source_stable_id":"b919d6bb-108b-4ced-8935-03dc975c143b","target_stable_id":"d4515937-4c86-4e3f-8611-e4a0a24e0340"}
 ]

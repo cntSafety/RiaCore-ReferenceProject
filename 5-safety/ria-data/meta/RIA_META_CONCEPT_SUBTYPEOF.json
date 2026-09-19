@@ -49,7 +49,7 @@
 {"dst_id":"SysMLv2__classifier_base","src_id":"SysMLv2__association_structure"},
 {"dst_id":"SysMLv2__definition","src_id":"SysMLv2__attribute_definition"},
 {"dst_id":"SysMLv2__usage","src_id":"SysMLv2__attribute_usage"},
-{"dst_id":"SysMLv2__usage","src_id":"SysMLv2__binding_connector_as_usage"},
+{"dst_id":"SysMLv2__connection_usage","src_id":"SysMLv2__binding_connector_as_usage"},
 {"dst_id":"SysMLv2__occurrence_definition","src_id":"SysMLv2__calculation_definition"},
 {"dst_id":"SysMLv2__occurrence_usage","src_id":"SysMLv2__calculation_usage"},
 {"dst_id":"SysMLv2__calculation_definition","src_id":"SysMLv2__case_definition"},

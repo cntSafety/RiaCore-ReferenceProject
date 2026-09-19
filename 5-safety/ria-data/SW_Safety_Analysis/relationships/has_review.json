@@ -1,6 +1,6 @@
 [
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"4437f1ef-7a3e-43ea-ab18-86f9c613038a","target_stable_id":"69af6524-6b6c-4a7e-8431-7f2233759026"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"473d43f1-955e-4a1e-b10f-265787cae5df","target_stable_id":"44a6f7aa-f4f6-42cd-97ce-c4ee80823c6c"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"be07e9c2-50a8-4b52-a4b1-1e8ce7c75d3c","target_stable_id":"0b4c33c1-5744-40bd-8e7d-246ae0346081"},
-{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"fd4052a8-dde3-4497-a38c-702bf993b062","target_stable_id":"ad8f9f20-6c88-4a6c-977b-3b53c293b948"}
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"25780d1d-a6ce-4c52-9918-5649dc2627e7","target_stable_id":"71667dd7-9cfd-48dd-8653-6ce98c4410b2"},
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"8e24b479-455c-482b-8e1f-78542e96e8b5","target_stable_id":"dc8352cf-f89c-40c9-a8f1-58500c74ef4a"},
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"b70ef296-00a5-4f39-86e4-caeb2a49f4da","target_stable_id":"725da944-1b3b-46a3-81d6-62bd4e8c9423"},
+{"attributes":{},"metamodel":"SAFETY_ANALYSIS","namespace":"SW_Safety_Analysis","relationship":"has_review","source_stable_id":"db2837cb-8b77-4e34-b1f9-ccee13714b66","target_stable_id":"068535d6-c946-4711-92a0-8dea0c02a542"}
 ]

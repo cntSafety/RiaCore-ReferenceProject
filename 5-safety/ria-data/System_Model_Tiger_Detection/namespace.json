@@ -6,7 +6,7 @@
   ],
   "directory": "System_Model_Tiger_Detection",
   "metamodel": "SysMLv2",
-  "metamodel_version": "0.3.1",
+  "metamodel_version": "0.4.0",
   "name": "System_Model_Tiger_Detection",
   "namespace_owning_application": "Automotive-SW-Arch",
   "namespace_role": "imported"
