@@ -8,6 +8,13 @@ package TigerDetectionSystemExample {
         embedded camera features. Fusion aligns data and produces unclassified
         hypotheses; ScanForTiger owns tiger classification. Requirement references identify the system contracts; SW requirements
         trace to them through the RST satisfies attributes.
+        Ports: one definition per payload, named after what it conveys and
+        declaring its items as out. The sending side uses it as declared and the
+        receiving side conjugates it (~Name), which reverses every item it
+        carries. Both ends of a connection therefore share one port type, and a
+        payload is declared once. A port usage carries no direction of its own;
+        it is an input or an output because of the items its (possibly
+        conjugated) definition declares, and the usage name records which.
         This is a behavioral/interface specification, not executable perception
         software or validated safety evidence. Healthy status does not establish
         SOTIF performance for every pose, target size, or thermal contrast.
@@ -55,28 +62,28 @@ package TigerDetectionSystemExample {
         doc /* Thermal image frame from the infrared sensor. Requirement: TDS_SEN_003. */
     }
 
-    port def DetectionOutputPort {
-        doc /* Exposes TigerDetection data from PerceptionSystem to WarningsSystem. Requirements: TDS_ALG_004, TDS_WRN_003. */
+    port def DetectionPort {
+        doc /* Conveys TigerDetection data from PerceptionSystem to WarningsSystem. Requirements: TDS_ALG_004, TDS_WRN_003. */
         out item detectionData : TigerDetection;
     }
 
-    port def ControlOutputPort {
-        doc /* Carries operator start and stop commands to PerceptionSystem. Requirements: TDS_OPS_001, TDS_OPS_002. */
+    port def ControlPort {
+        doc /* Conveys operator start and stop commands to PerceptionSystem. Requirements: TDS_OPS_001, TDS_OPS_002. */
         out item command : ControlCommand;
     }
 
-    port def CameraOutputPort {
-        doc /* Exposes visible-spectrum frames from the camera sensor to the fusion pipeline. Requirement: TDS_SEN_001. */
+    port def CameraPort {
+        doc /* Conveys visible-spectrum frames from the camera sensor to the fusion pipeline. Requirement: TDS_SEN_001. */
         out item imageFrame : CameraFrame;
     }
 
-    port def LidarOutputPort {
-        doc /* Exposes 3D point-cloud data from the LiDAR sensor to the fusion pipeline. Requirement: TDS_SEN_002. */
+    port def LidarPort {
+        doc /* Conveys 3D point-cloud data from the LiDAR sensor to the fusion pipeline. Requirement: TDS_SEN_002. */
         out item cloud : LidarPointCloud;
     }
 
-    port def InfraredOutputPort {
-        doc /* Exposes thermal frames from the infrared sensor to the fusion pipeline. Requirement: TDS_SEN_003. */
+    port def InfraredPort {
+        doc /* Conveys thermal frames from the infrared sensor to the fusion pipeline. Requirement: TDS_SEN_003. */
         out item thermal : InfraredFrame;
     }
 
@@ -150,7 +157,7 @@ package TigerDetectionSystemExample {
     item def StartupTimeout :> CapabilityEvent;
     port def DiagnosticPort { out item diagnostics : DeviceDiagnostics; }
     port def CapabilityEventPort { out item notification : CapabilityEvent; }
-    port def SystemStatusPort { out item status : SystemStatus; }
+    port def SystemStatusPort { out item systemStatus : SystemStatus; }
     port def AmbientConditionsPort { out item conditions : AmbientConditions; }
 
     action def ReadDeviceDiagnostics { out diagnostics : DeviceDiagnostics; }
@@ -199,32 +206,32 @@ package TigerDetectionSystemExample {
     action def QualifyCapabilityEvents {
         doc /* The lifecycle controller uses current operational state, state-entry timestamp and capability history. Produce CapabilityAvailable after startup qualification; CapabilityUnavailable on loss; RecoveryQualified only after T_recovery_stable; StartupTimeout after T_startup without qualification. */
         in capability : PerceptionCapability;
-        in currentState : SystemStatus;
+        in systemStatus : SystemStatus;
         out notification : CapabilityEvent;
     }
     action def PresentSystemStatus {
         doc /* Displays starting, running, idle or SYSTEM NOT OPERATIONAL with reason. TDS_OPS_003, TDS_SAF_006. */
-        in status : SystemStatus;
+        in systemStatus : SystemStatus;
     }
     action def IndicateUnavailable {
         doc /* Distinct periodic unavailable alert for starting/degraded; never indicates that detection is operational. TDS_SAF_006. */
-        in status : SystemStatus;
+        in systemStatus : SystemStatus;
     }
     action def ReportIdle {
         doc /* Publish mode=idle, detectionAvailable=false, current reason and timestamp. */
-        out status : SystemStatus;
+        out systemStatus : SystemStatus;
     }
     action def ReportStarting {
         doc /* Publish mode=starting, detectionAvailable=false, current reason and timestamp. */
-        out status : SystemStatus;
+        out systemStatus : SystemStatus;
     }
     action def ReportRunning {
         doc /* Publish mode=running, detectionAvailable=true, current reason and timestamp. */
-        out status : SystemStatus;
+        out systemStatus : SystemStatus;
     }
     action def ReportDegraded {
         doc /* Publish mode=degraded, detectionAvailable=false, current reason and timestamp. */
-        out status : SystemStatus;
+        out systemStatus : SystemStatus;
     }
 
     action def StartTigerDetection {
@@ -342,26 +349,26 @@ package TigerDetectionSystemExample {
         */
         attribute startButtonPressed : Boolean = false;
         attribute stopButtonPressed  : Boolean = false;
-        port controlOut : ControlOutputPort;
+        port controlOut : ControlPort;
         port systemStatusIn : ~SystemStatusPort;
-        perform action presentStatus : PresentSystemStatus;
-        flow stateDisplay from systemStatusIn.status to presentStatus.status;
-        perform action startSystem : StartTigerDetection;
-        perform action stopSystem  : StopTigerDetection;
-        flow startCmd from startSystem.cmd to controlOut.command;
-        flow stopCmd  from stopSystem.cmd  to controlOut.command;
+        perform action presentSystemStatus : PresentSystemStatus;
+        flow stateDisplay from systemStatusIn.systemStatus to presentSystemStatus.systemStatus;
+        perform action startTigerDetection : StartTigerDetection;
+        perform action stopTigerDetection  : StopTigerDetection;
+        flow startCmd from startTigerDetection.cmd to controlOut.command;
+        flow stopCmd  from stopTigerDetection.cmd  to controlOut.command;
 
         exhibit state uiBehavior {
             entry; then idle;
 
             state idle;
                 accept when startButtonPressed
-                do startSystem
+                do startTigerDetection
                 then running;
 
             state running;
                 accept when stopButtonPressed
-                do stopSystem
+                do stopTigerDetection
                 then idle;
         }
     }
@@ -373,12 +380,12 @@ package TigerDetectionSystemExample {
         */
         attribute frameRate : Real = 30;
         attribute maxRange  : Real = 65;
-        port imageOut : CameraOutputPort;
+        port imageOut : CameraPort;
         port diagnosticOut : DiagnosticPort;
-        perform action readDiagnostics : ReadDeviceDiagnostics;
-        flow diagnosticsFlow from readDiagnostics.diagnostics to diagnosticOut.diagnostics;
-        perform action capture : CaptureImage;
-        flow imageFlow from capture.imageFrame to imageOut.imageFrame;
+        perform action readDeviceDiagnostics : ReadDeviceDiagnostics;
+        flow diagnosticsFlow from readDeviceDiagnostics.diagnostics to diagnosticOut.diagnostics;
+        perform action captureImage : CaptureImage;
+        flow imageFlow from captureImage.imageFrame to imageOut.imageFrame;
     }
 
     part def LidarSensor {
@@ -388,10 +395,10 @@ package TigerDetectionSystemExample {
         */
         attribute frameRate : Real = 30;
         attribute maxRange  : Real = 65;
-        port cloudOut : LidarOutputPort;
+        port cloudOut : LidarPort;
         port diagnosticOut : DiagnosticPort;
-        perform action readDiagnostics : ReadDeviceDiagnostics;
-        flow diagnosticsFlow from readDiagnostics.diagnostics to diagnosticOut.diagnostics;
+        perform action readDeviceDiagnostics : ReadDeviceDiagnostics;
+        flow diagnosticsFlow from readDeviceDiagnostics.diagnostics to diagnosticOut.diagnostics;
         perform action scanLidar : ScanLidar;
         flow cloudFlow from scanLidar.cloud to cloudOut.cloud;
     }
@@ -403,10 +410,10 @@ package TigerDetectionSystemExample {
         */
         attribute frameRate : Real = 30;
         attribute maxRange  : Real = 65;
-        port thermalOut : InfraredOutputPort;
+        port thermalOut : InfraredPort;
         port diagnosticOut : DiagnosticPort;
-        perform action readDiagnostics : ReadDeviceDiagnostics;
-        flow diagnosticsFlow from readDiagnostics.diagnostics to diagnosticOut.diagnostics;
+        perform action readDeviceDiagnostics : ReadDeviceDiagnostics;
+        flow diagnosticsFlow from readDeviceDiagnostics.diagnostics to diagnosticOut.diagnostics;
         perform action captureThermal : CaptureThermal;
         flow thermalFlow from captureThermal.thermal to thermalOut.thermal;
     }
@@ -414,56 +421,56 @@ package TigerDetectionSystemExample {
     part def AmbientSensor {
         doc /* Light and temperature/humidity acquisition. */
         port ambientOut : AmbientConditionsPort;
-        perform action measure : MeasureAmbientConditions;
-        flow ambientFlow from measure.conditions to ambientOut.conditions;
+        perform action measureAmbientConditions : MeasureAmbientConditions;
+        flow ambientFlow from measureAmbientConditions.conditions to ambientOut.conditions;
     }
 
     part def ComputeUnit {
         doc /* Host processor: separate RGB/LWIR/lidar acquisition and quality assessment, then fusion and tiger classification. Camera hardware is not assumed to execute host algorithms. */
-        port cameraIn : ~CameraOutputPort;
-        port lidarIn : ~LidarOutputPort;
-        port infraredIn : ~InfraredOutputPort;
+        port cameraIn : ~CameraPort;
+        port lidarIn : ~LidarPort;
+        port infraredIn : ~InfraredPort;
         port cameraDiagnosticIn : ~DiagnosticPort;
         port infraredDiagnosticIn : ~DiagnosticPort;
         port lidarDiagnosticIn : ~DiagnosticPort;
         port ambientIn : ~AmbientConditionsPort;
-        port detectionOut : DetectionOutputPort;
+        port detectionOut : DetectionPort;
         port capabilityEventOut : CapabilityEventPort;
-        port systemStateIn : ~SystemStatusPort;
-        perform action assessCamera : AssessCameraCapability;
-        perform action assessInfrared : AssessInfraredCapability;
-        perform action assessLidar : AssessLidarCapability;
-        perform action fuse : FuseSensorData;
-        perform action monitor : AssessOperatingCapability;
-        perform action qualifyLifecycle : QualifyCapabilityEvents;
-        perform action scan : ScanForTiger;
-        flow cameraFeed from cameraIn.imageFrame to fuse.cameraFrame;
-        flow lidarFeed from lidarIn.cloud to fuse.lidarCloud;
-        flow infraredFeed from infraredIn.thermal to fuse.thermalFrame;
-        flow cameraAssessment from cameraIn.imageFrame to assessCamera.sampleInput;
-        flow infraredAssessment from infraredIn.thermal to assessInfrared.sampleInput;
-        flow lidarAssessment from lidarIn.cloud to assessLidar.cloud;
-        flow cameraDiagnostics from cameraDiagnosticIn.diagnostics to assessCamera.diagnostics;
-        flow infraredDiagnostics from infraredDiagnosticIn.diagnostics to assessInfrared.diagnostics;
-        flow lidarDiagnostics from lidarDiagnosticIn.diagnostics to assessLidar.diagnostics;
-        flow cameraStatus from assessCamera.status to fuse.cameraStatus;
-        flow infraredStatus from assessInfrared.status to fuse.infraredStatus;
-        flow lidarStatus from assessLidar.status to fuse.lidarStatus;
-        flow cameraMonitor from assessCamera.status to monitor.cameraStatus;
-        flow infraredMonitor from assessInfrared.status to monitor.infraredStatus;
-        flow lidarMonitor from assessLidar.status to monitor.lidarStatus;
-        flow cameraConditions from cameraIn.imageFrame to monitor.cameraFrame;
-        flow infraredConditions from infraredIn.thermal to monitor.thermalFrame;
-        flow lidarConditions from lidarIn.cloud to monitor.lidarCloud;
-        flow ambientConditions from ambientIn.conditions to monitor.ambient;
-        flow fusedFeed from fuse.fusedData to scan.fusedData;
-        flow objectsFeed from fuse.objects to scan.objects;
-        flow capabilityFeed from monitor.capability to scan.capability;
-        flow feedback from scan.hint to fuse.trackingHint;
-        flow lifecycleCapability from monitor.capability to qualifyLifecycle.capability;
-        flow lifecycleState from systemStateIn.status to qualifyLifecycle.currentState;
-        flow capabilityEvents from qualifyLifecycle.notification to capabilityEventOut.notification;
-        flow detectionFlow from scan.result to detectionOut.detectionData;
+        port systemStatusIn : ~SystemStatusPort;
+        perform action assessCameraCapability : AssessCameraCapability;
+        perform action assessInfraredCapability : AssessInfraredCapability;
+        perform action assessLidarCapability : AssessLidarCapability;
+        perform action fuseSensorData : FuseSensorData;
+        perform action assessOperatingCapability : AssessOperatingCapability;
+        perform action qualifyCapabilityEvents : QualifyCapabilityEvents;
+        perform action scanForTiger : ScanForTiger;
+        flow cameraFeed from cameraIn.imageFrame to fuseSensorData.cameraFrame;
+        flow lidarFeed from lidarIn.cloud to fuseSensorData.lidarCloud;
+        flow infraredFeed from infraredIn.thermal to fuseSensorData.thermalFrame;
+        flow cameraAssessment from cameraIn.imageFrame to assessCameraCapability.sampleInput;
+        flow infraredAssessment from infraredIn.thermal to assessInfraredCapability.sampleInput;
+        flow lidarAssessment from lidarIn.cloud to assessLidarCapability.cloud;
+        flow cameraDiagnostics from cameraDiagnosticIn.diagnostics to assessCameraCapability.diagnostics;
+        flow infraredDiagnostics from infraredDiagnosticIn.diagnostics to assessInfraredCapability.diagnostics;
+        flow lidarDiagnostics from lidarDiagnosticIn.diagnostics to assessLidarCapability.diagnostics;
+        flow cameraStatus from assessCameraCapability.status to fuseSensorData.cameraStatus;
+        flow infraredStatus from assessInfraredCapability.status to fuseSensorData.infraredStatus;
+        flow lidarStatus from assessLidarCapability.status to fuseSensorData.lidarStatus;
+        flow cameraMonitor from assessCameraCapability.status to assessOperatingCapability.cameraStatus;
+        flow infraredMonitor from assessInfraredCapability.status to assessOperatingCapability.infraredStatus;
+        flow lidarMonitor from assessLidarCapability.status to assessOperatingCapability.lidarStatus;
+        flow cameraConditions from cameraIn.imageFrame to assessOperatingCapability.cameraFrame;
+        flow infraredConditions from infraredIn.thermal to assessOperatingCapability.thermalFrame;
+        flow lidarConditions from lidarIn.cloud to assessOperatingCapability.lidarCloud;
+        flow ambientConditions from ambientIn.conditions to assessOperatingCapability.ambient;
+        flow fusedFeed from fuseSensorData.fusedData to scanForTiger.fusedData;
+        flow objectsFeed from fuseSensorData.objects to scanForTiger.objects;
+        flow capabilityFeed from assessOperatingCapability.capability to scanForTiger.capability;
+        flow feedback from scanForTiger.hint to fuseSensorData.trackingHint;
+        flow lifecycleCapability from assessOperatingCapability.capability to qualifyCapabilityEvents.capability;
+        flow lifecycleState from systemStatusIn.systemStatus to qualifyCapabilityEvents.systemStatus;
+        flow capabilityEvents from qualifyCapabilityEvents.notification to capabilityEventOut.notification;
+        flow detectionFlow from scanForTiger.result to detectionOut.detectionData;
     }
 
     part def PerceptionSystem {
@@ -474,39 +481,50 @@ package TigerDetectionSystemExample {
             Requirements: TDS_SAF_002, TDS_SEN_001, TDS_SEN_002, TDS_SEN_003,
             TDS_SEN_004.
         */
-        port controlIn       : ~ControlOutputPort;
-        port detectionOut    : DetectionOutputPort;
+        port controlIn       : ~ControlPort;
+        port detectionOut    : DetectionPort;
 
-        part camera   : CameraSensor;
-        part lidar    : LidarSensor;
-        part infrared : InfraredSensor;
-        part compute  : ComputeUnit;
-        part ambient : AmbientSensor;
+        part cameraSensor   : CameraSensor;
+        part lidarSensor    : LidarSensor;
+        part infraredSensor : InfraredSensor;
+        part computeUnit    : ComputeUnit;
+        part ambientSensor  : AmbientSensor;
         port capabilityEventIn : ~CapabilityEventPort;
         port systemStatusOut : SystemStatusPort;
         perform action reportIdle : ReportIdle;
         perform action reportStarting : ReportStarting;
         perform action reportRunning : ReportRunning;
         perform action reportDegraded : ReportDegraded;
-        flow idleStatus from reportIdle.status to systemStatusOut.status;
-        flow startingStatus from reportStarting.status to systemStatusOut.status;
-        flow runningStatus from reportRunning.status to systemStatusOut.status;
-        flow degradedStatus from reportDegraded.status to systemStatusOut.status;
+        flow idleStatus from reportIdle.systemStatus to systemStatusOut.systemStatus;
+        flow startingStatus from reportStarting.systemStatus to systemStatusOut.systemStatus;
+        flow runningStatus from reportRunning.systemStatus to systemStatusOut.systemStatus;
+        flow degradedStatus from reportDegraded.systemStatus to systemStatusOut.systemStatus;
+
+        // The lifecycle controller in computeUnit is fed by the same four reports
+        // that publish the status outward, rather than by a delegation from
+        // systemStatusOut: that port sends the status to the operator and the
+        // warning system, so reading it back inward made an output port the source
+        // of one of its own siblings' inputs. All four states are supplied, not
+        // just running and degraded — QualifyCapabilityEvents raises StartupTimeout
+        // from mode=starting, and must stay silent in mode=idle.
+        flow idleState from reportIdle.systemStatus to computeUnit.systemStatusIn;
+        flow startingState from reportStarting.systemStatus to computeUnit.systemStatusIn;
+        flow runningState from reportRunning.systemStatus to computeUnit.systemStatusIn;
+        flow degradedState from reportDegraded.systemStatus to computeUnit.systemStatusIn;
 
         perform action receiveControl : ReceiveControl;
         flow controlFlow from controlIn.command to receiveControl.cmd;
 
-        connect camera.imageOut    to compute.cameraIn;
-        connect lidar.cloudOut     to compute.lidarIn;
-        connect infrared.thermalOut to compute.infraredIn;
-        connect camera.diagnosticOut to compute.cameraDiagnosticIn;
-        connect infrared.diagnosticOut to compute.infraredDiagnosticIn;
-        connect lidar.diagnosticOut to compute.lidarDiagnosticIn;
-        connect ambient.ambientOut to compute.ambientIn;
-        connect compute.capabilityEventOut to capabilityEventIn;
-        connect systemStatusOut to compute.systemStateIn;
+        connect cameraSensor.imageOut       to computeUnit.cameraIn;
+        connect lidarSensor.cloudOut        to computeUnit.lidarIn;
+        connect infraredSensor.thermalOut   to computeUnit.infraredIn;
+        connect cameraSensor.diagnosticOut  to computeUnit.cameraDiagnosticIn;
+        connect infraredSensor.diagnosticOut to computeUnit.infraredDiagnosticIn;
+        connect lidarSensor.diagnosticOut   to computeUnit.lidarDiagnosticIn;
+        connect ambientSensor.ambientOut    to computeUnit.ambientIn;
+        connect computeUnit.capabilityEventOut to capabilityEventIn;
 
-        flow detectionForward from compute.detectionOut.detectionData to detectionOut.detectionData;
+        flow detectionForward from computeUnit.detectionOut.detectionData to detectionOut.detectionData;
 
         exhibit state perceptionBehavior {
             entry; then idle;
@@ -516,7 +534,7 @@ package TigerDetectionSystemExample {
                 accept CapabilityAvailable via capabilityEventIn then scanning;
                 accept StartupTimeout via capabilityEventIn then degraded;
                 accept StopCommand via controlIn then idle;
-            state scanning { entry reportRunning; do compute.scan; }
+            state scanning { entry reportRunning; do computeUnit.scanForTiger; }
                 accept CapabilityUnavailable via capabilityEventIn then degraded;
                 accept StopCommand via controlIn then idle;
             state degraded { entry reportDegraded; }
@@ -536,44 +554,44 @@ package TigerDetectionSystemExample {
         attribute warningActive   : Boolean = false;
         attribute warningTimedOut : Boolean = false;
 
-        port detectionIn    : ~DetectionOutputPort;
+        port detectionIn    : ~DetectionPort;
         port systemStatusIn : ~SystemStatusPort;
         perform action indicateUnavailable : IndicateUnavailable;
-        flow unavailableStatus from systemStatusIn.status to indicateUnavailable.status;
+        flow unavailableStatus from systemStatusIn.systemStatus to indicateUnavailable.systemStatus;
 
-        perform action handleAlert     : HandleTigerAlert;
-        perform action activateAlarm   : ActivateTigerAlarm;
-        perform action deactivateAlarm : DeactivateTigerAlarm;
-        perform action warnUsers       : IssueTigerWarning;
+        perform action handleTigerAlert     : HandleTigerAlert;
+        perform action activateTigerAlarm   : ActivateTigerAlarm;
+        perform action deactivateTigerAlarm : DeactivateTigerAlarm;
+        perform action issueTigerWarning    : IssueTigerWarning;
 
-        flow alertFlow  from detectionIn.detectionData to handleAlert.alert;
-        flow verifyFlow from handleAlert.verified      to activateAlarm.detection;
+        flow alertFlow  from detectionIn.detectionData  to handleTigerAlert.alert;
+        flow verifyFlow from handleTigerAlert.verified  to activateTigerAlarm.detection;
 
         exhibit state warningBehavior {
             entry; then idle;
 
             state idle;
                 accept det : TigerDetection via detectionIn if det.detected and det.resultValid
-                do activateAlarm
+                do activateTigerAlarm
                 then alertingChange;
 
             state alertingChange {
-                do warnUsers;
+                do issueTigerWarning;
             }
                 accept det : TigerDetection via detectionIn if det.detected and det.resultValid
-                do activateAlarm
+                do activateTigerAlarm
                 then alertingChange;
 
                 accept when warningTimedOut
-                do deactivateAlarm
+                do deactivateTigerAlarm
                 then idle;
         }
     }
 
     interface def ControlInterface {
         doc /* Connects OperatorUI control output to the PerceptionSystem control input. Requirements: TDS_OPS_001, TDS_OPS_002. */
-        end senderPort   : ControlOutputPort;
-        end receiverPort : ~ControlOutputPort;
+        end senderPort   : ControlPort;
+        end receiverPort : ~ControlPort;
         flow of ControlCommand
             from senderPort.command
             to   receiverPort.command;
@@ -581,8 +599,8 @@ package TigerDetectionSystemExample {
 
     interface def TigerDetectionInterface {
         doc /* Connects perception detections to the warning system. Requirements: TDS_ALG_004, TDS_WRN_001, TDS_WRN_003. */
-        end senderPort   : DetectionOutputPort;
-        end receiverPort : ~DetectionOutputPort;
+        end senderPort   : DetectionPort;
+        end receiverPort : ~DetectionPort;
         flow of TigerDetection
             from senderPort.detectionData
             to   receiverPort.detectionData;
@@ -595,15 +613,15 @@ package TigerDetectionSystemExample {
             Requirement: TDS_SAF_001.
         */
         attribute isRunning : Boolean = false;
-        part perception : PerceptionSystem;
-        part warnings   : WarningsSystem;
-        part ui         : OperatorUI;
+        part perceptionSystem : PerceptionSystem;
+        part warningsSystem   : WarningsSystem;
+        part operatorUI       : OperatorUI;
 
-        connect ui.controlOut           to perception.controlIn;
-        connect perception.detectionOut to warnings.detectionIn;
-        connect perception.systemStatusOut to ui.systemStatusIn;
-        connect perception.systemStatusOut to warnings.systemStatusIn;
+        connect operatorUI.controlOut            to perceptionSystem.controlIn;
+        connect perceptionSystem.detectionOut    to warningsSystem.detectionIn;
+        connect perceptionSystem.systemStatusOut to operatorUI.systemStatusIn;
+        connect perceptionSystem.systemStatusOut to warningsSystem.systemStatusIn;
     }
 
-    part tdsInstance : TigerDetectionSystem;
+    part tigerDetectionSystem : TigerDetectionSystem;
 }
