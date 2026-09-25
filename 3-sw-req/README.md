@@ -21,14 +21,39 @@ sphinx-build -b html . _build/html
 start _build/html/index.html  # Windows
 ```
 
-The `needs.json` file is generated automatically in `_build/html/needs.json`
-because `needs_build_json = True` is set in `conf.py`.
-
 To generate *only* the JSON (no HTML):
 
 ```bash
 sphinx-build -b needs . _build/needs
 ```
+
+### Where needs.json ends up
+
+`needs_build_json = True` in `conf.py` makes sphinx-needs write `needs.json` into
+the build output directory, and the `build-finished` hook at the bottom of
+`conf.py` then copies it into `build_ref/`. Since `_build/` is gitignored,
+`build_ref/needs.json` is the tracked artifact and the file RIA imports read.
+
+Do **not** point the output directory at `build_ref` — the hook would try to copy
+`needs.json` onto itself and the build fails in `build-finished`.
+
+### Regenerating after an upstream change
+
+This project pulls both the safety goals and the system requirements in as
+*external* needs (`needs_external_needs` → `../0-safety-goals/build_ref/needs.json`
+and `../1-sys-req/build_ref/needs.json`), so rebuild the whole chain in order:
+
+```bash
+cd ../0-safety-goals && sphinx-build -E -b needs . _build/needs
+cd ../1-sys-req      && sphinx-build -E -b needs . _build/needs
+cd ../3-sw-req       && sphinx-build -E -b needs . _build/needs
+```
+
+`-E` is what makes an upstream change take effect. Sphinx does not track those
+external JSON files when deciding what is out of date, so without it the build
+finds no modified `.rst`, reuses the cached environment under `_build/…/.doctrees/`,
+and re-exports the **old** external needs. See `1-sys-req/README.md` for the full
+explanation.
 
 ## Project structure
 
