@@ -18,11 +18,11 @@ Safety Goals
    :id: TDS_SAF_001
    :status: open
    :tags: safety;safety-goal
-   :safety_level: B
+   :safety_level: C
 
    The system shall detect approaching tigers and warn personnel in
    sufficient time to allow evasive action. The probability of an
-   undetected encounter shall not exceed ``P_undetected_encounter``.
+   undetected encounter shall not exceed ``P_undetected_encounter_CHANGE_01``.
 
    
 System Parameters
@@ -39,7 +39,7 @@ System Parameters
      - 1.0 s
      - Fault Tolerance Time — max time from a fault occurring to the safe-state
        indication
-   * - ``P_undetected_encounter``
-     - 1e-4 / h
+   * - ``P_undetected_encounter_CHANGE_01``
+     - 1e-5 / h
      - Acceptable probability of an undetected tiger encounter per
        operational hour (system-level residual risk)
