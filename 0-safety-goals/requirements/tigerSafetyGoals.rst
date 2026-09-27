@@ -15,7 +15,7 @@ Safety Goals
 ============
 
 .. req:: Tiger Detection Safety Goal
-   :id: TDS_SAF_001
+   :id: TDS_CHANGE_SG_ID
    :status: open
    :tags: safety;safety-goal
    :safety_level: B
