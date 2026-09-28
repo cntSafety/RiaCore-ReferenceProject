@@ -167,11 +167,11 @@ Safety Requirements
    :id: TDS_SAF_003
    :status: open
    :tags: safety;detection;false-negative
-   :safety_level: B
+   :safety_level: A
    :refines: TDS_SAF_001;TDS_SAF_002
 
-   The per-frame missed-detection rate for adult tigers at 0–25 m shall not
-   exceed ``P_fn_close`` under all specified operating conditions.
+   The per-frame missed-detection rate for adult tigers at 0–20 m shall not
+   exceed ``P_fn_close`` under all specified operating conditions excluding off and startup.
 
    Close range is the most critical zone — a miss here leaves minimal
    time for evasive action.
