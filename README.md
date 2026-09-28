@@ -19,6 +19,27 @@ System requirements `TDS_SEN_003` and
 Case C2 assesses the low-thermal-contrast limitation of the measure introduced
 for Case C1. Validation and residual-risk acceptance remain open.
 
+## Layout
+
+| folder | contents | build |
+|---|---|---|
+| `0-safety-goals` | safety goals (sphinx-needs) | `build_scripts` |
+| `1-sys-req` | system requirements (sphinx-needs) | `build_scripts` |
+| `2-sys-design` | system design (SysML v2) | `2-sys-design/export_model.py` |
+| `3-sw-req` | SW requirements (sphinx-needs) | `build_scripts` |
+| `4-sw-arch-arxml` | SW architecture (ARXML) | — |
+| `5-safety` | ready-made RIA workspace | — |
+| `build_scripts` | chain builder and its virtual environment | — |
+
+The three sphinx projects form an ordered chain and are built together by
+[`build_scripts/build_needs.py`](build_scripts/README.md) — one virtual
+environment, one command, dependency order enforced:
+
+```bash
+cd build_scripts
+python build_needs.py
+```
+
 ## Getting started
 
 1. Install RiaCore following the instructions in its repository.
