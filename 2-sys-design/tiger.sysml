@@ -484,7 +484,7 @@ package TigerDetectionSystemExample {
         port controlIn       : ~ControlPort;
         port detectionOut    : DetectionPort;
 
-        part cameraSensor   : CameraSensor;
+        part cameraSensorCHANGE   : CameraSensor;
         part lidarSensor    : LidarSensor;
         part infraredSensor : InfraredSensor;
         part computeUnit    : ComputeUnit;
@@ -515,10 +515,10 @@ package TigerDetectionSystemExample {
         perform action receiveControl : ReceiveControl;
         flow controlFlow from controlIn.command to receiveControl.cmd;
 
-        connect cameraSensor.imageOut       to computeUnit.cameraIn;
+        connect cameraSensorCHANGE.imageOut       to computeUnit.cameraIn;
         connect lidarSensor.cloudOut        to computeUnit.lidarIn;
         connect infraredSensor.thermalOut   to computeUnit.infraredIn;
-        connect cameraSensor.diagnosticOut  to computeUnit.cameraDiagnosticIn;
+        connect cameraSensorCHANGE.diagnosticOut  to computeUnit.cameraDiagnosticIn;
         connect infraredSensor.diagnosticOut to computeUnit.infraredDiagnosticIn;
         connect lidarSensor.diagnosticOut   to computeUnit.lidarDiagnosticIn;
         connect ambientSensor.ambientOut    to computeUnit.ambientIn;
