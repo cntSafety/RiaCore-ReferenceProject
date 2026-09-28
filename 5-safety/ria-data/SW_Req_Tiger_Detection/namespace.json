@@ -1,7 +1,8 @@
 {
   "categorizational_metamodels": [
     "SAFETY_ANALYSIS",
-    "SOTIF_ANALYSIS"
+    "SOTIF_ANALYSIS",
+    "SYSTEM_SAFETY_ANALYSIS"
   ],
   "directory": "SW_Req_Tiger_Detection",
   "metamodel": "SN_sw_req_tiger_detection",

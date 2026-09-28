@@ -8,5 +8,6 @@
 {"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"73f1c65c-e1d1-47dd-a43f-6303bb67a545","target_stable_id":"71106adb-caa9-46e8-bd8b-8c2426564e1f"},
 {"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"9efafc2a-0861-432e-a628-1a1c9dc0d0ff","target_stable_id":"252389e4-b856-42a4-803d-fb4288a7dd16"},
 {"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"bfa74546-7ee4-4056-a95f-c7b2786ed815","target_stable_id":"b6e587fb-e1d4-4381-952f-816a26fafed8"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"e2bf79cc-47c3-4099-8fa2-da0accacd1e9","target_stable_id":"97921166-0ecb-4faf-8749-96b40b2bd8b7"},
 {"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"has_functional_insufficiencies","source_stable_id":"e2bf79cc-47c3-4099-8fa2-da0accacd1e9","target_stable_id":"b6e587fb-e1d4-4381-952f-816a26fafed8"}
 ]

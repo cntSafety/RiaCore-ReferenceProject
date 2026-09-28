@@ -3,6 +3,7 @@
 {"dst_name":"SOTIF_ANALYSIS","src_name":"SW_Arch_Arxml_Tiger_Detection"},
 {"dst_name":"SAFETY_ANALYSIS","src_name":"SW_Req_Tiger_Detection"},
 {"dst_name":"SOTIF_ANALYSIS","src_name":"SW_Req_Tiger_Detection"},
+{"dst_name":"SYSTEM_SAFETY_ANALYSIS","src_name":"SW_Req_Tiger_Detection"},
 {"dst_name":"MONITORING_ANALYSIS","src_name":"Sys_Req_Tiger_Detection"},
 {"dst_name":"SOTIF_ANALYSIS","src_name":"Sys_Req_Tiger_Detection"},
 {"dst_name":"SYSTEM_SAFETY_ANALYSIS","src_name":"Sys_Req_Tiger_Detection"},

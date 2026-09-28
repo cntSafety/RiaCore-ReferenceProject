@@ -1,4 +1,5 @@
 [
+{"attributes":{"stable_path":"5a234488-699b-4f05-b4d2-b8c3add41984","uuid":"5a234488-699b-4f05-b4d2-b8c3add41984","has_name":"NEW_TAG_ONE_TBC_REMOVED"},"concept":"tag","metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis"},
 {"attributes":{"stable_path":"b7911f08-95c7-4846-aa8b-feebe7699859","uuid":"b7911f08-95c7-4846-aa8b-feebe7699859","has_name":"READY_FOR_REVIEW","tag_description":"System-level safety analysis for WarningsSystem is complete — ready for independent review.","tag_color":"#22c55e"},"concept":"tag","metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis"},
 {"attributes":{"stable_path":"eb48e343-15ab-4cfb-9a0e-63abe732c722","uuid":"eb48e343-15ab-4cfb-9a0e-63abe732c722","has_name":"TBC","tag_description":"Processing integrity, fault supervision, and timing verification remain open; the fault-based safety argument requires review.","tag_color":"#6366f1"},"concept":"tag","metamodel":"SYSTEM_SAFETY_ANALYSIS","namespace":"Sys_Design_Analysis"}
 ]
