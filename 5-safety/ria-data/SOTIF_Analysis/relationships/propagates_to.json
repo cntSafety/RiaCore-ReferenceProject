@@ -1,7 +1,7 @@
 [
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"87105da0-c7db-49b8-9223-9a33e6e12921","target_stable_id":"51a6c679-8878-455d-9aa4-754b2b53a8da"},
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"dfe710ca-460c-4f5a-8a04-1817d4151e80","target_stable_id":"10381724-df87-4e2b-85b0-e5cecf0906c9"},
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"dfe710ca-460c-4f5a-8a04-1817d4151e80","target_stable_id":"25d46f73-f1d7-4213-b4e4-a48fd94333d3"},
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"dfe710ca-460c-4f5a-8a04-1817d4151e80","target_stable_id":"4b489687-2c77-43c9-82ed-b417b1d0c6c9"},
-{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"f841a71a-1141-4ba2-8b86-033df9f70750","target_stable_id":"15e6b444-3f5f-4878-9159-04eb9fc6220d"}
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"108ee104-860c-4f81-b1e6-b9feb8a08b76","target_stable_id":"01669ab8-8918-4020-b04c-9a47a5d0b168"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"53e8dbbd-9e74-4db6-86e3-e7042d4ff1c1","target_stable_id":"5602e0e5-ebb6-46ae-baab-c73a1d274ae0"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"53e8dbbd-9e74-4db6-86e3-e7042d4ff1c1","target_stable_id":"73f1c65c-e1d1-47dd-a43f-6303bb67a545"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"53e8dbbd-9e74-4db6-86e3-e7042d4ff1c1","target_stable_id":"9efafc2a-0861-432e-a628-1a1c9dc0d0ff"},
+{"attributes":{},"metamodel":"SOTIF_ANALYSIS","namespace":"SOTIF_Analysis","relationship":"propagates_to","source_stable_id":"bfa74546-7ee4-4056-a95f-c7b2786ed815","target_stable_id":"e2bf79cc-47c3-4099-8fa2-da0accacd1e9"}
 ]
