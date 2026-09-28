@@ -1,27 +1,24 @@
 # Tiger Detection System — Safety Goals
 
-First link in the sphinx-needs chain: `0-safety-goals` → `1-sys-req` → `3-sw-req`.
-Setup, conventions, and the full build story live in
-[`../1-sys-req/README.md`](../1-sys-req/README.md).
+First link in the sphinx-needs chain `0-safety-goals` → `1-sys-req` → `3-sw-req`.
 
-## Regenerating needs.json
+This project defines its needs locally and pulls in no external needs, so it has
+no upstream dependency. Both downstream projects consume its export, which means
+a change to a safety goal here requires rebuilding the whole chain.
+
+## Build
 
 ```bash
-# Only needs.json, no HTML
-sphinx-build -b needs . _build/needs
-
-# HTML + needs.json
-sphinx-build -b html . _build/html
+cd ../build_scripts
+python build_needs.py
 ```
 
-Either command regenerates `build_ref/needs.json` — sphinx-needs writes
-`needs.json` into the build output directory and the `build-finished` hook in
-`conf.py` copies it into `build_ref/`, which is the tracked file RIA imports and
-the downstream projects read.
+Setup, build order, and the reasoning behind both live in
+[`../build_scripts/README.md`](../build_scripts/README.md).
 
-This project defines its needs locally and pulls in no external needs, so editing
-an `.rst` here is picked up by a plain incremental build; `-E` is not required.
+## Output
 
-After changing a safety goal, rebuild the downstream projects too — they consume
-this export as *external* needs and **do** need `-E` to pick it up. See
-[`../1-sys-req/README.md`](../1-sys-req/README.md).
+- `build_ref/needs.json` — tracked needs export; read by RIA imports and by both
+  downstream projects
+- `_build/html/index.html` — browsable HTML documentation, from
+  `build_needs.py --html` (untracked)
