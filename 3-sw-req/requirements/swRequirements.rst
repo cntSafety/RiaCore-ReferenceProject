@@ -82,12 +82,11 @@ State Management
    :id: SWREQ_SM_004
    :status: open
    :tags: state-management;status
-   :safety_level: B
-   :satisfies: TDS_OPS_003
+   :safety_level: C
+   :satisfies: TDS_OPS_002
 
-   The software shall provide the current operational state (idle, starting, running,
-   or degraded) to the operator interface for display purposes. State
-   changes shall be reported within 500 ms.
+   The software shall provide the current operational state (idle, starting, running) to the operator interface for display purposes. State
+   changes shall be reported within 400 ms.
 
 .. req:: Safe State Transition
    :id: SWREQ_SM_005
