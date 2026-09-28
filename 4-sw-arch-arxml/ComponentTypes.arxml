@@ -4,20 +4,20 @@
     <AR-PACKAGE UUID="AF3D82A5-1B89-5B3A-9B0F-E36170DBB49B">
       <SHORT-NAME>TigerDetectionSW</SHORT-NAME>
       <ELEMENTS>
-        <APPLICATION-SW-COMPONENT-TYPE UUID="A95D110E-973A-5594-A25C-B06A1779B831">
-          <SHORT-NAME>CameraAcquisition</SHORT-NAME>
+        <APPLICATION-SW-COMPONENT-TYPE UUID="EEDDAB5C-71D5-554C-99A1-993A03029148">
+          <SHORT-NAME>CameraAcquisitionChange</SHORT-NAME>
           <DESC>
             <L-2 L="EN">SW requirements: SWREQ_SEN_001, SWREQ_SEN_005, SWREQ_SEN_006, SWREQ_ODD_005, SWREQ_ODD_006.</L-2>
           </DESC>
           <PORTS>
-            <P-PORT-PROTOTYPE UUID="E84F95EB-1092-5495-81DA-59F319FE19DC">
+            <P-PORT-PROTOTYPE UUID="FF94F723-3D63-50B9-9FA3-0E1BFCC137C4">
               <SHORT-NAME>rgbDataOut</SHORT-NAME>
               <DESC>
                 <L-2 L="EN">SW requirements: SWREQ_SEN_001, SWREQ_SEN_004.</L-2>
               </DESC>
               <PROVIDED-INTERFACE-TREF DEST="SENDER-RECEIVER-INTERFACE">/PortInterfaces/SRI_RGBFrameReady</PROVIDED-INTERFACE-TREF>
             </P-PORT-PROTOTYPE>
-            <P-PORT-PROTOTYPE UUID="3D901D10-3963-50B9-BDB0-AF5F61717C83">
+            <P-PORT-PROTOTYPE UUID="067B29DB-C283-57C3-B567-E4C664788B63">
               <SHORT-NAME>cameraStatusOut</SHORT-NAME>
               <DESC>
                 <L-2 L="EN">SW requirements: SWREQ_SEN_005, SWREQ_SEN_006, SWREQ_ODD_005, SWREQ_ODD_006.</L-2>
@@ -76,8 +76,8 @@
             <L-2 L="EN">SW requirements: SWREQ_ODD_001.</L-2>
           </DESC>
           <PORTS>
-            <P-PORT-PROTOTYPE UUID="E90D7739-6130-58F9-84AC-F550CEE7E7C9">
-              <SHORT-NAME>lightDataOut</SHORT-NAME>
+            <P-PORT-PROTOTYPE UUID="8E9751C5-97BA-5990-B7F3-9FC717B4A93E">
+              <SHORT-NAME>lightDataOutCHANGE</SHORT-NAME>
               <DESC>
                 <L-2 L="EN">SW requirements: SWREQ_ODD_001.</L-2>
               </DESC>
@@ -316,9 +316,9 @@
         <COMPOSITION-SW-COMPONENT-TYPE UUID="72672970-3155-5F60-87C8-03E3E282E1E4">
           <SHORT-NAME>TigerDetectionComposition</SHORT-NAME>
           <COMPONENTS>
-            <SW-COMPONENT-PROTOTYPE UUID="926A0FF0-FC2A-5FAD-B5F6-25CE985844AE">
-              <SHORT-NAME>CameraAcquisition_Instance</SHORT-NAME>
-              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/TigerDetectionSW/CameraAcquisition</TYPE-TREF>
+            <SW-COMPONENT-PROTOTYPE UUID="B384F8C7-E3EF-5482-8B93-7F1E00EF0642">
+              <SHORT-NAME>CameraAcquisitionChange_Instance</SHORT-NAME>
+              <TYPE-TREF DEST="APPLICATION-SW-COMPONENT-TYPE">/TigerDetectionSW/CameraAcquisitionChange</TYPE-TREF>
             </SW-COMPONENT-PROTOTYPE>
             <SW-COMPONENT-PROTOTYPE UUID="635C4742-4643-5C04-977D-BA6E4D621320">
               <SHORT-NAME>InfraredAcquisition_Instance</SHORT-NAME>
@@ -350,11 +350,11 @@
             </SW-COMPONENT-PROTOTYPE>
           </COMPONENTS>
           <CONNECTORS>
-            <ASSEMBLY-SW-CONNECTOR UUID="49D86AE9-CB57-5C81-A284-9AC29A70B452">
-              <SHORT-NAME>CameraAcquisition_rgbDataOut_Fusion_rgbIn</SHORT-NAME>
+            <ASSEMBLY-SW-CONNECTOR UUID="4F34F9C8-0C75-5670-A656-367ED0BF9E19">
+              <SHORT-NAME>CameraAcquisitionChange_rgbDataOut_Fusion_rgbIn</SHORT-NAME>
               <PROVIDER-IREF>
-                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/CameraAcquisition_Instance</CONTEXT-COMPONENT-REF>
-                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/CameraAcquisition/rgbDataOut</TARGET-P-PORT-REF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/CameraAcquisitionChange_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/CameraAcquisitionChange/rgbDataOut</TARGET-P-PORT-REF>
               </PROVIDER-IREF>
               <REQUESTER-IREF>
                 <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/Fusion_Instance</CONTEXT-COMPONENT-REF>
@@ -383,11 +383,11 @@
                 <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/Fusion/infraredStatusIn</TARGET-R-PORT-REF>
               </REQUESTER-IREF>
             </ASSEMBLY-SW-CONNECTOR>
-            <ASSEMBLY-SW-CONNECTOR UUID="AAFC66E5-E36C-5092-84BD-D4FEE17AABB4">
-              <SHORT-NAME>CameraAcquisition_cameraStatusOut_Fusion_cameraStatusIn</SHORT-NAME>
+            <ASSEMBLY-SW-CONNECTOR UUID="1F503144-C5EB-5568-B637-D919C3092DD1">
+              <SHORT-NAME>CameraAcquisitionChange_cameraStatusOut_Fusion_cameraStatusIn</SHORT-NAME>
               <PROVIDER-IREF>
-                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/CameraAcquisition_Instance</CONTEXT-COMPONENT-REF>
-                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/CameraAcquisition/cameraStatusOut</TARGET-P-PORT-REF>
+                <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/CameraAcquisitionChange_Instance</CONTEXT-COMPONENT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/CameraAcquisitionChange/cameraStatusOut</TARGET-P-PORT-REF>
               </PROVIDER-IREF>
               <REQUESTER-IREF>
                 <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/Fusion_Instance</CONTEXT-COMPONENT-REF>
@@ -416,11 +416,11 @@
                 <TARGET-R-PORT-REF DEST="R-PORT-PROTOTYPE">/TigerDetectionSW/Fusion/lidarStatusIn</TARGET-R-PORT-REF>
               </REQUESTER-IREF>
             </ASSEMBLY-SW-CONNECTOR>
-            <ASSEMBLY-SW-CONNECTOR UUID="56EF3F26-BBBC-5A76-90E8-B1877CCBA904">
-              <SHORT-NAME>AmbientSensorsDriver_lightDataOut_Fusion_lightIn</SHORT-NAME>
+            <ASSEMBLY-SW-CONNECTOR UUID="9915F956-E00E-5359-B59E-28B6B1278839">
+              <SHORT-NAME>AmbientSensorsDriver_lightDataOutCHANGE_Fusion_lightIn</SHORT-NAME>
               <PROVIDER-IREF>
                 <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/AmbientSensorsDriver_Instance</CONTEXT-COMPONENT-REF>
-                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/AmbientSensorsDriver/lightDataOut</TARGET-P-PORT-REF>
+                <TARGET-P-PORT-REF DEST="P-PORT-PROTOTYPE">/TigerDetectionSW/AmbientSensorsDriver/lightDataOutCHANGE</TARGET-P-PORT-REF>
               </PROVIDER-IREF>
               <REQUESTER-IREF>
                 <CONTEXT-COMPONENT-REF DEST="SW-COMPONENT-PROTOTYPE">/TigerDetectionSW/TigerDetectionComposition/Fusion_Instance</CONTEXT-COMPONENT-REF>

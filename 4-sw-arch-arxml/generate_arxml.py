@@ -21,7 +21,6 @@ from __future__ import annotations
 
 import argparse
 import re
-import shutil
 import sys
 import uuid
 from pathlib import Path
@@ -30,7 +29,7 @@ from autosar_data import AutosarModel, AutosarVersion, Element
 
 
 PROJECT_DIRECTORY = Path(__file__).resolve().parent
-DEFAULT_OUTPUT = PROJECT_DIRECTORY / "arxml-from-scratch"
+DEFAULT_OUTPUT = PROJECT_DIRECTORY
 UUID_NAMESPACE = uuid.UUID("1863ac5f-9ca7-5d3b-8e91-6661399014de")
 
 # This is the test-model definition. Extend these lists to add types,
@@ -178,7 +177,7 @@ INTERFACES = {
 }
 
 COMPONENTS = {
-    "CameraAcquisition": {
+    "CameraAcquisitionChange": {
         "provides": (
             ("rgbDataOut", "SRI_RGBFrameReady"),
             # Camera self-representation (blockage / degradation / FoV validity).
@@ -203,7 +202,7 @@ COMPONENTS = {
         "requires": (),
     },
     "AmbientSensorsDriver": {
-        "provides": (("lightDataOut", "SRI_LightLevel"), ("tempDataOut", "SRI_AmbientTemp")),
+        "provides": (("lightDataOutCHANGE", "SRI_LightLevel"), ("tempDataOut", "SRI_AmbientTemp")),
         "requires": (("lightHWIn", "SRI_LightLevel"), ("tempHWIn", "SRI_AmbientTemp")),
     },
     "Fusion": {
@@ -252,7 +251,7 @@ COMPONENTS = {
 # Only SW requirement IDs belong here; their system parents are maintained by
 # :satisfies: in 3-sw-req/requirements/swRequirements.rst.
 COMPONENT_REQUIREMENTS = {
-    "CameraAcquisition": ("SWREQ_SEN_001", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_005", "SWREQ_ODD_006"),
+    "CameraAcquisitionChange": ("SWREQ_SEN_001", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_005", "SWREQ_ODD_006"),
     "InfraredAcquisition": ("SWREQ_SEN_003", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_006", "SWREQ_SEN_007"),
     "LidarAcquisition": ("SWREQ_SEN_002", "SWREQ_SEN_005", "SWREQ_SEN_006", "SWREQ_ODD_004", "SWREQ_ODD_006"),
     "AmbientSensorsDriver": ("SWREQ_ODD_001",),
@@ -291,16 +290,16 @@ INTERFACE_REQUIREMENTS = {
 }
 
 CONNECTIONS = (
-    ("CameraAcquisition", "rgbDataOut", "Fusion", "rgbIn"),
+    ("CameraAcquisitionChange", "rgbDataOut", "Fusion", "rgbIn"),
     ("InfraredAcquisition", "irDataOut", "Fusion", "irIn"),
     ("InfraredAcquisition", "infraredStatusOut", "Fusion", "infraredStatusIn"),
     # Camera status into fusion (health-aware fusion / degradation handling).
-    ("CameraAcquisition", "cameraStatusOut", "Fusion", "cameraStatusIn"),
+    ("CameraAcquisitionChange", "cameraStatusOut", "Fusion", "cameraStatusIn"),
     # Lidar detection + status into fusion — camera and lidar form a diverse
     # redundant pair at the sensor->fusion boundary.
     ("LidarAcquisition", "lidarScanOut", "Fusion", "lidarIn"),
     ("LidarAcquisition", "lidarStatusOut", "Fusion", "lidarStatusIn"),
-    ("AmbientSensorsDriver", "lightDataOut", "Fusion", "lightIn"),
+    ("AmbientSensorsDriver", "lightDataOutCHANGE", "Fusion", "lightIn"),
     ("AmbientSensorsDriver", "tempDataOut", "Fusion", "tempIn"),
     ("Fusion", "fusedOut", "TigerDetectionApp", "fusedDataIn"),
     # Object-level output into the application.
@@ -488,12 +487,18 @@ def build_model(output: Path) -> AutosarModel:
 
 def generate(output: Path, overwrite: bool) -> None:
     output = output.resolve()
-    if output.exists():
-        if not overwrite:
-            raise ValueError(f"Output already exists: {output}. Use --overwrite to replace it.")
-        if not output.is_dir():
-            raise ValueError(f"Output is not a directory: {output}")
-        shutil.rmtree(output)
+    expected_files = (
+        output / "ComponentTypes.arxml",
+        output / "DataTypes.arxml",
+        output / "PortInterfaces.arxml",
+        output / "ECUProjects" / "System.arxml",
+    )
+    if not output.is_dir() or any(not arxml_file.is_file() for arxml_file in expected_files):
+        raise ValueError(f"Output must contain the existing split ARXML project: {output}")
+    if not overwrite:
+        raise ValueError("Use --overwrite to replace the existing ARXML files.")
+    for arxml_file in expected_files:
+        arxml_file.unlink()
     model = build_model(output)
     model.write()
 
