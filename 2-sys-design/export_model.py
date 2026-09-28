@@ -3,6 +3,9 @@
 
 Requires jupyter-client and an installed `sysml` kernel. SYSML_KERNEL_DIR may
 point to an isolated kernels directory containing sysml/kernel.json.
+
+If the kernel is installed in Conda `base`, activate that environment and run
+`python export_model.py` from this directory.
 """
 import base64
 import json
@@ -23,7 +26,9 @@ def main():
         options["kernel_spec_manager"] = KernelSpecManager(kernel_dirs=[os.environ["SYSML_KERNEL_DIR"]])
     manager = KernelManager(kernel_name="sysml", **options)
     exported_data = None
-    with tempfile.TemporaryDirectory(prefix="tiger-sysml-export-") as directory:
+    with tempfile.TemporaryDirectory(
+        prefix="tiger-sysml-export-", ignore_cleanup_errors=True
+    ) as directory:
         manager.start_kernel(cwd=directory)
         client = manager.client()
         client.start_channels()
@@ -68,6 +73,8 @@ def main():
         finally:
             client.stop_channels()
             manager.shutdown_kernel(now=True)
+    if Path(directory).exists():
+        print(f"Warning: could not remove temporary kernel directory: {directory}", flush=True)
     notebook_path = root / "tiger.ipynb"
     notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
     notebook["cells"][0]["source"] = source.splitlines(keepends=True)
