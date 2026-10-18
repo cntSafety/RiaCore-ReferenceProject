@@ -1,6 +1,13 @@
 {
+  "cross_namespace_hashes": {
+    "cross_namespace/RIA_UNIV_CROSSNS_INSTANCE_REL.json": "sha256:d07778f7557e5dda20b268d6b5cb83b121783af4a5bcbdea4d26a3300325448c",
+    "cross_namespace/RIA_UNIV_CrossNSRelationshipInstance.json": "sha256:fe422fc829d1efef1884a9f3d15cbde10aa299c4c17cf9ca44b0d03a413ed42a",
+    "cross_namespace/RIA_UNIV_NSR_SOURCE.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "cross_namespace/RIA_UNIV_NSR_TARGET.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "cross_namespace/RIA_UNIV_NamespaceRelation.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
   "file_inventory": {
-    "SOTIF_Analysis/concepts/functional_insufficiency.json": 7,
+    "SOTIF_Analysis/concepts/functional_insufficiency.json": 8,
     "SOTIF_Analysis/concepts/malfunction.json": 8,
     "SOTIF_Analysis/concepts/review_item.json": 2,
     "SOTIF_Analysis/concepts/risk_rating.json": 8,
@@ -8,7 +15,7 @@
     "SOTIF_Analysis/concepts/safety_task.json": 16,
     "SOTIF_Analysis/concepts/tag.json": 1,
     "SOTIF_Analysis/concepts/triggering_condition.json": 10,
-    "SOTIF_Analysis/relationships/has_functional_insufficiencies.json": 10,
+    "SOTIF_Analysis/relationships/has_functional_insufficiencies.json": 11,
     "SOTIF_Analysis/relationships/has_review.json": 2,
     "SOTIF_Analysis/relationships/has_risk_rating.json": 8,
     "SOTIF_Analysis/relationships/has_safety_tasks.json": 31,
@@ -61,7 +68,7 @@
     "Sys_Design_Analysis/concepts/risk_rating.json": 10,
     "Sys_Design_Analysis/concepts/safety_note.json": 3,
     "Sys_Design_Analysis/concepts/safety_task.json": 4,
-    "Sys_Design_Analysis/concepts/tag.json": 2,
+    "Sys_Design_Analysis/concepts/tag.json": 3,
     "Sys_Design_Analysis/relationships/has_review.json": 1,
     "Sys_Design_Analysis/relationships/has_risk_rating.json": 10,
     "Sys_Design_Analysis/relationships/has_safety_tasks.json": 6,
@@ -149,7 +156,7 @@
     "cross_namespace/RIA_UNIV_NSR_SOURCE.json": 0,
     "cross_namespace/RIA_UNIV_NSR_TARGET.json": 0,
     "cross_namespace/RIA_UNIV_NamespaceRelation.json": 0,
-    "meta/RIA_META_CATEGORIZEDBY.json": 13,
+    "meta/RIA_META_CATEGORIZEDBY.json": 14,
     "meta/RIA_META_CONCEPT_ATTRIBUTE.json": 4160,
     "meta/RIA_META_CONCEPT_SUBTYPEOF.json": 160,
     "meta/RIA_META_Concept.json": 248,
@@ -169,13 +176,13 @@
     "sourcemaster/RIA_SRC_Source.json": 5,
     "sourcemaster/RIA_SRC_TARGETS_NS.json": 5,
     "universe/RIA_UNIV_CanvasLayout.json": 9,
-    "universe/RIA_UNIV_NamespaceConnection.json": 13,
+    "universe/RIA_UNIV_NamespaceConnection.json": 14,
     "universe/RIA_UNIV_VIEW_CATEGORIZEDBY.json": 0,
     "universe/RIA_UNIV_VIEW_DEFINEDBY.json": 5,
     "universe/RIA_UNIV_VIEW_SOURCE.json": 5,
     "universe/RIA_UNIV_View.json": 5
   },
-  "meta_hash": "sha256:3387835d22ee7e7d1841943021eed2d14f2f34cfe62cb57a9423b017620b9390",
+  "meta_hash": "sha256:bc095a67813e3ecf5dd810d7869bd866a88a2f03956a1582d53a3a81fb3b540c",
   "metamodel_versions": {
     "MONITORING_ANALYSIS": "1.0.0",
     "SAFETY_ANALYSIS": "4.0.6",
@@ -188,14 +195,14 @@
     "SysMLv2": "0.4.0"
   },
   "namespace_hashes": {
-    "SOTIF_Analysis": "sha256:97367f2b01ad3d2f68d5fd8b82ac4d3d9607c60c46467e680b06d1f95397a350",
+    "SOTIF_Analysis": "sha256:aece6dee884b7176ee4c94886c404790f8206854b6e5b58335cf42b25bea5db4",
     "SW_Arch_Arxml_Tiger_Detection": "sha256:baf626b2daa06b3728ef42d3d7d8f311878b5d329f498fe805e249faccb6a408",
     "SW_Req_Tiger_Detection": "sha256:1233208e80f9bfb022f1eb10a31cce7bd6a40d7d672c4b3d0dd6c99e90686467",
     "SW_Safety_Analysis": "sha256:1530f02cb7e2af5565c9010c4150a5a3d12f3695364b23a0d5049a8b553c47ce",
-    "Sys_Design_Analysis": "sha256:528af93affc966daa70a86c9b2a5cd74b10ccbc4a5a6fa50323efaa46f662b20",
+    "Sys_Design_Analysis": "sha256:258872b7ba79022e76e617568d30f770cea2f99a6acbc4c247b49eccd8bec394",
     "Sys_Monitoring_Analysis": "sha256:cd03b8ef9f69f7c46d7ab805c77f4846715e97222a1f2e9794c20b1465ccd4c5",
     "Sys_Req_Tiger_Detection": "sha256:2289ece0f4a8ef8dae94cc2fa04f5f898322525ad5b1014ef3e1be4ec6a8363a",
-    "System_Model_Tiger_Detection": "sha256:b449b8e964a9f56e82916793e1337d78ad7c902a7c5e045d8c856905dfbe570c",
+    "System_Model_Tiger_Detection": "sha256:4343e8a9924e0fced28751fadd4f837476da5c6824ec48ee287e509b9c085038",
     "Tiger_Safety_Goals": "sha256:60b9e9c361997aceac5fee8a4ad3e87e40c5fb4ad1d92343f313d119b564c9ca"
   },
   "namespaces": [
@@ -272,7 +279,7 @@
       "namespace_role": "imported"
     }
   ],
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "sourcemaster_hashes": {
     "sourcemaster/RIA_SRC_ImportRun.json": "sha256:5ef83f473964a1afe6499079e18e9200367f69074bdecf5c7e9ff6cabb8bae6a",
     "sourcemaster/RIA_SRC_RUN_FOR.json": "sha256:160361b9893c77bad8153162157abd70d6f7a53db900a27edcf1fe00698e5017",
@@ -281,7 +288,7 @@
   },
   "universe_hashes": {
     "universe/RIA_UNIV_CanvasLayout.json": "sha256:416e12b3780b2c7da1c1b3c73a6e9c86fc5c85dc59e6ef198ef33d7308c7bb7b",
-    "universe/RIA_UNIV_NamespaceConnection.json": "sha256:2ddd573de8c4c510499d7d752e767a21ac778116e13f62c49994b0715f9e52de",
+    "universe/RIA_UNIV_NamespaceConnection.json": "sha256:e185c3b244ff66e471f43792278501a4242db6fd71f053d86c8412c4ccfcd0df",
     "universe/RIA_UNIV_VIEW_CATEGORIZEDBY.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "universe/RIA_UNIV_VIEW_DEFINEDBY.json": "sha256:62bcd1a363a730ddae9d23cc76f0edd015e9614dd40ed1fe590286f19dbaaa78",
     "universe/RIA_UNIV_VIEW_SOURCE.json": "sha256:064900281607d7b33ff04e7a00124a20705d7b5ddfc327384946a6a46359cd88",
