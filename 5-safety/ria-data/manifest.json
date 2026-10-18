@@ -168,7 +168,7 @@
     "sourcemaster/RIA_SRC_RUN_FOR.json": 5,
     "sourcemaster/RIA_SRC_Source.json": 5,
     "sourcemaster/RIA_SRC_TARGETS_NS.json": 5,
-    "universe/RIA_UNIV_CanvasLayout.json": 0,
+    "universe/RIA_UNIV_CanvasLayout.json": 9,
     "universe/RIA_UNIV_NamespaceConnection.json": 13,
     "universe/RIA_UNIV_VIEW_CATEGORIZEDBY.json": 0,
     "universe/RIA_UNIV_VIEW_DEFINEDBY.json": 5,
@@ -280,7 +280,7 @@
     "sourcemaster/RIA_SRC_TARGETS_NS.json": "sha256:d38234d186a69e4dc5e24ab2c052814724c73272cb8e18250e2a132c41f7b653"
   },
   "universe_hashes": {
-    "universe/RIA_UNIV_CanvasLayout.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "universe/RIA_UNIV_CanvasLayout.json": "sha256:416e12b3780b2c7da1c1b3c73a6e9c86fc5c85dc59e6ef198ef33d7308c7bb7b",
     "universe/RIA_UNIV_NamespaceConnection.json": "sha256:2ddd573de8c4c510499d7d752e767a21ac778116e13f62c49994b0715f9e52de",
     "universe/RIA_UNIV_VIEW_CATEGORIZEDBY.json": "sha256:37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
     "universe/RIA_UNIV_VIEW_DEFINEDBY.json": "sha256:62bcd1a363a730ddae9d23cc76f0edd015e9614dd40ed1fe590286f19dbaaa78",
