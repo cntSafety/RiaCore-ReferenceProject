@@ -7,3 +7,8 @@ db
 db.wal
 *.db
 *.db.wal
+db.riag
+*.db.riag
+db.riag.wal
+*.db.riag.wal
+
