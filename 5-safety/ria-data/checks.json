@@ -201,13 +201,62 @@
     },
     {
       "id": "sa-rport-asil-below-partner-pport",
-      "name": "R-Port ASIL lower than partner P-Port",
+      "name": "P-Port ASIL lower than connected R-Port",
       "description": "An R-Port has a malfunction with ASIL > QM, but the connected P-Port (via assembly connector) has no malfunction or its highest ASIL is lower than the R-Port's highest ASIL. The provider must cover at least the same ASIL level as the consumer.",
       "severity": "Warning",
       "query": "MATCH (fm_r:RIA_UNIV_ConceptInstance)-[oa_r:RIA_UNIV_CROSSNS_INSTANCE_REL]->(rport:RIA_UNIV_ConceptInstance) WHERE fm_r.namespace = $namespace AND fm_r.concept = 'malfunction' AND oa_r.relationship = 'occurs_at' AND rport.concept = 'r_port' WITH rport, max(CASE WHEN fm_r.attributes CONTAINS 'malfunction_asil\\\":\\\"D' THEN 4 WHEN fm_r.attributes CONTAINS 'malfunction_asil\\\":\\\"C' THEN 3 WHEN fm_r.attributes CONTAINS 'malfunction_asil\\\":\\\"B' THEN 2 WHEN fm_r.attributes CONTAINS 'malfunction_asil\\\":\\\"A' THEN 1 ELSE 0 END) AS rportMaxAsilRank WHERE rportMaxAsilRank > 0 MATCH (rq:RIA_UNIV_RelationshipInstance) WHERE rq.relationship = 'requester_port' AND rq.target_node_id = rport.node_id MATCH (conn:RIA_UNIV_ConceptInstance) WHERE conn.node_id = rq.source_node_id AND conn.concept = 'assembly_connector' MATCH (pv:RIA_UNIV_RelationshipInstance) WHERE pv.relationship = 'provider_port' AND pv.source_node_id = conn.node_id MATCH (pport:RIA_UNIV_ConceptInstance) WHERE pport.node_id = pv.target_node_id OPTIONAL MATCH (fm_p:RIA_UNIV_ConceptInstance)-[oa_p:RIA_UNIV_CROSSNS_INSTANCE_REL]->(pport) WHERE fm_p.namespace = $namespace AND fm_p.concept = 'malfunction' AND oa_p.relationship = 'occurs_at' WITH rport, rportMaxAsilRank, pport, max(CASE WHEN fm_p IS NULL THEN -1 WHEN fm_p.attributes CONTAINS 'malfunction_asil\\\":\\\"D' THEN 4 WHEN fm_p.attributes CONTAINS 'malfunction_asil\\\":\\\"C' THEN 3 WHEN fm_p.attributes CONTAINS 'malfunction_asil\\\":\\\"B' THEN 2 WHEN fm_p.attributes CONTAINS 'malfunction_asil\\\":\\\"A' THEN 1 ELSE 0 END) AS pportMaxAsilRank WHERE pportMaxAsilRank < rportMaxAsilRank RETURN rport.node_id AS violation",
       "attributes": [
         {
           "has_name": "name"
+        }
+      ],
+      "category": "ASIL consistency",
+      "metamodel": [
+        "SAFETY_ANALYSIS"
+      ],
+      "active": true
+    },
+    {
+      "id": "sa-sysml-port-asil-consistency",
+      "name": "SysML producer port ASIL below connected consumer",
+      "description": "Connected consumer ports whose analyzed ASIL is higher than their producer. Details show both endpoints and allocations. Uses only this safety analysis and applies each port maximum to supported transfers. Run the coverage check too; missing or unsupported analysis is reported separately.",
+      "severity": "Warning",
+      "evaluator": "sysml-port-asil-consistency",
+      "query": "MATCH (fm:RIA_UNIV_ConceptInstance)-[oa:RIA_UNIV_CROSSNS_INSTANCE_REL]->(target:RIA_UNIV_ConceptInstance)\nWHERE fm.namespace = $namespace AND fm.concept = 'malfunction' AND oa.relationship = 'occurs_at'\n  AND target.metamodel IN ['SysMLv2', 'SysMLv2Textual']\nWITH DISTINCT target.namespace AS architecture\nMATCH (n:RIA_UNIV_ConceptInstance) WHERE n.namespace = architecture\nRETURN 'node' AS rowType, CAST(n.node_id AS INT64) AS sourceId, -1 AS targetId,\n  n.namespace AS namespace, n.concept AS concept, n.attributes AS attributes, '' AS relationship\nUNION ALL\nMATCH (fm:RIA_UNIV_ConceptInstance)-[oa:RIA_UNIV_CROSSNS_INSTANCE_REL]->(target:RIA_UNIV_ConceptInstance)\nWHERE fm.namespace = $namespace AND fm.concept = 'malfunction' AND oa.relationship = 'occurs_at'\n  AND target.metamodel IN ['SysMLv2', 'SysMLv2Textual']\nWITH DISTINCT target.namespace AS architecture\nMATCH (s:RIA_UNIV_ConceptInstance)-[r:RIA_UNIV_INSTANCE_REL]->(t:RIA_UNIV_ConceptInstance)\nWHERE s.namespace = architecture AND t.namespace = architecture\n  AND r.relationship IN ['references_source', 'references_target', 'connects', 'chains_feature', 'owns_element', 'has_type', 'has_definition', 'specializes']\nRETURN 'edge' AS rowType, CAST(s.node_id AS INT64) AS sourceId, CAST(t.node_id AS INT64) AS targetId,\n  s.namespace AS namespace, s.concept AS concept, '{}' AS attributes, r.relationship AS relationship\nUNION ALL\nMATCH (fm:RIA_UNIV_ConceptInstance)-[oa:RIA_UNIV_CROSSNS_INSTANCE_REL]->(target:RIA_UNIV_ConceptInstance)\nWHERE fm.namespace = $namespace AND fm.concept = 'malfunction' AND oa.relationship = 'occurs_at'\n  AND target.metamodel IN ['SysMLv2', 'SysMLv2Textual']\nRETURN 'allocation' AS rowType, CAST(fm.node_id AS INT64) AS sourceId, CAST(target.node_id AS INT64) AS targetId,\n  target.namespace AS namespace, fm.concept AS concept, fm.attributes AS attributes, oa.relationship AS relationship",
+      "attributes": [
+        {
+          "check_affected": "Affected connection"
+        },
+        {
+          "check_assessment": "Assessment"
+        },
+        {
+          "check_message": "Explanation"
+        }
+      ],
+      "category": "ASIL consistency",
+      "metamodel": [
+        "SAFETY_ANALYSIS"
+      ],
+      "active": true
+    },
+    {
+      "id": "sa-sysml-port-asil-incomplete",
+      "name": "SysML port ASIL coverage: connections not assessed",
+      "description": "Connections that could not be assessed in architectures linked to this safety analysis. Results distinguish missing or invalid port analysis, unresolved endpoints or direction, and unsupported connections. These are coverage findings, not confirmed ASIL mismatches.",
+      "severity": "Warning",
+      "evaluator": "sysml-port-asil-incomplete",
+      "resultKind": "coverage",
+      "query": "MATCH (fm:RIA_UNIV_ConceptInstance)-[oa:RIA_UNIV_CROSSNS_INSTANCE_REL]->(target:RIA_UNIV_ConceptInstance)\nWHERE fm.namespace = $namespace AND fm.concept = 'malfunction' AND oa.relationship = 'occurs_at'\n  AND target.metamodel IN ['SysMLv2', 'SysMLv2Textual']\nWITH DISTINCT target.namespace AS architecture\nMATCH (n:RIA_UNIV_ConceptInstance) WHERE n.namespace = architecture\nRETURN 'node' AS rowType, CAST(n.node_id AS INT64) AS sourceId, -1 AS targetId,\n  n.namespace AS namespace, n.concept AS concept, n.attributes AS attributes, '' AS relationship\nUNION ALL\nMATCH (fm:RIA_UNIV_ConceptInstance)-[oa:RIA_UNIV_CROSSNS_INSTANCE_REL]->(target:RIA_UNIV_ConceptInstance)\nWHERE fm.namespace = $namespace AND fm.concept = 'malfunction' AND oa.relationship = 'occurs_at'\n  AND target.metamodel IN ['SysMLv2', 'SysMLv2Textual']\nWITH DISTINCT target.namespace AS architecture\nMATCH (s:RIA_UNIV_ConceptInstance)-[r:RIA_UNIV_INSTANCE_REL]->(t:RIA_UNIV_ConceptInstance)\nWHERE s.namespace = architecture AND t.namespace = architecture\n  AND r.relationship IN ['references_source', 'references_target', 'connects', 'chains_feature', 'owns_element', 'has_type', 'has_definition', 'specializes']\nRETURN 'edge' AS rowType, CAST(s.node_id AS INT64) AS sourceId, CAST(t.node_id AS INT64) AS targetId,\n  s.namespace AS namespace, s.concept AS concept, '{}' AS attributes, r.relationship AS relationship\nUNION ALL\nMATCH (fm:RIA_UNIV_ConceptInstance)-[oa:RIA_UNIV_CROSSNS_INSTANCE_REL]->(target:RIA_UNIV_ConceptInstance)\nWHERE fm.namespace = $namespace AND fm.concept = 'malfunction' AND oa.relationship = 'occurs_at'\n  AND target.metamodel IN ['SysMLv2', 'SysMLv2Textual']\nRETURN 'allocation' AS rowType, CAST(fm.node_id AS INT64) AS sourceId, CAST(target.node_id AS INT64) AS targetId,\n  target.namespace AS namespace, fm.concept AS concept, fm.attributes AS attributes, oa.relationship AS relationship",
+      "attributes": [
+        {
+          "check_affected": "Affected connection"
+        },
+        {
+          "check_assessment": "Assessment"
+        },
+        {
+          "check_message": "Explanation"
         }
       ],
       "category": "ASIL consistency",
